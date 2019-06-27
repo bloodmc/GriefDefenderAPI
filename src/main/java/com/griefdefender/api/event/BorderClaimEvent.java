@@ -1,0 +1,151 @@
+/*
+ * This file is part of GriefDefenderAPI, licensed under the MIT License (MIT).
+ *
+ * Copyright (c) bloodmc
+ * Copyright (c) contributors
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+package com.griefdefender.api.event;
+
+import com.griefdefender.api.ChatType;
+import com.griefdefender.api.ChatTypes;
+import com.griefdefender.api.claim.Claim;
+import com.griefdefender.api.data.ClaimData;
+import net.kyori.event.Cancellable;
+import net.kyori.text.Component;
+
+import java.util.Optional;
+import java.util.UUID;
+
+import javax.annotation.Nullable;
+
+public interface BorderClaimEvent extends ClaimEvent, Cancellable  {
+
+    /**
+     * Gets the claim the entity is attempting to exit.
+     * 
+     * @return The source claim
+     */
+    Claim getExitClaim();
+
+    /**
+     * Gets the claim the entity is attempting to enter.
+     * 
+     * @return The destination claim
+     */
+    default Claim getEnterClaim() {
+        return this.getClaim();
+    }
+
+    /**
+     * Gets the target entity uuid.
+     *
+     * @return The entity uuid
+     */
+    UUID getEntityId();
+
+    /**
+     * Gets the event enter message if available.
+     * 
+     * Note: If no message is set, the {@link ClaimData#getGreeting()}
+     * will be used.
+     */
+    Optional<Component> getEnterMessage();
+
+    /**
+     * Gets the event exit message if available.
+     * 
+     * Note: If no message is set, the {@link ClaimData#getFarewell()}
+     * will be used.
+     */
+    Optional<Component> getExitMessage();
+
+    /**
+     * Sets the enter message for this event only.
+     * 
+     * Note: Setting message to {@code null} will hide the message.
+     * If no message is set, the {@link ClaimData#getGreeting()} will be used.
+     * 
+     * @param message The message to set
+     * @param chatType The desired chat type, in which the message will be displayed
+     */
+    void setEnterMessage(@Nullable Component message, ChatType chatType);
+
+    /**
+     * Sets the exit message for this event only.
+     * 
+     * Note: Setting message to {@code null} will hide the message.
+     * If no message is set, the {@link ClaimData#getFarewell()} will be used.
+     * 
+     * @param message The message to set
+     * @param chatType The desired chat type, in which the message will be displayed
+     */
+    void setExitMessage(@Nullable Component message, ChatType chatType);
+
+
+    /**
+     * Sets the exit message for this event only.
+     * The message will send as the chat type {@link ChatTypes#CHAT}
+     *
+     * Note: Setting message to {@code null} will hide the message.
+     * If no message is set, the {@link ClaimData#getFarewell()} will be used.
+     *
+     * For changing the ChatType see {@link BorderClaimEvent#setExitMessage(Text, ChatType)}
+     *
+     * @param message The message to set
+     */
+    default void setExitMessage(@Nullable Component message) {
+        setExitMessage(message, ChatTypes.CHAT);
+    }
+
+
+    /**
+     * Sets the enter message for this event only.
+     * The message will send as the chat type {@link ChatTypes#CHAT}
+     *
+     * Note: Setting message to {@code null} will hide the message.
+     * If no message is set, the {@link ClaimData#getGreeting()} will be used.
+     *
+     * For changing the ChatType see {@link BorderClaimEvent#setEnterMessage(Text, ChatType)}
+     *
+     * @param message The message to set
+     */
+    default void setEnterMessage(@Nullable Component message) {
+        setEnterMessage(message, ChatTypes.CHAT);
+    }
+
+    /**
+     * Returns the chat type for the exit message.
+     * 
+     * Note: Default is {@link ChatTypes#CHAT}
+     *
+     * @return The chat type
+     */
+    ChatType getExitMessageChatType();
+
+    /**
+     * Returns the chat type for the enter message.
+     *
+     * Note: Default is {@link ChatTypes#CHAT}
+     * 
+     * @return The chat type
+     */
+    ChatType getEnterMessageChatType();
+}

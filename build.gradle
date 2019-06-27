@@ -1,0 +1,92 @@
+buildscript {
+    repositories {
+        maven {
+            url = 'https://plugins.gradle.org/m2/'
+        }
+    }
+
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:5.0.0'
+    }
+}
+
+plugins {
+    id 'com.github.johnrengelman.shadow' version '5.0.0'
+    id 'java'
+}
+
+// Environment variables for the build set by the build server
+ext.buildNumber = System.env.BUILD_NUMBER ?: '0'
+
+defaultTasks 'clean', 'build'
+
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+archivesBaseName = project.name.toLowerCase()
+
+version = "1.0.0"
+
+project.ext.getGitHash = {
+    def command = Runtime.getRuntime().exec("git rev-parse --short HEAD")
+    def result = command.waitFor()
+    return (result == 0) ? command.inputStream.text.trim() : "nogit"
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven {
+        name = 'sonatype_releases'
+        url = 'https://oss.sonatype.org/content/repositories/releases'
+    }
+    maven {
+        name = 'sonatype_snapshots'
+        url = 'https://oss.sonatype.org/content/repositories/snapshots'
+    }
+    maven {
+        name = 'jitpack'
+        url = 'https://jitpack.io'
+    }
+}
+
+dependencies {
+    compile "com.flowpowered:flow-math:1.0.3"
+    compile "com.google.inject:guice:4.1.0"
+    compile "com.google.code.findbugs:jsr305:3.0.2"
+    compile "net.kyori:event-api:3.0.0"
+    compile "net.kyori:event-method-asm:3.0.0"
+    compile "net.kyori:text-api:3.0.1"
+}
+
+jar {
+    manifest.attributes('Implementation-Title': 'GriefDefenderAPI')
+    manifest.attributes('Implementation-Version': "$version")
+    manifest.attributes('Git-Hash': project.ext.getGitHash())
+    classifier = 'original'
+}
+
+if (JavaVersion.current().isJava8Compatible()) {
+    tasks.withType(Javadoc) {
+        options.addStringOption('Xdoclint:none', '-quiet')
+    }
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives shadowJar
+}
+
+shadowJar {
+    classifier = ""
+    relocate("com.google.inject", "com.griefdefender.lib.googleinject")
+    relocate("com.flowpowered", "com.griefdefender.lib.flowpowered")
+    relocate("net.kyori", "com.griefdefender.lib.kyori")
+
+    exclude "dummyThing"
+}
+
