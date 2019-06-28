@@ -63,7 +63,7 @@ jar {
     manifest.attributes('Implementation-Title': 'GriefDefenderAPI')
     manifest.attributes('Implementation-Version': "$version")
     manifest.attributes('Git-Hash': project.ext.getGitHash())
-    classifier = 'original'
+    classifier = ''
 }
 
 if (JavaVersion.current().isJava8Compatible()) {
