@@ -77,16 +77,3 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
     from javadoc.destinationDir
 }
 
-artifacts {
-    archives shadowJar
-}
-
-shadowJar {
-    classifier = ""
-    relocate("com.google.inject", "com.griefdefender.lib.googleinject")
-    relocate("com.flowpowered", "com.griefdefender.lib.flowpowered")
-    relocate("net.kyori", "com.griefdefender.lib.kyori")
-
-    exclude "dummyThing"
-}
-
