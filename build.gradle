@@ -13,6 +13,7 @@ buildscript {
 plugins {
     id 'com.github.johnrengelman.shadow' version '5.0.0'
     id 'java'
+    id 'maven'
 }
 
 // Environment variables for the build set by the build server
@@ -24,8 +25,6 @@ sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
 
 archivesBaseName = project.name.toLowerCase()
-
-version = "1.0.0"
 
 project.ext.getGitHash = {
     def command = Runtime.getRuntime().exec("git rev-parse --short HEAD")
@@ -76,4 +75,3 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
     classifier = 'javadoc'
     from javadoc.destinationDir
 }
-
