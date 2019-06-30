@@ -46,7 +46,7 @@ public final class Options {
     public static final Option CHEST_EXPIRATION = DummyObjectProvider.createFor(Option.class, "chest-expiration");
     public static final Option CREATE_MODE = DummyObjectProvider.createFor(Option.class, "create-mode");
     public static final Option ECONOMY_BLOCK_COST = DummyObjectProvider.createFor(Option.class, "economy-block-cost");
-    public static final Option ECONOMY_BLOCK_SELL = DummyObjectProvider.createFor(Option.class, "economy-block-sell");
+    public static final Option ECONOMY_BLOCK_SELL_RETURN = DummyObjectProvider.createFor(Option.class, "economy-block-sell-return");
     public static final Option INITIAL_BLOCKS = DummyObjectProvider.createFor(Option.class, "initial-blocks");
     public static final Option MAX_ACCRUED_BLOCKS = DummyObjectProvider.createFor(Option.class, "max-accrued-blocks");
     public static final Option MAX_LEVEL = DummyObjectProvider.createFor(Option.class, "max-level");
