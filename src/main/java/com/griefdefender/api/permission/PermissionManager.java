@@ -39,14 +39,50 @@ import java.util.concurrent.CompletableFuture;
 
 public interface PermissionManager {
 
+	/**
+	 * Gets the final {@link Claim} permission for subject.
+	 * 
+	 * @param claim The target claim
+	 * @param subject The user UUID or group name
+	 * @param flag The flag
+	 * @param source The source
+	 * @param target The target
+	 * @param contexts The contexts
+	 * @return
+	 */
     default Tristate getFinalPermission(Claim claim, String subject, Flag flag, Object source, Object target, Set<Context> contexts) {
         return getFinalPermission(claim, subject, flag, source, target, contexts, false);
     }
 
+	/**
+	 * Gets the final {@link Claim} permission for subject.
+	 * 
+	 * @param claim The target claim
+	 * @param subject The user UUID or group name
+	 * @param flag The flag
+	 * @param source The source
+	 * @param target The target
+	 * @param contexts The contexts
+	 * @param checkOverride Whether to check override
+	 * @return
+	 */
     default Tristate getFinalPermission(Claim claim, String subject, Flag flag, Object source, Object target, Set<Context> contexts, boolean checkOverride) {
         return getFinalPermission(claim, subject, flag, source, target, contexts, null, checkOverride);
     }
 
+	/**
+	 * Gets the final {@link Claim} permission for subject.
+	 * 
+	 * @param claim The target claim
+	 * @param subject The user UUID or group name
+	 * @param flag The flag
+	 * @param source The source
+	 * @param target The target
+	 * @param contexts The contexts
+	 * @param type The trust type
+	 * @param checkOverride Whether to check override
+	 * @return
+	 */
     Tristate getFinalPermission(Claim claim, String subject, Flag flag, Object source, Object target, Set<Context> contexts, TrustType type, boolean checkOverride);
 
     /**

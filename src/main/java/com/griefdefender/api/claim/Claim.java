@@ -128,18 +128,25 @@ public interface Claim extends ContextSource {
     int getVolume();
 
     /**
-     * Gets the claim's width in blocks.
+     * Gets the claim's width(x axis) in blocks.
      * 
      * @return The width of claim
      */
     int getWidth();
 
     /**
-     * Gets the claim's height in blocks.
+     * Gets the claim's height(y axis) in blocks.
      * 
      * @return The height of claim
      */
     int getHeight();
+
+    /**
+     * Gets the claim's length(z axis) in blocks.
+     * 
+     * @return The length of claim
+     */
+    int getLength();
 
     /**
      * Gets the list of chunk positions used by this claim.
