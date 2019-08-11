@@ -30,9 +30,26 @@ import net.kyori.text.Component;
 
 public interface Flag extends CatalogType {
 
+    /**
+     * Returns the default flag value associated with
+     * a specific {@link ClaimType}.
+     * 
+     * @param type The claim type
+     * @return The default flag value
+     */
     boolean getDefaultClaimTypeValue(ClaimType type);
 
+    /**
+     * Gets the option permission.
+     * 
+     * @return The permission
+     */
     String getPermission();
 
+    /**
+     * Gets the {@link Component} description for option.
+     * 
+     * @return The description
+     */
     Component getDescription();
 }

@@ -25,6 +25,7 @@
 package com.griefdefender.api.claim;
 
 import com.griefdefender.api.permission.Context;
+import com.griefdefender.api.permission.ContextKeys;
 
 /**
  * Contains a list of all possible default and override contexts used for flags.
@@ -36,22 +37,22 @@ public class ClaimContexts {
      * 
      * Note: Permissions set with this context will override permissions using {@link ClaimContexts#GLOBAL_DEFAULT_CONTEXT}.
      */
-    public static final Context GLOBAL_DEFAULT_CONTEXT = new Context("gd_claim_default", "global");
-    public static final Context ADMIN_DEFAULT_CONTEXT = new Context("gd_claim_default", "admin");
-    public static final Context BASIC_DEFAULT_CONTEXT = new Context("gd_claim_default", "basic");
-    public static final Context SUBDIVISION_DEFAULT_CONTEXT = new Context("gd_claim_default", "subdivision");
-    public static final Context TOWN_DEFAULT_CONTEXT = new Context("gd_claim_default", "town");
-    public static final Context WILDERNESS_DEFAULT_CONTEXT = new Context("gd_claim_default", "wilderness");
-    public static final Context WORLD_DEFAULT_CONTEXT = new Context("gd_claim_default", "world");
+    public static final Context GLOBAL_DEFAULT_CONTEXT = new Context(ContextKeys.CLAIM_DEFAULT, "global");
+    public static final Context ADMIN_DEFAULT_CONTEXT = new Context(ContextKeys.CLAIM_DEFAULT, "admin");
+    public static final Context BASIC_DEFAULT_CONTEXT = new Context(ContextKeys.CLAIM_DEFAULT, "basic");
+    public static final Context SUBDIVISION_DEFAULT_CONTEXT = new Context(ContextKeys.CLAIM_DEFAULT, "subdivision");
+    public static final Context TOWN_DEFAULT_CONTEXT = new Context(ContextKeys.CLAIM_DEFAULT, "town");
+    public static final Context WILDERNESS_DEFAULT_CONTEXT = new Context(ContextKeys.CLAIM_DEFAULT, "wilderness");
+    public static final Context WORLD_DEFAULT_CONTEXT = new Context(ContextKeys.CLAIM_DEFAULT, "world");
 
     /**
      * Override contexts are used to force a permission to a {@link ClaimType}.
      */
-    public static final Context GLOBAL_OVERRIDE_CONTEXT = new Context("gd_claim_override", "global");
-    public static final Context ADMIN_OVERRIDE_CONTEXT = new Context("gd_claim_override", "admin");
-    public static final Context BASIC_OVERRIDE_CONTEXT = new Context("gd_claim_override", "basic");
-    public static final Context SUBDIVISION_OVERRIDE_CONTEXT = new Context("gd_claim_override", "subdivision");
-    public static final Context TOWN_OVERRIDE_CONTEXT = new Context("gd_claim_override", "town");
-    public static final Context WILDERNESS_OVERRIDE_CONTEXT = new Context("gd_claim_override", "wilderness");
-    public static final Context WORLD_OVERRIDE_CONTEXT = new Context("gd_claim_override", "world");
+    public static final Context GLOBAL_OVERRIDE_CONTEXT = new Context(ContextKeys.CLAIM_OVERRIDE, "global");
+    public static final Context ADMIN_OVERRIDE_CONTEXT = new Context(ContextKeys.CLAIM_OVERRIDE, "admin");
+    public static final Context BASIC_OVERRIDE_CONTEXT = new Context(ContextKeys.CLAIM_OVERRIDE, "basic");
+    public static final Context SUBDIVISION_OVERRIDE_CONTEXT = new Context(ContextKeys.CLAIM_OVERRIDE, "subdivision");
+    public static final Context TOWN_OVERRIDE_CONTEXT = new Context(ContextKeys.CLAIM_OVERRIDE, "town");
+    public static final Context WILDERNESS_OVERRIDE_CONTEXT = new Context(ContextKeys.CLAIM_OVERRIDE, "wilderness");
+    public static final Context WORLD_OVERRIDE_CONTEXT = new Context(ContextKeys.CLAIM_OVERRIDE, "world");
 }

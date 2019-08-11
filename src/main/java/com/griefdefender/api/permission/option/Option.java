@@ -29,9 +29,26 @@ import net.kyori.text.Component;
 
 public interface Option extends CatalogType {
 
+    /**
+     * Whether this option can only apply globally.
+     * 
+     * @return <code>true</code> if the option only
+     *         applies globally. 
+     *         <code>false</code> otherwise.
+     */
     boolean isGlobal();
 
+    /**
+     * Gets the option permission.
+     * 
+     * @return The permission
+     */
     String getPermission();
 
+    /**
+     * Gets the {@link Component} description for option.
+     * 
+     * @return The description
+     */
     Component getDescription();
 }

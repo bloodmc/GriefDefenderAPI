@@ -55,7 +55,7 @@ dependencies {
     compile "com.google.code.findbugs:jsr305:3.0.2"
     compile "net.kyori:event-api:3.0.0"
     compile "net.kyori:event-method-asm:3.0.0"
-    compile "net.kyori:text-api:3.0.1"
+    compile "net.kyori:text-api:3.0.2"
 }
 
 jar {
