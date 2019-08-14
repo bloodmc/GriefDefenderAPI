@@ -26,6 +26,7 @@ package com.griefdefender.api.data;
 
 import com.griefdefender.api.claim.Claim;
 import com.griefdefender.api.claim.ClaimType;
+import com.griefdefender.api.permission.option.type.CreateModeType;
 
 import java.util.Set;
 
@@ -174,13 +175,11 @@ public interface PlayerData {
     int getChestClaimExpiration();
 
     /**
-     * Gets the claim creation mode for player on login.
-     * 
-     * Note: 0 is for 2D cuboids, 1 is for 3D cuboids
+     * Gets the claim {@link CreateModeType} for player on login.
      * 
      * @return The claim creation mode
      */
-    int getClaimCreateMode();
+    CreateModeType getClaimCreateMode();
 
     /**
      * Gets the max amount of claims this player can create for a specific {@link ClaimType}.

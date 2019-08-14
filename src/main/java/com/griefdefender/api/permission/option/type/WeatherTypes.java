@@ -22,61 +22,24 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.griefdefender.api.claim;
+package com.griefdefender.api.permission.option.type;
 
-import com.griefdefender.api.data.TownData;
-import net.kyori.text.Component;
+import com.griefdefender.api.util.generator.DummyObjectProvider;
 
-import java.util.Optional;
-import java.util.UUID;
-
-public interface Town extends Claim {
+public class WeatherTypes {
 
     /**
-     * Gets the {@link ClaimType}.
-     * 
-     * @return The claim type
+     * Represents a clear {@link WeatherType}.
      */
-    default ClaimType getType() {
-        return ClaimTypes.TOWN;
-    }
+    public static final WeatherType CLEAR = DummyObjectProvider.createFor(WeatherType.class, "clear");
 
     /**
-     * Gets the town tag.
-     * 
-     * @return The town tag
+     * Represents a rain {@link WeatherType}.
      */
-    default Optional<Component> getTownTag() {
-        return this.getData().getTownTag();
-    }
+    public static final WeatherType RAIN = DummyObjectProvider.createFor(WeatherType.class, "rain");
 
     /**
-     * Gets the {@link UUID}'s accrued claim blocks.
-     * 
-     * @return The uuid's accrued claim blocks
+     * Represents undefined {@link WeatherType}.
      */
-    default int getAccruedClaimBlocks(UUID uuid) {
-        final Integer accrued = this.getData().getAccruedClaimBlocks().get(uuid);
-        if (accrued == null) {
-            return 0;
-        }
-
-        return accrued;
-    }
-
-    /**
-     * Gets the {@link UUID}'s bonus claim blocks.
-     * 
-     * @return The uuid's bonus claim blocks
-     */
-    default int getBonusClaimBlocks(UUID uuid) {
-        final Integer bonus = this.getData().getBonusClaimBlocks().get(uuid);
-        if (bonus == null) {
-            return 0;
-        }
-
-        return bonus;
-    }
-
-    TownData getData();
+    public static final WeatherType UNDEFINED = DummyObjectProvider.createFor(WeatherType.class, "undefined");
 }

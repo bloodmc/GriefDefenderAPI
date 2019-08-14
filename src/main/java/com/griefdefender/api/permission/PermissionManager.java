@@ -24,6 +24,9 @@
  */
 package com.griefdefender.api.permission;
 
+import com.google.common.reflect.TypeToken;
+import com.griefdefender.api.GriefDefender;
+import com.griefdefender.api.Subject;
 import com.griefdefender.api.Tristate;
 import com.griefdefender.api.claim.Claim;
 import com.griefdefender.api.claim.ClaimContexts;
@@ -39,127 +42,106 @@ import java.util.concurrent.CompletableFuture;
 
 public interface PermissionManager {
 
-	/**
-	 * Gets the final {@link Claim} permission for subject.
-	 * 
-	 * @param claim The target claim
-	 * @param subject The user UUID or group name
-	 * @param flag The flag
-	 * @param source The source
-	 * @param target The target
-	 * @param contexts The contexts
-	 * @return
-	 */
-    default Tristate getFinalPermission(Claim claim, String subject, Flag flag, Object source, Object target, Set<Context> contexts) {
-        return getFinalPermission(claim, subject, flag, source, target, contexts, false);
+    /**
+    * Gets the active {@link Flag} permission value for {@link Subject} in {@link Claim}.
+    * 
+    * @param claim The target claim
+    * @param subject The subject
+    * @param flag The flag
+    * @param source The source
+    * @param target The target
+    * @param contexts The contexts
+    * @return
+    */
+    default Tristate getActiveFlagPermissionValue(Claim claim, Subject subject, Flag flag, Object source, Object target, Set<Context> contexts) {
+        return getActiveFlagPermissionValue(claim, subject, flag, source, target, contexts, false);
     }
-
-	/**
-	 * Gets the final {@link Claim} permission for subject.
-	 * 
-	 * @param claim The target claim
-	 * @param subject The user UUID or group name
-	 * @param flag The flag
-	 * @param source The source
-	 * @param target The target
-	 * @param contexts The contexts
-	 * @param checkOverride Whether to check override
-	 * @return
-	 */
-    default Tristate getFinalPermission(Claim claim, String subject, Flag flag, Object source, Object target, Set<Context> contexts, boolean checkOverride) {
-        return getFinalPermission(claim, subject, flag, source, target, contexts, null, checkOverride);
-    }
-
-	/**
-	 * Gets the final {@link Claim} permission for subject.
-	 * 
-	 * @param claim The target claim
-	 * @param subject The user UUID or group name
-	 * @param flag The flag
-	 * @param source The source
-	 * @param target The target
-	 * @param contexts The contexts
-	 * @param type The trust type
-	 * @param checkOverride Whether to check override
-	 * @return
-	 */
-    Tristate getFinalPermission(Claim claim, String subject, Flag flag, Object source, Object target, Set<Context> contexts, TrustType type, boolean checkOverride);
 
     /**
-     * Clears claim permissions on the {@link Subject}.
+    * Gets the active {@link Flag} permission value for {@link Subject} in {@link Claim}.
+    * 
+    * @param claim The target claim
+    * @param subject The subject
+    * @param flag The flag
+    * @param source The source
+    * @param target The target
+    * @param contexts The contexts
+    * @param checkOverride Whether to check override
+    * @return
+    */
+    default Tristate getActiveFlagPermissionValue(Claim claim, Subject subject, Flag flag, Object source, Object target, Set<Context> contexts, boolean checkOverride) {
+        return getActiveFlagPermissionValue(claim, subject, flag, source, target, contexts, null, checkOverride);
+    }
+
+    /**
+    * Gets the active {@link Flag} permission value for {@link Subject} in {@link Claim}.
+    * 
+    * @param claim The target claim
+    * @param subject The subject
+    * @param flag The flag
+    * @param source The source
+    * @param target The target
+    * @param contexts The contexts
+    * @param type The trust type
+    * @param checkOverride Whether to check override
+    * @return
+    */
+    Tristate getActiveFlagPermissionValue(Claim claim, Subject subject, Flag flag, Object source, Object target, Set<Context> contexts, TrustType type, boolean checkOverride);
+
+    /**
+     * Clears permissions on the {@link Subject}.
      * 
-     * Note: All permissions will be cleared from all claim contexts. If you require
-     * a specific context, use {@link #clearPermissions(Subject, Context)}.
+     * Note: All claim specific permissions will be cleared on subject. If you require
+     * specific contexts, use {@link #clearFlagPermissions(Subject, Set)}.
      * 
      * @param claim The claim
      * @param subject The subject
      * @return The result of clear
      */
-    CompletableFuture<PermissionResult> clearAllPermissions(Claim claim, String subject);
+    CompletableFuture<PermissionResult> clearAllFlagPermissions(Subject subject);
 
     /**
-     * Clears claim permissions from specified {@link Context}.
+     * Clears permissions from specified {@link Context}'s on the default {@link Subject}.
      * 
      * Note: This uses the default subject which applies to all users in claim.
      * 
-     * @param claim The claim
      * @param contexts The contexts holding the permissions
      * @return The result of clear
      */
-    CompletableFuture<PermissionResult> clearPermissions(Claim claim, Set<Context> contexts);
+    CompletableFuture<PermissionResult> clearFlagPermissions(Set<Context> contexts);
 
     /**
-     * Clears claim permissions on the {@link Subject} from specified {@link Context}.
+     * Clears permissions from specified {@link Context}'s on the {@link Subject}.
      * 
-     * @param claim The claim
      * @param subject The subject
      * @param contexts The contexts holding the permissions
      * @return The result of clear
      */
-    CompletableFuture<PermissionResult> clearPermissions(Claim claim, String subject, Set<Context> contexts);
+    CompletableFuture<PermissionResult> clearFlagPermissions(Subject subject, Set<Context> contexts);
 
     /**
-     * Gets the {@link Flag} permission value of {@link Subject} for target.
+     * Gets the {@link Flag} permission value with {@link Context}'s.
      * 
-     * @param claim The claim
-     * @param subject The subject
+     * Note: This uses the default subject which applies to all users.
+     * 
      * @param flag The claim flag
-     * @param target The target id
-     * @return The permission value, or {@link Tristate#UNDEFINED} if none
-     */
-    default Tristate getPermissionValue(Claim claim, String subject, Flag flag, String target) {
-        final Set<Context> contexts = new HashSet<>();
-        contexts.add(claim.getContext());
-        return getPermissionValue(claim, subject, flag, target, contexts);
-    }
-
-    /**
-     * Gets the {@link Flag} permission value for target with {@link Context}.
-     * 
-     * Note: This uses the default subject which applies to all users in claim.
-     * 
-     * @param claim The claim
-     * @param flag The claim flag
-     * @param target The target id
      * @param contexts The claim contexts
      * @return The permission value, or {@link Tristate#UNDEFINED} if none
      */
-    Tristate getPermissionValue(Claim claim, Flag flag, String target, Set<Context> contexts);
+    Tristate getFlagPermissionValue(Flag flag, Set<Context> contexts);
 
     /**
-     * Gets the {@link Flag} permission value of {@link Subject} for target with {@link Context}.
+     * Gets the {@link Flag} permission value with {@link Context}'s of {@link Subject}.
      * 
      * Note: Only the default subject supports default and override context. Attempting to pass another subject 
      * with these specific contexts will always return {@link Tristate#UNDEFINED}.
      * 
-     * @param claim The claim
-     * @param subject The subject
      * @param flag The claim flag
-     * @param target The target id
+     * @param subject The subject
      * @param contexts The claim contexts
      * @return The permission value, or {@link Tristate#UNDEFINED} if none
      */
-    Tristate getPermissionValue(Claim claim, String subject, Flag flag, String target, Set<Context> contexts);
+    Tristate getFlagPermissionValue(Flag flag, Subject subject, Set<Context> contexts);
 
     /**
      * Gets all flag permissions with {@link Context}'s.
@@ -167,7 +149,7 @@ public interface PermissionManager {
      * @param contexts The claim contexts
      * @return A map containing all permissions, empty if none
      */
-    Map<String, Boolean> getPermissions(Set<Context> contexts);
+    Map<String, Boolean> getFlagPermissions(Set<Context> contexts);
 
     /**
      * Gets the {@link Subject}'s flag permissions with {@link Context}.
@@ -176,77 +158,83 @@ public interface PermissionManager {
      * @param contexts The claim contexts
      * @return A map containing all permissions, empty if none
      */
-    Map<String, Boolean> getPermissions(String subject, Set<Context> contexts);
+    Map<String, Boolean> getFlagPermissions(Subject subject, Set<Context> contexts);
 
     /**
-     * Sets {@link Flag} permission for target on the {@link Subject}.
+     * Sets {@link Flag} permission with {@link Context}'s.
      * 
-     * @param claim The claim
-     * @param subject The subject
-     * @param flag The claim flag
-     * @param value The new value
-     * @return The result of set
-     */
-    default CompletableFuture<PermissionResult> setPermission(Claim claim, String subject, Flag flag, String target, Tristate value) {
-        final Set<Context> contexts = new HashSet<>();
-        contexts.add(claim.getContext());
-        return setPermission(claim, subject, flag, target, value, contexts);
-    }
-
-    /**
-     * Sets {@link Flag} permission with {@link Context}.
+     * Note: This uses the default subject which applies to all users.
      * 
-     * Note: This uses the default subject which applies to all users in claim.
-     * 
-     * @param claim The claim
      * @param flag The claim flag
      * @param value The new values
      * @param contexts The claim contexts
      * @return The result of set
      */
-    CompletableFuture<PermissionResult> setPermission(Claim claim, Flag flag, Tristate value, Set<Context> contexts);
+    CompletableFuture<PermissionResult> setFlagPermission(Flag flag, Tristate value, Set<Context> contexts);
 
     /**
-     * Sets {@link Flag} permission on {@link Subject} with {@link Context}.
+     * Sets {@link Flag} permission with {@link Context}'s on {@link Subject}.
      * 
-     * @param claim The claim
-     * @param subject The subject
      * @param flag The claim flag
+     * @param subject The subject identifier
      * @param value The new value
      * @param contexts The claim contexts
      * @return The result of set
      */
-    CompletableFuture<PermissionResult> setPermission(Claim claim, String subject, Flag flag, Tristate value, Set<Context> contexts);
+    CompletableFuture<PermissionResult> setFlagPermission(Flag flag, Subject subject, Tristate value, Set<Context> contexts);
 
     /**
-     * Sets {@link Flag} permission for target with {@link Context}.
-     * 
-     * Note: This uses the default subject which applies to all users in claim.
-     * 
-     * @param claim The claim
-     * @param flag The claim flag
-     * @param target The target id
-     * @param value The new value
-     * @param contexts The claim contexts
-     * @return The result of set
+    * Gets the active {@link Option} value with {@link Context}'s.
+    * 
+    * @param type The option type
+    * @param option The option
+    * @param claim The claim
+    * @param contexts The contexts
+    * @return
+    */
+    default <T> T getActiveOptionValue(TypeToken<T> type, Option<T> option, Claim claim, Set<Context> contexts) {
+        return getActiveOptionValue(type, option, GriefDefender.getCore().getDefaultSubject(), claim, contexts);
+    }
+
+    /**
+    * Gets the active {@link Option} value with {@link Context}'s.
+    * 
+    * @param type The option type
+    * @param option The option
+    * @param subject The subject
+    * @param claim The claim
+    * @param contexts The contexts
+    * @return
+    */
+    <T> T getActiveOptionValue(TypeToken<T> type, Option<T> option, Subject subject, Claim claim, Set<Context> contexts);
+
+    /**
+     * Sets {@link Option} to a value.
+     *
+     * <p>Passing a null value will unset the option.</p>
+     *
+     * @param option The option to set. Case-insensitive.
+     * @param value The value to set.
+     * @param contexts The context combination to set the given option in
+     * @return Whether the operation was successful
      */
-    CompletableFuture<PermissionResult> setPermission(Claim claim, Flag flag, String target, Tristate value, Set<Context> contexts);
+    CompletableFuture<PermissionResult> setOption(Option option, String value, Set<Context> contexts);
 
     /**
-     * Sets {@link Flag} permission for target on {@link Subject} with {@link Context}.
-     * 
-     * @param claim The claim
-     * @param subject The subject
-     * @param flag The claim flag
-     * @param target The target id
-     * @param value The new value
-     * @param contexts The claim contexts
-     * @return The result of set
+     * Sets {@link Option} with {@link Context}'s on {@link Subject}.
+     *
+     * <p>Passing a null value will unset the option.</p>
+     *
+     * @param option The option to set. Case-insensitive.
+     * @param subject The subject identifier
+     * @param value The value to set.
+     * @param contexts The context combination to set the given option in
+     * @return Whether the operation was successful
      */
-    CompletableFuture<PermissionResult> setPermission(Claim claim, String subject, Flag flag, String target, Tristate value, Set<Context> contexts);
+    CompletableFuture<PermissionResult> setOption(Option option, Subject subject, String value, Set<Context> contexts);
 
     /**
-     * Gets the global {@link ClaimOption} option value in the default subject's current context.
+     * Gets the global {@link Option} option value in the default subject's current context.
      * 
      * Note: This uses the default subject which applies to all users in all claims.
      * 
@@ -258,7 +246,19 @@ public interface PermissionManager {
     }
 
     /**
-     * Gets the global {@link ClaimOption} option value in the default subject with {@link Context}'s.
+     * Gets the global {@link Option} option value in the default subject's current context.
+     * 
+     * Note: This uses the default subject which applies to all users in all claims.
+     * 
+     * @param option The claim option
+     * @return The option value
+     */
+     default <T> Optional<T> getOptionValue(TypeToken<T> type, Option<T> option) {
+         return getOptionValue(type, option, new HashSet<>());
+     }
+
+    /**
+     * Gets the global {@link Option} option value with {@link Context}'s.
      * 
      * Note: This uses the default subject which applies to all users in all claims.
      * 
@@ -269,7 +269,18 @@ public interface PermissionManager {
     Optional<String> getOptionValue(Option option, Set<Context> contexts);
 
     /**
-     * Gets the global {@link ClaimOption} option value for subject with {@link Context}'s.
+     * Gets the global {@link Option} option value with {@link Context}'s.
+     * 
+     * Note: This uses the default subject which applies to all users in all claims.
+     * 
+     * @param option The claim option
+     * @param contexts The claim contexts
+     * @return The option value
+     */
+    <T> Optional<T> getOptionValue(TypeToken<T> type, Option<T> option, Set<Context> contexts);
+
+    /**
+     * Gets the global {@link Option} option value for subject with {@link Context}'s.
      * 
      * Note: This is only the default value for option. Options set in claims will override this unless the {@link ClaimContexts#CLAIM_OVERRIDE_CONTEXT} is used.
      * 
@@ -278,17 +289,57 @@ public interface PermissionManager {
      * @param contexts The claim contexts
      * @return The option value
      */
-    default Optional<String> getOptionValue(String subject, Option option) {
+    default Optional<String> getOptionValue(Subject subject, Option option) {
         return getOptionValue(subject, option, new HashSet<>());
     }
 
     /**
-     * Gets the {@link ClaimOption} option value for subject with {@link Context}'s.
+     * Gets the {@link Option} option value with {@link Context}'s on {@link Subject}.
      * 
      * @param subject The subject
      * @param option The claim option
      * @param contexts The claim contexts
      * @return The option value
      */
-    Optional<String> getOptionValue(String subject, Option option, Set<Context> contexts);
+    default <T> Optional<T> getOptionValue(TypeToken<T> type, Subject subject, Option<T> option) {
+        return getOptionValue(type, subject, option, new HashSet<>());
+    }
+
+    /**
+     * Gets the {@link Option} option value with {@link Context}'s on {@link Subject}.
+     * 
+     * @param subject The subject
+     * @param option The claim option
+     * @param contexts The claim contexts
+     * @return The option value
+     */
+    Optional<String> getOptionValue(Subject subject, Option option, Set<Context> contexts);
+
+    /**
+     * Gets the {@link Option} option value with {@link Context}'s on {@link Subject}.
+     * 
+     * @param subject The subject
+     * @param option The claim option
+     * @param contexts The claim contexts
+     * @return The option value
+     */
+    <T> Optional<T> getOptionValue(TypeToken<T> type, Subject subject, Option<T> option, Set<Context> contexts);
+
+    /**
+     * Clear all options.
+     *
+     * @return Whether the operation was successful
+     */
+    CompletableFuture<PermissionResult> clearOptions();
+
+    /**
+     * Clear all options in the given context combination.
+     *
+     * <p>Passing an empty context set clears options in the global
+     * context.</p>
+     *
+     * @param contexts The context combination
+     * @return Whether the operation was successful (any options were removed)
+     */
+    CompletableFuture<PermissionResult> clearOptions(Set<Context> contexts);
 }

@@ -56,7 +56,7 @@ public interface ClaimSchematic {
      * @return A new claim schematic builder instance
      */
     public static ClaimSchematic.Builder builder() {
-        return GriefDefender.getRegistry().createClaimSchematicBuilder();
+        return GriefDefender.getRegistry().createBuilder(ClaimSchematic.Builder.class);
     }
 
     public interface Builder {

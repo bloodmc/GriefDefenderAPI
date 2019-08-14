@@ -130,7 +130,7 @@ public final class Flags {
     /**
      * Used to allow or deny a user from clicking an item in an inventory slot.
      */
-    public static final Flag  INTERACT_INVENTORY_CLICK = DummyObjectProvider.createFor(Flag.class, "interact-inventory-click");
+    public static final Flag INTERACT_INVENTORY_CLICK = DummyObjectProvider.createFor(Flag.class, "interact-inventory-click");
     /**
      * Used to allow or deny a player from left-clicking with an item in hand.
      */
@@ -164,13 +164,13 @@ public final class Flags {
     /**
      * Used to allow or deny liquid from flowing.
      */
-    public static final Flag  LIQUID_FLOW = DummyObjectProvider.createFor(Flag.class, "liquid-flow");
+    public static final Flag LIQUID_FLOW = DummyObjectProvider.createFor(Flag.class, "liquid-flow");
     /**
      * Used to allow or deny a portal from being used.
      * 
      * Note: This may also require using {@link #COLLIDE_BLOCK}.
      */
-    public static final Flag  PORTAL_USE = DummyObjectProvider.createFor(Flag.class, "portal-use");
+    public static final Flag PORTAL_USE = DummyObjectProvider.createFor(Flag.class, "portal-use");
     /**
      * Used to allow or deny a projectile from hitting a block.
      */

@@ -24,130 +24,150 @@
  */
 package com.griefdefender.api.permission.option;
 
+import com.griefdefender.api.Tristate;
 import com.griefdefender.api.claim.Claim;
+import com.griefdefender.api.permission.option.type.CreateModeType;
+import com.griefdefender.api.permission.option.type.CreateModeTypes;
+import com.griefdefender.api.permission.option.type.GameModeType;
+import com.griefdefender.api.permission.option.type.GameModeTypes;
+import com.griefdefender.api.permission.option.type.WeatherType;
+import com.griefdefender.api.permission.option.type.WeatherTypes;
 import com.griefdefender.api.util.generator.DummyObjectProvider;
 
+@SuppressWarnings("unchecked")
 public final class Options {
+
+    /**
+     * The amount of days before a newly created {@link Claim} can be abandoned.
+     */
+    public static final Option<Integer> ABANDON_DELAY = DummyObjectProvider.createFor(Option.class, "abandon-delay");
 
     /**
      * The portion of basic claim blocks returned to a player 
      * when a {@link Claim} is abandoned.
      */
-    public static final Option ABANDON_RETURN_RATIO = DummyObjectProvider.createFor(Option.class, "abandon-return-ratio");
+    public static final Option<Double> ABANDON_RETURN_RATIO = DummyObjectProvider.createFor(Option.class, "abandon-return-ratio");
 
     /**
      * Maximum number of basic claims per player.<br>
      * 
-     * Note: (0 = unlimited)
+     * Note: (-1 = unlimited)
      */
-    public static final Option CREATE_LIMIT = DummyObjectProvider.createFor(Option.class, "create-limit");
+    public static final Option<Integer> CREATE_LIMIT = DummyObjectProvider.createFor(Option.class, "create-limit");
 
     /**
      * Number of days of inactivity before a basic claim will be deleted.
      */
-    public static final Option EXPIRATION = DummyObjectProvider.createFor(Option.class, "expiration");
+    public static final Option<Integer> EXPIRATION = DummyObjectProvider.createFor(Option.class, "expiration");
 
     /**
      * The max size in blocks that the x-axis can be.
      */
-    public static final Option MAX_SIZE_X = DummyObjectProvider.createFor(Option.class, "max-size-x");
+    public static final Option<Integer> MAX_SIZE_X = DummyObjectProvider.createFor(Option.class, "max-size-x");
 
     /**
      * The max size in blocks that the y-axis can be.
      */
-    public static final Option MAX_SIZE_Y = DummyObjectProvider.createFor(Option.class, "max-size-y");
+    public static final Option<Integer> MAX_SIZE_Y = DummyObjectProvider.createFor(Option.class, "max-size-y");
 
     /**
      * The max size in blocks that the z-axis can be.
      */
-    public static final Option MAX_SIZE_Z = DummyObjectProvider.createFor(Option.class, "max-size-z");
+    public static final Option<Integer> MAX_SIZE_Z = DummyObjectProvider.createFor(Option.class, "max-size-z");
 
     /**
      * The min size in blocks that the x-axis can be.
      */
-    public static final Option MIN_SIZE_X = DummyObjectProvider.createFor(Option.class, "min-size-x");
+    public static final Option<Integer> MIN_SIZE_X = DummyObjectProvider.createFor(Option.class, "min-size-x");
 
     /**
      * The min size in blocks that the y-axis can be.
      */
-    public static final Option MIN_SIZE_Y = DummyObjectProvider.createFor(Option.class, "min-size-y");
+    public static final Option<Integer> MIN_SIZE_Y = DummyObjectProvider.createFor(Option.class, "min-size-y");
 
     /**
      * The min size in blocks that the z-axis can be.
      */
-    public static final Option MIN_SIZE_Z = DummyObjectProvider.createFor(Option.class, "min-size-z");
+    public static final Option<Integer> MIN_SIZE_Z = DummyObjectProvider.createFor(Option.class, "min-size-z");
 
     /**
      * Number of days after not paying taxes before an automatic chest claim will be frozen.
      */
-    public static final Option TAX_EXPIRATION = DummyObjectProvider.createFor(Option.class, "tax-expiration");
+    public static final Option<Integer> TAX_EXPIRATION = DummyObjectProvider.createFor(Option.class, "tax-expiration");
 
     /**
      * Number of days to keep a basic claim after frozen and before being deleted.
      */
-    public static final Option TAX_EXPIRATION_DAYS_KEEP = DummyObjectProvider.createFor(Option.class, "tax-expiration-days-keep");
+    public static final Option<Integer> TAX_EXPIRATION_DAYS_KEEP = DummyObjectProvider.createFor(Option.class, "tax-expiration-days-keep");
 
     /**
      * Tax is calculated by the number of claimblocks in the basic claim.
      */
-    public static final Option TAX_RATE = DummyObjectProvider.createFor(Option.class, "tax-rate");
+    public static final Option<Double> TAX_RATE = DummyObjectProvider.createFor(Option.class, "tax-rate");
 
     /**
      * Blocks earned per hour.
      */
-    public static final Option BLOCKS_ACCRUED_PER_HOUR = DummyObjectProvider.createFor(Option.class, "blocks-accrued-per-hour");
+    public static final Option<Integer> BLOCKS_ACCRUED_PER_HOUR = DummyObjectProvider.createFor(Option.class, "blocks-accrued-per-hour");
 
     /**
      * Number of days of inactivity before an automatic chest claim will be deleted.
      */
-    public static final Option CHEST_EXPIRATION = DummyObjectProvider.createFor(Option.class, "chest-expiration");
+    public static final Option<Integer> CHEST_EXPIRATION = DummyObjectProvider.createFor(Option.class, "chest-expiration");
 
     /**
      * The default claiming mode set for players on login.<br>
      * 
-     * Note: (0 = 2D, 1 = 3D)
+     * Accepts the following values :
+     * <ul>
+     * <li>{@link CreateModeTypes#AREA}
+     * <li>{@link CreateModeTypes#VOLUME}
+     * <li>{@link CreateModeTypes#UNDEFINED}
+     * </ul>
      */
-    public static final Option CREATE_MODE = DummyObjectProvider.createFor(Option.class, "create-mode");
+    public static final Option<CreateModeType> CREATE_MODE = DummyObjectProvider.createFor(Option.class, "create-mode");
 
     /**
-     * The cost in claim blocks used to sell a {@link Claim}.
+     * The economy amount to charge per block of a {@link Claim}.<br>
+     * 
+     * Note: The formula to calculate price is {amount} * {@link Claim#getClaimBlocks()}
      */
-    public static final Option ECONOMY_BLOCK_COST = DummyObjectProvider.createFor(Option.class, "economy-block-cost");
+    public static final Option<Double> ECONOMY_BLOCK_COST = DummyObjectProvider.createFor(Option.class, "economy-block-cost");
 
     /**
      * The return ration for selling claim blocks.
      */
-    public static final Option ECONOMY_BLOCK_SELL_RETURN = DummyObjectProvider.createFor(Option.class, "economy-block-sell-return");
+    public static final Option<Double> ECONOMY_BLOCK_SELL_RETURN = DummyObjectProvider.createFor(Option.class, "economy-block-sell-return");
 
     /**
      * The number of claim blocks a player has initially, by default.
      */
-    public static final Option INITIAL_BLOCKS = DummyObjectProvider.createFor(Option.class, "initial-blocks");
+    public static final Option<Integer> INITIAL_BLOCKS = DummyObjectProvider.createFor(Option.class, "initial-blocks");
 
     /**
      * The limit on accrued blocks (over time). doesn't limit purchased or admin-gifted blocks.
      */
-    public static final Option MAX_ACCRUED_BLOCKS = DummyObjectProvider.createFor(Option.class, "max-accrued-blocks");
+    public static final Option<Integer> MAX_ACCRUED_BLOCKS = DummyObjectProvider.createFor(Option.class, "max-accrued-blocks");
 
     /**
      * The maximum level that a claim can be created in.
      */
-    public static final Option MAX_LEVEL = DummyObjectProvider.createFor(Option.class, "max-level");
+    public static final Option<Integer> MAX_LEVEL = DummyObjectProvider.createFor(Option.class, "max-level");
 
     /**
      * The minimum level that a claim can be created in.
      */
-    public static final Option MIN_LEVEL = DummyObjectProvider.createFor(Option.class, "min-level");
+    public static final Option<Integer> MIN_LEVEL = DummyObjectProvider.createFor(Option.class, "min-level");
 
     /**
      * The radius in blocks used to list nearby claims.
      */
-    public static final Option RADIUS_LIST = DummyObjectProvider.createFor(Option.class, "radius-list");
+    public static final Option<Integer> RADIUS_LIST = DummyObjectProvider.createFor(Option.class, "radius-list");
 
     /**
      * The radius in blocks used to search for nearby claims while inspecting.
      */
-    public static final Option RADIUS_INSPECT = DummyObjectProvider.createFor(Option.class, "radius-inspect");
+    public static final Option<Integer> RADIUS_INSPECT = DummyObjectProvider.createFor(Option.class, "radius-inspect");
 
     /**
      * Used for executing a command with specific {@link Context}'s.<br>
@@ -161,62 +181,97 @@ public final class Options {
      * <li>%location%
      * </ul>
      */
-    public static final Option PLAYER_COMMAND = DummyObjectProvider.createFor(Option.class, "command");
+    public static final Option<String> PLAYER_COMMAND = DummyObjectProvider.createFor(Option.class, "player-command");
 
     /**
-     * Used to determine if a player can fly in a {@link Claim}.<br>
+     * Used to determine if a player is unable to fly in a {@link Claim}.<br>
      * 
-     * Note: (-1 = undefined, 0 = false, 1 = true)
+     * Note: This does not give players the ability to fly, it merely removes
+     * the ability if set. This provides the greatest compatibility with
+     * plugins.
      */
-    public static final Option PLAYER_FLY = DummyObjectProvider.createFor(Option.class, "player-fly");
+    public static final Option<Boolean> PLAYER_DENY_FLIGHT = DummyObjectProvider.createFor(Option.class, "player-deny-flight");
+
+    /**
+     * Used to determine if a player can be in godmode within a {@link Claim}.<br>
+     * 
+     * Note: This does not give players the ability to be in godmode, it merely removes
+     * the ability if set. This provides the greatest compatibility with
+     * plugins.
+     */
+    public static final Option<Boolean> PLAYER_DENY_GODMODE = DummyObjectProvider.createFor(Option.class, "player-deny-godmode");
+
+    /**
+     * Used to if a player's hunger is denied in a {@link Claim}.<br>
+     * 
+     * Note: This does not give players the ability to gain hunger, it merely removes
+     * the ability to cause hunger if set. This provides the greatest compatibility with
+     * plugins.
+     */
+    public static final Option<Boolean> PLAYER_DENY_HUNGER = DummyObjectProvider.createFor(Option.class, "player-deny-hunger");
 
     /**
      * Used to determine the gamemode of a player in a {@link Claim}.<br>
      * 
-     * (-1 = undefined, 0 = survival, 1 = creative, 2 = adventure, 3 = spectator)
+     * Accepts the following values :
+     * <ul>
+     * <li>{@link GameModeTypes#ADVENTURE}
+     * <li>{@link GameModeTypes#CREATIVE}
+     * <li>{@link GameModeTypes#SURVIVAL}
+     * <li>{@link GameModeTypes#SPECTATOR}
+     * <li>{@link GameModeTypes#UNDEFINED}
+     * </ul>
      */
-    public static final Option PLAYER_GAMEMODE = DummyObjectProvider.createFor(Option.class, "player-gamemode");
+    public static final Option<GameModeType> PLAYER_GAMEMODE = DummyObjectProvider.createFor(Option.class, "player-gamemode");
 
     /**
      * Used to set the health regen amount for a player in a {@link Claim}.<br>
      * 
      * Note: If the player is at max health, this will have no effect.<br>
-     * Note: (-1 = undefined, 0 = false, 1 = true)
+     * Note: (-1 = undefined)
      */
-    public static final Option PLAYER_HEALTH_REGEN = DummyObjectProvider.createFor(Option.class, "player-health-regen");
-
-    /**
-     * Used to control a player's hunger in a {@link Claim}.<br>
-     * 
-     * Note: (-1 = undefined, 0 = false, 1 = true)
-     */
-    public static final Option PLAYER_HUNGER = DummyObjectProvider.createFor(Option.class, "player-hunger");
+    public static final Option<Double> PLAYER_HEALTH_REGEN = DummyObjectProvider.createFor(Option.class, "player-health-regen");
 
     /**
      * Used to determine if a player can keep inventory after death in a {@link Claim}.<br>
      * 
-     * Note: (-1 = undefined, 0 = false, 1 = true)
+     * Accepts the following values :
+     * <ul>
+     * <li>{@link Tristate#TRUE}
+     * <li>{@link Tristate#FALSE}
+     * <li>{@link Tristate#UNDEFINED}
+     * </ul>
      */
-    public static final Option PLAYER_KEEP_INVENTORY = DummyObjectProvider.createFor(Option.class, "player-keep-inventory");
+    public static final Option<Tristate> PLAYER_KEEP_INVENTORY = DummyObjectProvider.createFor(Option.class, "player-keep-inventory");
 
     /**
      * Used to determine if a player can keep their level after death in a {@link Claim}.<br>
      * 
-     * Note: (-1 = undefined, 0 = false, 1 = true)
+     * Accepts the following values :
+     * <ul>
+     * <li>{@link Tristate#TRUE}
+     * <li>{@link Tristate#FALSE}
+     * <li>{@link Tristate#UNDEFINED}
+     * </ul>
      */
-    public static final Option PLAYER_KEEP_LEVEL = DummyObjectProvider.createFor(Option.class, "player-keep-level");
+    public static final Option<Tristate> PLAYER_KEEP_LEVEL = DummyObjectProvider.createFor(Option.class, "player-keep-level");
 
     /**
      * Used to set a player's walk speed in a {@link Claim}.<br>
      * 
-     * Note: (-1 = undefined, 0 = false, 1 = true)
+     * Note: (-1 = undefined)
      */
-    public static final Option PLAYER_WALK_SPEED = DummyObjectProvider.createFor(Option.class, "player-walk-speed");
+    public static final Option<Integer> PLAYER_WALK_SPEED = DummyObjectProvider.createFor(Option.class, "player-walk-speed");
 
     /**
      * Used to a player's weather in a {@link Claim}.<br>
-     * 
-     * Note: (-1 = undefined, 0 = clear, 1 = rain)
+     * Default supported types are :
+     * Accepts the following values :
+     * <ul>
+     * <li>{@link WeatherTypes#CLEAR}
+     * <li>{@link WeatherTypes#RAIN}
+     * <li>{@link WeatherTypes#UNDEFINED}
+     * </ul>
      */
-    public static final Option PLAYER_WEATHER = DummyObjectProvider.createFor(Option.class, "player-weather");
+    public static final Option<WeatherType> PLAYER_WEATHER = DummyObjectProvider.createFor(Option.class, "player-weather");
 }

@@ -22,40 +22,34 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.griefdefender.api.event;
+package com.griefdefender.api.permission.option.type;
 
-import com.griefdefender.api.permission.Context;
-import com.griefdefender.api.permission.option.Option;
-import net.kyori.event.Cancellable;
+import com.griefdefender.api.util.generator.DummyObjectProvider;
 
-public interface OptionEvent extends Cancellable, Event {
+public class GameModeTypes {
 
     /**
-     * Gets the {@link Subject}.
-     * 
-     * @return The subject
+     * Represents survival {@link GameModeType}.
      */
-    String getSubjectId();
-
-    interface ClearAll extends OptionEvent {
-        
-    }
-
-    interface Clear extends OptionEvent {
-        java.util.Set<Context> getContexts();
-    }
+    public static final GameModeType SURVIVAL = DummyObjectProvider.createFor(GameModeType.class, "survival");
 
     /**
-     * Sets 
-     * @author bloodshot
-     *
+     * Represents creative {@link GameModeType}.
      */
-    interface Set extends OptionEvent {
+    public static final GameModeType CREATIVE = DummyObjectProvider.createFor(GameModeType.class, "creative");
 
-        Option getOption();
+    /**
+     * Represents adventure {@link GameModeType}.
+     */
+    public static final GameModeType ADVENTURE = DummyObjectProvider.createFor(GameModeType.class, "adventure");
 
-        String getValue();
+    /**
+     * Represents spectator {@link GameModeType}.
+     */
+    public static final GameModeType SPECTATOR = DummyObjectProvider.createFor(GameModeType.class, "spectator");
 
-        java.util.Set<Context> getContexts();
-    }
+    /**
+     * Represents undefined {@link GameModeType}.
+     */
+    public static final GameModeType UNDEFINED = DummyObjectProvider.createFor(GameModeType.class, "undefined");
 }

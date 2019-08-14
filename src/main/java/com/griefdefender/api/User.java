@@ -22,61 +22,30 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.griefdefender.api.claim;
+package com.griefdefender.api;
 
-import com.griefdefender.api.data.TownData;
-import net.kyori.text.Component;
-
-import java.util.Optional;
 import java.util.UUID;
 
-public interface Town extends Claim {
+import com.griefdefender.api.data.PlayerData;
+
+public interface User extends Subject {
 
     /**
-     * Gets the {@link ClaimType}.
-     * 
-     * @return The claim type
+     * Gets the {@link UUID} of user.
      */
-    default ClaimType getType() {
-        return ClaimTypes.TOWN;
-    }
+    UUID getUniqueId();
 
     /**
-     * Gets the town tag.
+     * Gets the {@link PlayerData} of user.
      * 
-     * @return The town tag
+     * @return The player data
      */
-    default Optional<Component> getTownTag() {
-        return this.getData().getTownTag();
-    }
+    PlayerData getPlayerData();
 
     /**
-     * Gets the {@link UUID}'s accrued claim blocks.
+     * Whether this user is online.
      * 
-     * @return The uuid's accrued claim blocks
+     * @return true if online, false otherwise
      */
-    default int getAccruedClaimBlocks(UUID uuid) {
-        final Integer accrued = this.getData().getAccruedClaimBlocks().get(uuid);
-        if (accrued == null) {
-            return 0;
-        }
-
-        return accrued;
-    }
-
-    /**
-     * Gets the {@link UUID}'s bonus claim blocks.
-     * 
-     * @return The uuid's bonus claim blocks
-     */
-    default int getBonusClaimBlocks(UUID uuid) {
-        final Integer bonus = this.getData().getBonusClaimBlocks().get(uuid);
-        if (bonus == null) {
-            return 0;
-        }
-
-        return bonus;
-    }
-
-    TownData getData();
+    boolean isOnline();
 }

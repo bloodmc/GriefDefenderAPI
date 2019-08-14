@@ -40,7 +40,7 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.StringJoiner;
 
-import javax.annotation.Nullable;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * A cause represents the reason or initiator of an event.

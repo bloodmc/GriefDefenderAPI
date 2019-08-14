@@ -25,8 +25,10 @@
 package com.griefdefender.api.claim;
 
 import com.flowpowered.math.vector.Vector3i;
+import com.google.common.reflect.TypeToken;
 import com.griefdefender.api.ContextSource;
 import com.griefdefender.api.GriefDefender;
+import com.griefdefender.api.Subject;
 import com.griefdefender.api.Tristate;
 import com.griefdefender.api.data.ClaimData;
 import com.griefdefender.api.data.EconomyData;
@@ -34,9 +36,10 @@ import com.griefdefender.api.data.PlayerData;
 import com.griefdefender.api.permission.Context;
 import com.griefdefender.api.permission.PermissionResult;
 import com.griefdefender.api.permission.flag.Flag;
+import com.griefdefender.api.permission.option.Option;
+
 import net.kyori.text.Component;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -628,85 +631,80 @@ public interface Claim extends ContextSource {
     Optional<UUID> getEconomyAccountId();
 
     /**
-     * Sets {@link ClaimFlag} permission for target on the {@link Subject}.
+    * Gets the active {@link Flag} permission value for {@link Subject} in this {@link Claim}.
+    * 
+    * @param flag The flag
+    * @param subject The subject
+    * @param source The source
+    * @param target The target
+    * @param contexts The contexts
+    * @return
+    */
+    default Tristate getActiveFlagPermissionValue(Flag flag, Subject subject, Object source, Object target, Set<Context> contexts) {
+        return getActiveFlagPermissionValue(flag, subject, source, target, contexts, false);
+    }
+
+    /**
+    * Gets the active {@link Flag} permission value for {@link Subject} in this {@link Claim}.
+    * 
+    * @param flag The flag
+    * @param subject The subject
+    * @param source The source
+    * @param target The target
+    * @param contexts The contexts
+    * @param checkOverride Whether to check override
+    * @return
+    */
+    default Tristate getActiveFlagPermissionValue(Flag flag, Subject subject, Object source, Object target, Set<Context> contexts, boolean checkOverride) {
+        return getActiveFlagPermissionValue(flag, subject, source, target, contexts, null, checkOverride);
+    }
+
+    /**
+    * Gets the active {@link Flag} permission value for {@link Subject} in this {@link Claim}.
+    * 
+    * @param flag The flag
+    * @param subject The subject
+    * @param source The source
+    * @param target The target
+    * @param contexts The contexts
+    * @return
+    */
+    default Tristate getActiveFlagPermissionValue(Flag flag, Subject subject, Object source, Object target, Set<Context> contexts, TrustType type, boolean checkOverride) {
+        return GriefDefender.getPermissionManager().getActiveFlagPermissionValue(this, subject, flag, source, target, contexts, type, checkOverride);
+    }
+
+    /**
+     * Gets the {@link Flag} permission value with {@link Context}'s.
      * 
-     * @param subject The subject
+     * Note: This uses the default subject which applies to all users in claim.
+     * 
      * @param flag The claim flag
-     * @param value The new value
-     * @return The result of set
+     * @param target The target id
+     * @param contexts The claim contexts
+     * @return The permission value, or {@link Tristate#UNDEFINED} if none
      */
-    default CompletableFuture<PermissionResult> setPermission(String subject, Flag flag, String target, Tristate value) {
-        final Set<Context> contexts = new HashSet<>();
+    default Tristate getFlagPermissionValue(Flag flag, Set<Context> contexts) {
         contexts.add(this.getContext());
-        return setPermission(subject, flag, target, value, contexts);
+        return GriefDefender.getPermissionManager().getFlagPermissionValue(flag, contexts);
     }
 
     /**
-     * Gets the {@link ClaimFlag} permission value of {@link Subject} for target.
+     * Sets {@link Flag} permission with {@link Context}'s.
      * 
-     * @param subject The subject
+     * Note: This uses the default subject which applies to all users in claim.
+     * 
      * @param flag The claim flag
-     * @param target The target id
-     * @return The permission value, or {@link Tristate#UNDEFINED} if none
+     * @param value The new value
+     * @param contexts The claim contexts
+     * @return The result of set
      */
-    default Tristate getPermissionValue(String subject, Flag flag, String target) {
-        final Set<Context> contexts = new HashSet<>();
+    default CompletableFuture<PermissionResult> setFlagPermission(Flag flag, Tristate value, Set<Context> contexts) {
         contexts.add(this.getContext());
-        return getPermissionValue(subject, flag, target, contexts);
+        return GriefDefender.getPermissionManager().setFlagPermission(flag, value, contexts);
     }
 
     /**
-     * Clears claim permissions on the {@link Subject}.
-     * 
-     * Note: All permissions will be cleared from all claim contexts. If you require
-     * a specific context, use {@link #clearPermissions(Subject, Context)}.
-     * 
-     * @param subject The subject
-     * @return The result of clear
-     */
-    default CompletableFuture<PermissionResult> clearPermissions(String subject) {
-        return GriefDefender.getPermissionManager().clearAllPermissions(this, subject);
-    }
-
-    /**
-     * Clears claim permissions from specified {@link Context}'s.
-     * 
-     * Note: This uses the default subject which applies to all users in claim.
-     * 
-     * @param contexts The contexts holding the permissions
-     * @return The result of clear
-     */
-    default CompletableFuture<PermissionResult> clearPermissions(Set<Context> contexts) {
-        return GriefDefender.getPermissionManager().clearPermissions(this, contexts);
-    }
-
-    /**
-     * Clears claim permissions on the {@link Subject} from specified {@link Context}'s.
-     * 
-     * @param subject The subject
-     * @param contexts The contexts holding the permissions
-     * @return The result of clear
-     */
-    default CompletableFuture<PermissionResult> clearPermissions(String subject, Set<Context> contexts) {
-        return GriefDefender.getPermissionManager().clearPermissions(this, subject, contexts);
-    }
-
-    /**
-     * Sets {@link ClaimFlag} permission with {@link Context}'s.
-     * 
-     * Note: This uses the default subject which applies to all users in claim.
-     * 
-     * @param flag The claim flag
-     * @param value The new value
-     * @param contexts The claim contexts
-     * @return The result of set
-     */
-    default CompletableFuture<PermissionResult> setPermission(Flag flag, Tristate value, Set<Context> contexts) {
-        return GriefDefender.getPermissionManager().setPermission(this, flag, value, contexts);
-    }
-
-    /**
-     * Sets {@link ClaimFlag} permission on {@link Subject} with {@link Context}'s.
+     * Sets {@link Flag} permission on {@link Subject} with {@link Context}'s.
      * 
      * @param subject The subject
      * @param flag The claim flag
@@ -714,79 +712,65 @@ public interface Claim extends ContextSource {
      * @param contexts The claim contexts
      * @return The result of set
      */
-    default CompletableFuture<PermissionResult> setPermission(String subject, Flag flag, Tristate value, Set<Context> contexts) {
-        return GriefDefender.getPermissionManager().setPermission(this, subject, flag, value, contexts);
+    default CompletableFuture<PermissionResult> setFlagPermission(Flag flag, Subject subject, Tristate value, Set<Context> contexts) {
+        contexts.add(this.getContext());
+        return GriefDefender.getPermissionManager().setFlagPermission(flag, subject, value, contexts);
     }
 
     /**
-     * Sets {@link ClaimFlag} permission for target with {@link Context}'s.
+    * Gets the active {@link Option} value with {@link Context}'s in this {@link Claim}.
+    * 
+    * @param type The option type
+    * @param option The option
+    * @param claim The claim
+    * @param contexts The contexts
+    * @return
+    */
+    default <T> T getActiveOptionValue(TypeToken<T> type, Option<T> option, Set<Context> contexts) {
+        return getActiveOptionValue(type, option, GriefDefender.getCore().getDefaultSubject(), contexts);
+    }
+
+    /**
+    * Gets the active {@link Option} value for with {@link Context}'s  in this {@link Claim}.
+    * 
+    * @param type The option type
+    * @param option The option
+    * @param subject The subject
+    * @param claim The claim
+    * @param contexts The contexts
+    * @return
+    */
+    default <T> T getActiveOptionValue(TypeToken<T> type, Option<T> option, Subject subject, Set<Context> contexts) {
+        contexts.add(this.getContext());
+        return GriefDefender.getPermissionManager().getActiveOptionValue(type, option, subject, this, contexts);
+    }
+
+    /**
+     * Sets {@link Option} value with {@link Context}'s.
      * 
      * Note: This uses the default subject which applies to all users in claim.
      * 
-     * @param flag The claim flag
-     * @param target The target id
+     * @param option The option
      * @param value The new value
      * @param contexts The claim contexts
      * @return The result of set
      */
-    default CompletableFuture<PermissionResult> setPermission(Flag flag, String target, Tristate value, Set<Context> contexts) {
-        return GriefDefender.getPermissionManager().setPermission(this, flag, target, value, contexts);
+    default CompletableFuture<PermissionResult> setOption(Option option, String value, Set<Context> contexts) {
+        return this.setOption(option, GriefDefender.getCore().getDefaultSubject(), value, contexts);
     }
 
     /**
-     * Sets {@link ClaimFlag} permission for target on {@link Subject} with {@link Context}'s.
+     * Sets {@link Option} value on {@link Subject} with {@link Context}'s.
      * 
+     * @param option The option
      * @param subject The subject
-     * @param flag The claim flag
-     * @param target The target id
      * @param value The new value
      * @param contexts The claim contexts
      * @return The result of set
      */
-    default CompletableFuture<PermissionResult> setPermission(String subject, Flag flag, String target, Tristate value, Set<Context> contexts) {
-        return GriefDefender.getPermissionManager().setPermission(this, subject, flag, target, value, contexts);
-    }
-
-    /**
-     * Gets the {@link ClaimFlag} permission value for target with {@link Context}'s.
-     * 
-     * Note: This uses the default subject which applies to all users in claim.
-     * 
-     * @param flag The claim flag
-     * @param target The target id
-     * @param contexts The claim contexts
-     * @return The permission value, or {@link Tristate#UNDEFINED} if none
-     */
-    default Tristate getPermissionValue(Flag flag, String target, Set<Context> contexts) {
-        return GriefDefender.getPermissionManager().getPermissionValue(this, flag, target, contexts);
-    }
-
-    /**
-     * Gets the {@link ClaimFlag} permission value of {@link Subject} for target with {@link Context}'s.
-     * 
-     * Note: Only the default subject supports default and override context. Attempting to pass another subject 
-     * with these specific contexts will always return {@link Tristate#UNDEFINED}.
-     * 
-     * @param subject The subject
-     * @param flag The claim flag
-     * @param target The target id
-     * @param contexts The claim contexts
-     * @return The permission value, or {@link Tristate#UNDEFINED} if none
-     */
-    default Tristate getPermissionValue(String subject, Flag flag, String target, Set<Context> contexts) {
-        return GriefDefender.getPermissionManager().getPermissionValue(this, subject, flag, target, contexts);
-    }
-
-    default Tristate getFinalPermission(Flag flag, String subject, Object source, Object target, Set<Context> contexts) {
-        return getFinalPermission(flag, subject, source, target, contexts, false);
-    }
-
-    default Tristate getFinalPermission(Flag flag, String subject, Object source, Object target, Set<Context> contexts, boolean checkOverride) {
-        return getFinalPermission(flag, subject, source, target, contexts, null, checkOverride);
-    }
-
-    default Tristate getFinalPermission(Flag flag, String subject, Object source, Object target, Set<Context> contexts, TrustType type, boolean checkOverride) {
-        return GriefDefender.getPermissionManager().getFinalPermission(this, subject, flag, source, target, contexts, type, checkOverride);
+    default CompletableFuture<PermissionResult> setOption(Option option, Subject subject, String value, Set<Context> contexts) {
+        contexts.add(this.getContext());
+        return GriefDefender.getPermissionManager().setOption(option, subject, value, contexts);
     }
 
     /**
@@ -816,7 +800,7 @@ public interface Claim extends ContextSource {
      * @return A new claim builder instance
      */
     public static Claim.Builder builder() {
-        return GriefDefender.getRegistry().createClaimBuilder();
+        return GriefDefender.getRegistry().createBuilder(Claim.Builder.class);
     }
 
     public interface Builder {

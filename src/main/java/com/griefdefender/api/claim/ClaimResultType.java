@@ -122,6 +122,11 @@ public enum ClaimResultType {
     EXCEEDS_MAX_SIZE_Z,
 
     /**
+     * Returned if a claim action did not complete successfully.
+     */
+    FAILURE,
+
+    /**
      * Returned if a {@link Player} doesn't have enough claim blocks
      * to perform a claim action.
      */

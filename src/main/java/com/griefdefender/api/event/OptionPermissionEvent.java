@@ -22,25 +22,20 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.griefdefender.api.data;
+package com.griefdefender.api.event;
 
-import net.kyori.text.Component;
+import com.griefdefender.api.permission.option.Option;
 
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
+public interface OptionPermissionEvent extends PermissionEvent {
 
-public interface TownData extends ClaimData {
+    interface ClearAll extends OptionPermissionEvent { }
 
-    Optional<Component> getTownTag();
+    interface Clear extends OptionPermissionEvent { }
 
-    void setTownTag(Component text);
+    interface Set extends OptionPermissionEvent {
 
-    Map<UUID, Integer> getAccruedClaimBlocks();
+        Option getOption();
 
-    Map<UUID, Integer> getBonusClaimBlocks();
-
-    Map<UUID, String> getResidentPastDueTaxTimestamps();
-
-    Map<UUID, Double> getResidentTaxBalances();
+        String getValue();
+    }
 }

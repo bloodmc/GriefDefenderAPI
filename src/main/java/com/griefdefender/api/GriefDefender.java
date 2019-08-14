@@ -26,11 +26,11 @@ package com.griefdefender.api;
 
 import static com.google.common.base.Preconditions.checkState;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+
 import com.google.inject.Inject;
 import com.griefdefender.api.event.EventManager;
 import com.griefdefender.api.permission.PermissionManager;
-
-import javax.annotation.Nullable;
 
 public final class GriefDefender {
 

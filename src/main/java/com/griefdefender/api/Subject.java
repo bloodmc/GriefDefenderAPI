@@ -22,12 +22,24 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.griefdefender.api.event;
+package com.griefdefender.api;
 
-public interface DeleteClaimEvent extends ClaimEvent {
+public interface Subject {
 
     /**
-     * Fired when a claim is abandoned.
+     * Gets the friendly name of {@link Subject}.
+     * 
+     * Note: If no friendly name is found, this will return
+     * {@link #getIdentifier()}.
+     * 
+     * @return The friendly name if available, or the identifier
      */
-    interface Abandon extends DeleteClaimEvent {};
+    String getFriendlyName();
+
+    /**
+     * Gets the {@link Subject}'s identifier.
+     * 
+     * @return The identifier
+     */
+    String getIdentifier();
 }

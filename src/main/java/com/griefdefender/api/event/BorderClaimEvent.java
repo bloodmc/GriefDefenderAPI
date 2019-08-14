@@ -26,15 +26,15 @@ package com.griefdefender.api.event;
 
 import com.griefdefender.api.ChatType;
 import com.griefdefender.api.ChatTypes;
+import com.griefdefender.api.User;
 import com.griefdefender.api.claim.Claim;
 import com.griefdefender.api.data.ClaimData;
 import net.kyori.event.Cancellable;
 import net.kyori.text.Component;
 
 import java.util.Optional;
-import java.util.UUID;
 
-import javax.annotation.Nullable;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 public interface BorderClaimEvent extends ClaimEvent, Cancellable  {
 
@@ -55,11 +55,11 @@ public interface BorderClaimEvent extends ClaimEvent, Cancellable  {
     }
 
     /**
-     * Gets the target entity uuid.
+     * Gets the target {@link User}
      *
-     * @return The entity uuid
+     * @return The target user
      */
-    UUID getEntityId();
+    User getUser();
 
     /**
      * Gets the event enter message if available.

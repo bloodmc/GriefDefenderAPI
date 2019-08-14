@@ -22,61 +22,24 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.griefdefender.api.claim;
+package com.griefdefender.api.permission.option.type;
 
-import com.griefdefender.api.data.TownData;
-import net.kyori.text.Component;
+import com.griefdefender.api.util.generator.DummyObjectProvider;
 
-import java.util.Optional;
-import java.util.UUID;
-
-public interface Town extends Claim {
+public class CreateModeTypes {
 
     /**
-     * Gets the {@link ClaimType}.
-     * 
-     * @return The claim type
+     * Represents an undefined {@link CreateModeType}.
      */
-    default ClaimType getType() {
-        return ClaimTypes.TOWN;
-    }
+    public static final CreateModeType UNDEFINED = DummyObjectProvider.createFor(CreateModeType.class, "undefined");
 
     /**
-     * Gets the town tag.
-     * 
-     * @return The town tag
+     * Represents an area cuboid {@link CreateModeType}.
      */
-    default Optional<Component> getTownTag() {
-        return this.getData().getTownTag();
-    }
+    public static final CreateModeType AREA = DummyObjectProvider.createFor(CreateModeType.class, "area");
 
     /**
-     * Gets the {@link UUID}'s accrued claim blocks.
-     * 
-     * @return The uuid's accrued claim blocks
+     * Represents a volume cuboid {@link CreateModeType}.
      */
-    default int getAccruedClaimBlocks(UUID uuid) {
-        final Integer accrued = this.getData().getAccruedClaimBlocks().get(uuid);
-        if (accrued == null) {
-            return 0;
-        }
-
-        return accrued;
-    }
-
-    /**
-     * Gets the {@link UUID}'s bonus claim blocks.
-     * 
-     * @return The uuid's bonus claim blocks
-     */
-    default int getBonusClaimBlocks(UUID uuid) {
-        final Integer bonus = this.getData().getBonusClaimBlocks().get(uuid);
-        if (bonus == null) {
-            return 0;
-        }
-
-        return bonus;
-    }
-
-    TownData getData();
+    public static final CreateModeType VOLUME = DummyObjectProvider.createFor(CreateModeType.class, "volume");
 }

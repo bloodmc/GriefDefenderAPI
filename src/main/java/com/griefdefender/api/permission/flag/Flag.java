@@ -25,7 +25,9 @@
 package com.griefdefender.api.permission.flag;
 
 import com.griefdefender.api.CatalogType;
+import com.griefdefender.api.GriefDefender;
 import com.griefdefender.api.claim.ClaimType;
+
 import net.kyori.text.Component;
 
 public interface Flag extends CatalogType {
@@ -52,4 +54,62 @@ public interface Flag extends CatalogType {
      * @return The description
      */
     Component getDescription();
+
+    /**
+     * Gets a new claim builder instance for {@link Builder}.
+     * 
+     * @return A new claim builder instance
+     */
+    public static Flag.Builder builder() {
+        return GriefDefender.getRegistry().createBuilder(Flag.Builder.class);
+    }
+
+    public interface Builder {
+
+        /**
+         * The plugin id. 
+         * 
+         * @param id The plugin id
+         * @return The builder
+         */
+        Builder id(String pluginId);
+
+        /**
+         * The flag name.
+         * 
+         * @param flagName The flag name
+         * @return The builder
+         */
+        Builder name(String flagName);
+
+        /**
+         * The flag description.
+         * 
+         * @param description The flag description
+         * @return The builder
+         */
+        Builder description(Component description);
+
+        /**
+         * The flag permission
+         * 
+         * @param permission The flag permission
+         * @return The builder
+         */
+        Builder permission(String permission);
+
+        /**
+         * Resets the builder to default settings.
+         * 
+         * @return The builder
+         */
+        Builder reset();
+
+        /**
+         * Returns the {@link Flag}.
+         * 
+         * @return The flag
+         */
+        Flag build();
+    }
 }

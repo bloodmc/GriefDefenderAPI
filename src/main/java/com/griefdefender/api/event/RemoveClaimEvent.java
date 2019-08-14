@@ -24,40 +24,33 @@
  */
 package com.griefdefender.api.event;
 
-import com.griefdefender.api.Tristate;
-import com.griefdefender.api.permission.Context;
-import com.griefdefender.api.permission.flag.Flag;
-
-public interface FlagClaimEvent extends ClaimEvent {
+public interface RemoveClaimEvent extends ClaimEvent {
 
     /**
-     * Gets the {@link Subject}.
+     * Whether this claim will restore on removal.
      * 
-     * @return The subject
+     * @return Whether this claim will restore on removal.
      */
-    String getSubjectId();
-
-    interface ClearAll extends FlagClaimEvent {
-        
-    }
-
-    interface Clear extends FlagClaimEvent {
-        java.util.Set<Context> getContexts();
-    }
+    boolean isRestoring();
 
     /**
-     * Sets 
-     * @author bloodshot
-     *
+     * Whether this claim should restore back to original state on removal.<br>
+     * Note: This setting will be ignored if auto-restore functionality is disabled.<br>
+     * 
+     * If nature restore is enabled, this will restore claim back to world gen state.<br>
+     * If schematic restore is enabled, this will restore claim back to claim creation {@link ClaimSchematic}.
+     * 
+     * @param shouldRestore Whether this claim should restore back to original state
      */
-    interface Set extends FlagClaimEvent {
+    void shouldRestore(boolean restore);
 
-        Flag getFlag();
+    /**
+     * Fired when a claim is abandoned.
+     */
+    interface Abandon extends RemoveClaimEvent {};
 
-        String getTarget();
-
-        Tristate getValue();
-
-        java.util.Set<Context> getContexts();
-    }
+    /**
+     * Fired when a claim is deleted.
+     */
+    interface Delete extends RemoveClaimEvent {};
 }

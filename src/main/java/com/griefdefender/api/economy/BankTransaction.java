@@ -69,7 +69,7 @@ public interface BankTransaction {
      * @return A new claim builder instance
      */
     public static BankTransaction.Builder builder() {
-        return GriefDefender.getRegistry().createBankTransactionBuilder();
+        return GriefDefender.getRegistry().createBuilder(BankTransaction.Builder.class);
     }
 
     public interface Builder {

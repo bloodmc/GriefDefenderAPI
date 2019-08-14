@@ -33,6 +33,7 @@ public class ResultTypes {
     public static final ResultType TARGET_NOT_VALID = DummyObjectProvider.createFor(ResultType.class, "TARGET_NOT_VALID");
     public static final ResultType CONTEXT_NOT_VALID = DummyObjectProvider.createFor(ResultType.class, "CONTEXT_NOT_VALID");
     public static final ResultType EVENT_CANCELLED = DummyObjectProvider.createFor(ResultType.class, "EVENT_CANCELLED");
+    public static final ResultType FAILURE = DummyObjectProvider.createFor(ResultType.class, "FAILURE");
     public static final ResultType NO_PERMISSION = DummyObjectProvider.createFor(ResultType.class, "NO PERMISSION");
     public static final ResultType SUBJECT_DOES_NOT_EXIST = DummyObjectProvider.createFor(ResultType.class, "SUBJECT_DOES_NOT_EXIST");
     public static final ResultType SUCCESS = DummyObjectProvider.createFor(ResultType.class, "SUCCESS");

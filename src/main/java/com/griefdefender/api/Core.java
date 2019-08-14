@@ -34,6 +34,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+
 public interface Core {
 
     /**
@@ -90,4 +92,38 @@ public interface Core {
      * @return The claim manager of world
      */
     ClaimManager getClaimManager(UUID worldUniqueId);
+
+    /**
+     * Gets the default {@link Subject}.
+     * 
+     * Note: This subject is used to apply permissions to 
+     * all users.
+     * 
+     * @return The default subject
+     */
+    Subject getDefaultSubject();
+
+    /**
+     * Gets the {@link Subject} with identifier.
+     * 
+     * @param identifier
+     * @return The subject
+     */
+    Subject getSubject(String identifier);
+
+    /**
+     * Gets the {@link User} with {@link UUID}.
+     * 
+     * @param uuid The uuid
+     * @return The user, if available
+     */
+    @Nullable User getUser(UUID uuid);
+
+    /**
+     * Gets the {@link Group} with identifier.
+     * 
+     * @param identifier
+     * @return The subject
+     */
+    Group getGroup(String name);
 }

@@ -52,7 +52,7 @@ public interface ClaimEvent extends Event {
     }
 
     /**
-     * Sets the claim message to be presented to {@link CommandSource}
+     * Sets the claim message to be presented to {@link Subject}
      * if applicable.
      * 
      * @param message The message

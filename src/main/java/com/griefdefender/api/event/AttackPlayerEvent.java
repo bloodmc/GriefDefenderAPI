@@ -26,14 +26,14 @@ package com.griefdefender.api.event;
 
 import net.kyori.event.Cancellable;
 
-import java.util.UUID;
+import com.griefdefender.api.User;
 
 public interface AttackPlayerEvent extends ClaimEvent, Cancellable  {
 
     /**
-     * Gets the target player {@link UUID}.
+     * Gets the target {@link User}
      *
-     * @return The target player uuid
+     * @return The target user
      */
-    UUID getPlayerId();
+    User getUser();
 }

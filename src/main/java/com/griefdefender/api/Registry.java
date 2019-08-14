@@ -24,36 +24,77 @@
  */
 package com.griefdefender.api;
 
+import com.google.common.base.Supplier;
 import com.griefdefender.api.claim.Claim;
-import com.griefdefender.api.claim.ClaimSchematic;
-import com.griefdefender.api.economy.BankTransaction;
 import com.griefdefender.api.registry.CatalogRegistryModule;
 
+import java.util.Collection;
 import java.util.Optional;
 
 public interface Registry {
 
     /**
-     * Creates a claim builder.
-     * 
-     * @return The claim builder
+     * Registers a {@link Supplier} for creating the desired {@link ResettableBuilder}.
+     *
+     * @param builderClass The builder class
+     * @param supplier The supplier
+     * @param <T> The type of builder/supplier
+     * @return This registry, for chaining
      */
-    Claim.Builder createClaimBuilder();
+    <T> Registry registerBuilderSupplier(Class<T> builderClass, Supplier<? extends T> supplier);
 
     /**
-     * Creates a claim schematic builder.
-     * 
-     * @return The claim schematic builder
+     * Gets a builder of the desired class type, examples may include:
+     * {@link Claim.Builder}, etc.
+     *
+     * @param builderClass The class of the builder
+     * @param <T> The type of builder
+     * @return The builder, if available
+     * @throws IllegalArgumentException If there is no supplier for the given
+     *      builder class
      */
-    ClaimSchematic.Builder createClaimSchematicBuilder();
+    <T> T createBuilder(Class<T> builderClass) throws IllegalArgumentException;
 
     /**
-     * Creates a bank transaction builder.
-     * 
-     * @return The bank transaction builder
+     * Attempts to retrieve the specific type of {@link CatalogType} based on
+     * the string id given.
+     *
+     * <p>Some types may not be available for various reasons including but not
+     * restricted to: mods adding custom types, plugins providing custom types,
+     * game version changes.</p>
+     *
+     * @param typeClass The class of the type of {@link CatalogType}
+     * @param id The case insensitive string id of the dummy type
+     * @param <T> The type of dummy type
+     * @return The found dummy type, if available
+     * @see CatalogType
      */
-    BankTransaction.Builder createBankTransactionBuilder();
+    <T extends CatalogType> Optional<T> getType(Class<T> typeClass, String id);
 
+    /**
+     * Gets a collection of all available found specific types of
+     * {@link CatalogType} requested.
+     *
+     * <p>The presented {@link CatalogType}s may not exist in default catalogs
+     * due to various reasons including but not restricted to: mods, plugins,
+     * game changes.</p>
+     *
+     * @param typeClass The class of {@link CatalogType}
+     * @param <T> The type of {@link CatalogType}
+     * @return A collection of all known types of the requested catalog type
+     */
+    <T extends CatalogType> Collection<T> getAllOf(Class<T> typeClass);
+
+    /**
+     * Gets a collection of all available found specific types of
+     * {@link CatalogType} requested.
+     *
+     * @param pluginId The plugin id to check for types
+     * @param typeClass The class of {@link CatalogType}
+     * @param <T> The type of {@link CatalogType}
+     * @return A collection of all known types of the requested catalog type
+     */
+    <T extends CatalogType> Collection<T> getAllFor(String pluginId, Class<T> typeClass);
 
     /**
      * Gets the {@link CatalogRegistryModule} for supplied 

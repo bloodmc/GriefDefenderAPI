@@ -22,25 +22,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.griefdefender.api.data;
+package com.griefdefender.api.permission.option.type;
 
-import net.kyori.text.Component;
+import com.griefdefender.api.CatalogType;
 
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
+public interface WeatherType extends CatalogType {
 
-public interface TownData extends ClaimData {
-
-    Optional<Component> getTownTag();
-
-    void setTownTag(Component text);
-
-    Map<UUID, Integer> getAccruedClaimBlocks();
-
-    Map<UUID, Integer> getBonusClaimBlocks();
-
-    Map<UUID, String> getResidentPastDueTaxTimestamps();
-
-    Map<UUID, Double> getResidentTaxBalances();
 }

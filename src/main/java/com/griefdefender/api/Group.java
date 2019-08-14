@@ -22,61 +22,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.griefdefender.api.claim;
+package com.griefdefender.api;
 
-import com.griefdefender.api.data.TownData;
-import net.kyori.text.Component;
-
-import java.util.Optional;
-import java.util.UUID;
-
-public interface Town extends Claim {
+public interface Group extends Subject {
 
     /**
-     * Gets the {@link ClaimType}.
-     * 
-     * @return The claim type
+     * Gets the name of {@link Group}.
      */
-    default ClaimType getType() {
-        return ClaimTypes.TOWN;
-    }
-
-    /**
-     * Gets the town tag.
-     * 
-     * @return The town tag
-     */
-    default Optional<Component> getTownTag() {
-        return this.getData().getTownTag();
-    }
-
-    /**
-     * Gets the {@link UUID}'s accrued claim blocks.
-     * 
-     * @return The uuid's accrued claim blocks
-     */
-    default int getAccruedClaimBlocks(UUID uuid) {
-        final Integer accrued = this.getData().getAccruedClaimBlocks().get(uuid);
-        if (accrued == null) {
-            return 0;
-        }
-
-        return accrued;
-    }
-
-    /**
-     * Gets the {@link UUID}'s bonus claim blocks.
-     * 
-     * @return The uuid's bonus claim blocks
-     */
-    default int getBonusClaimBlocks(UUID uuid) {
-        final Integer bonus = this.getData().getBonusClaimBlocks().get(uuid);
-        if (bonus == null) {
-            return 0;
-        }
-
-        return bonus;
-    }
-
-    TownData getData();
+    String getName();
 }

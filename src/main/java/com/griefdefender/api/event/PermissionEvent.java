@@ -22,61 +22,47 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.griefdefender.api.claim;
-
-import com.griefdefender.api.data.TownData;
-import net.kyori.text.Component;
+package com.griefdefender.api.event;
 
 import java.util.Optional;
-import java.util.UUID;
+import java.util.Set;
 
-public interface Town extends Claim {
+import com.griefdefender.api.Subject;
+import com.griefdefender.api.permission.Context;
 
-    /**
-     * Gets the {@link ClaimType}.
-     * 
-     * @return The claim type
-     */
-    default ClaimType getType() {
-        return ClaimTypes.TOWN;
-    }
+import net.kyori.event.Cancellable;
+import net.kyori.text.Component;
+
+public interface PermissionEvent extends Cancellable, Event {
 
     /**
-     * Gets the town tag.
+     * Gets the {@link Subject}
      * 
-     * @return The town tag
+     * @return The subject
      */
-    default Optional<Component> getTownTag() {
-        return this.getData().getTownTag();
-    }
+    Subject getSubject();
 
     /**
-     * Gets the {@link UUID}'s accrued claim blocks.
+     * Gets the {@link Context}'s associated with event.
      * 
-     * @return The uuid's accrued claim blocks
+     * @return The context set or empty set
      */
-    default int getAccruedClaimBlocks(UUID uuid) {
-        final Integer accrued = this.getData().getAccruedClaimBlocks().get(uuid);
-        if (accrued == null) {
-            return 0;
-        }
-
-        return accrued;
-    }
+    Set<Context> getContexts();
 
     /**
-     * Gets the {@link UUID}'s bonus claim blocks.
+     * Sets the claim message to be presented to {@link Subject}
+     * if applicable.
      * 
-     * @return The uuid's bonus claim blocks
+     * @param message The message
      */
-    default int getBonusClaimBlocks(UUID uuid) {
-        final Integer bonus = this.getData().getBonusClaimBlocks().get(uuid);
-        if (bonus == null) {
-            return 0;
-        }
+    void setMessage(Component message);
 
-        return bonus;
-    }
-
-    TownData getData();
+    /**
+     * Gets the claim message.
+     * 
+     * Note: This is only available if event was cancelled.
+     * 
+     * @return The claim message, if available
+     */
+    Optional<Component> getMessage();
 }
