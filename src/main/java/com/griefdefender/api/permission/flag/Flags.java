@@ -46,6 +46,13 @@ public final class Flags {
      */
     public static final Flag BLOCK_PLACE = DummyObjectProvider.createFor(Flag.class, "block-place");
     /**
+     * Used to allow or deny a block from spreading to another block.
+     * 
+     * Note: This does not include fluids flowing to other blocks.
+     * Use {@link #LIQUID_FLOW} instead.
+     */
+    public static final Flag BLOCK_SPREAD = DummyObjectProvider.createFor(Flag.class, "block-spread");
+    /**
      * Used to allow or deny a collision with a block.
      */
     public static final Flag COLLIDE_BLOCK = DummyObjectProvider.createFor(Flag.class, "collide-block");
@@ -104,10 +111,6 @@ public final class Flags {
      */
     public static final Flag EXPLOSION_ENTITY = DummyObjectProvider.createFor(Flag.class, "explosion-entity");
     /**
-     * Used to allow or deny fire spreading.
-     */
-    public static final Flag FIRE_SPREAD = DummyObjectProvider.createFor(Flag.class, "fire-spread");
-    /**
      * Used to allow or deny a player from left-clicking a block.
      */
     public static final Flag INTERACT_BLOCK_PRIMARY = DummyObjectProvider.createFor(Flag.class, "interact-block-primary");
@@ -118,7 +121,7 @@ public final class Flags {
     /**
      * Used to allow or deny a player from left-clicking an entity.
      */
-    public static final Flag  INTERACT_ENTITY_PRIMARY = DummyObjectProvider.createFor(Flag.class, "interact-entity-primary");
+    public static final Flag INTERACT_ENTITY_PRIMARY = DummyObjectProvider.createFor(Flag.class, "interact-entity-primary");
     /**
      * Used to allow or deny a player from right-clicking an entity.
      */
