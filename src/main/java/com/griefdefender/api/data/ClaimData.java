@@ -119,6 +119,18 @@ public interface ClaimData {
      */
     Instant getDateLastActive();
 
+    /**
+     * Gets PvP override for claim.
+     * 
+     * Possible values are :
+     * <ul>
+     *     <li>{@link Tristate#UNDEFINED} uses server setting</li>
+     *     <li>{@link Tristate#TRUE} will force PvP in claim</li>
+     *     <li>{@link Tristate#FALSE} will force disable PvP in claim</li>
+     * </ul>
+     * 
+     * @return
+     */
     Tristate getPvpOverride();
 
     /**
@@ -254,6 +266,11 @@ public interface ClaimData {
      */
     void setFlagOverrides(boolean allowOverrides);
 
+    /**
+     * Sets the parent {@link UUID}.
+     * 
+     * @param uniqueId The parent uuid
+     */
     void setParent(UUID uniqueId);
 
     /**
@@ -266,7 +283,7 @@ public interface ClaimData {
      *     <li>{@link Tristate#FALSE} will force disable PvP in claim</li>
      * </ul>
      * 
-     * @param value The new 
+     * @param value The new value
      */
     void setPvpOverride(Tristate value);
 

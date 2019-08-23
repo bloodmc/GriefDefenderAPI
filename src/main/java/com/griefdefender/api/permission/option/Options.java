@@ -170,6 +170,16 @@ public final class Options {
     public static final Option<Integer> RADIUS_INSPECT = DummyObjectProvider.createFor(Option.class, "radius-inspect");
 
     /**
+     * Used to determine if a raid can occur in a {@link Claim}.
+     */
+    public static final Option<Boolean> RAID = DummyObjectProvider.createFor(Option.class, "raid");
+
+    /**
+     * The spawn limit for a specific set of {@link Context}'s in a claim.
+     */
+    public static final Option<Integer> SPAWN_LIMIT = DummyObjectProvider.createFor(Option.class, "spawn-limit");
+
+    /**
      * Used for executing a command with specific {@link Context}'s.<br>
      * Accepts the following placeholders :
      * <ul>
