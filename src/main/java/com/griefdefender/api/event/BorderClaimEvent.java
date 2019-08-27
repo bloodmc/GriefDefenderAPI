@@ -33,6 +33,7 @@ import net.kyori.event.Cancellable;
 import net.kyori.text.Component;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import org.checkerframework.checker.nullness.qual.Nullable;
 
@@ -55,11 +56,19 @@ public interface BorderClaimEvent extends ClaimEvent, Cancellable  {
     }
 
     /**
+     * Gets the target {@link UUID} of entity
+     * that entered {@link Claim}.
+     *
+     * @return The target uuid of entity
+     */
+    UUID getEntityUniqueId();
+
+    /**
      * Gets the target {@link User}
      *
-     * @return The target user
+     * @return The target user if available
      */
-    User getUser();
+    Optional<User> getUser();
 
     /**
      * Gets the event enter message if available.
