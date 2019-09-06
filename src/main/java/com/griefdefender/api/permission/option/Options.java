@@ -267,6 +267,11 @@ public final class Options {
     public static final Option<Tristate> PLAYER_KEEP_LEVEL = DummyObjectProvider.createFor(Option.class, "player-keep-level");
 
     /**
+     * Used to determine the delay before teleporting a player to a new location.
+     */
+    public static final Option<Integer> PLAYER_TELEPORT_DELAY = DummyObjectProvider.createFor(Option.class, "player-teleport-delay");
+
+    /**
      * Used to set a player's walk speed in a {@link Claim}.<br>
      * 
      * Note: (-1 = undefined)
@@ -284,4 +289,9 @@ public final class Options {
      * </ul>
      */
     public static final Option<WeatherType> PLAYER_WEATHER = DummyObjectProvider.createFor(Option.class, "player-weather");
+
+    /**
+     * Used to determine if a player can participate in player versus player combat.
+     */
+    public static final Option<Tristate> PVP = DummyObjectProvider.createFor(Option.class, "pvp");
 }
