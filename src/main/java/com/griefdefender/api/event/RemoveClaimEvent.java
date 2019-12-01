@@ -24,7 +24,9 @@
  */
 package com.griefdefender.api.event;
 
-public interface RemoveClaimEvent extends ClaimEvent {
+import net.kyori.event.Cancellable;
+
+public interface RemoveClaimEvent extends ClaimEvent, Cancellable {
 
     /**
      * Whether this claim will restore on removal.
