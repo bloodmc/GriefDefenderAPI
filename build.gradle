@@ -6,12 +6,12 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.github.jengelman.gradle.plugins:shadow:5.0.0'
+        classpath 'com.github.jengelman.gradle.plugins:shadow:5.1.0'
     }
 }
 
 plugins {
-    id 'com.github.johnrengelman.shadow' version '5.0.0'
+    id 'com.github.johnrengelman.shadow' version '5.1.0'
     id 'java'
     id 'maven'
 }
@@ -63,6 +63,15 @@ jar {
     manifest.attributes('Implementation-Version': "$version")
     manifest.attributes('Git-Hash': project.ext.getGitHash())
     classifier = ''
+}
+
+shadowJar {
+    dependencies {
+        include dependency("com.flowpowered:flow-math:1.0.3")
+        include dependency("net.kyori:event-api:3.0.0")
+        include dependency("net.kyori:event-method-asm:3.0.0")
+        include dependency("net.kyori:text-api:3.0.2")
+    }
 }
 
 if (JavaVersion.current().isJava8Compatible()) {
