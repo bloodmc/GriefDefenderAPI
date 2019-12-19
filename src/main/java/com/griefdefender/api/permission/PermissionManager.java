@@ -32,6 +32,7 @@ import com.griefdefender.api.claim.Claim;
 import com.griefdefender.api.claim.ClaimContexts;
 import com.griefdefender.api.claim.TrustType;
 import com.griefdefender.api.permission.flag.Flag;
+import com.griefdefender.api.permission.flag.FlagDefinition;
 import com.griefdefender.api.permission.option.Option;
 
 import java.util.HashSet;
@@ -182,6 +183,27 @@ public interface PermissionManager {
      * @return The result of set
      */
     CompletableFuture<PermissionResult> setFlagPermission(Flag flag, Subject subject, Tristate value, Set<Context> contexts);
+
+    /**
+     * Sets {@link FlagDefinition} on default {@link Subject}.
+     *
+     * @param definition The flag definition
+     * @param value The new value
+     * @return Whether the operation was successful
+     */
+    default CompletableFuture<PermissionResult> setFlagDefinition(FlagDefinition definition, Tristate value) {
+        return this.setFlagDefinition(GriefDefender.getCore().getDefaultSubject(), definition, value);
+    }
+
+    /**
+     * Set {@link FlagDefinition} on {@link Subject}.
+     *
+     * @param subject The subject
+     * @param definition The flag definition
+     * @param value The new value
+     * @return Whether the operation was successful
+     */
+    CompletableFuture<PermissionResult> setFlagDefinition(Subject subject, FlagDefinition definition, Tristate value);
 
     /**
     * Gets the active {@link Option} value with {@link Context}'s.
