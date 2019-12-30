@@ -26,6 +26,9 @@ package com.griefdefender.api.event;
 
 import java.util.UUID;
 
+/**
+ * An event that is fired after a {@link Claim} has been transferred to a new owner.
+ */
 public interface TransferClaimEvent extends ClaimEvent {
 
     UUID getOriginalOwner();

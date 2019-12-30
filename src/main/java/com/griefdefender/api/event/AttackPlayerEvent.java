@@ -28,6 +28,9 @@ import net.kyori.event.Cancellable;
 
 import com.griefdefender.api.User;
 
+/**
+ * An event is fired when a {@link User} is attacked in a {@link Claim}.
+ */
 public interface AttackPlayerEvent extends ClaimEvent, Cancellable  {
 
     /**

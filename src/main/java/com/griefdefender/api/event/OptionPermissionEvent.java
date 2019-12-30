@@ -24,8 +24,12 @@
  */
 package com.griefdefender.api.event;
 
+import com.griefdefender.api.claim.Claim;
 import com.griefdefender.api.permission.option.Option;
 
+/**
+ * Base event when a {@link Option} is changed in a {@link Claim}.
+ */
 public interface OptionPermissionEvent extends PermissionEvent {
 
     interface ClearAll extends OptionPermissionEvent { }

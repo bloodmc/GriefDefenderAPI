@@ -24,6 +24,8 @@
  */
 package com.griefdefender.api.permission;
 
+import com.griefdefender.api.permission.option.Options;
+
 public class ContextKeys {
 
     /**
@@ -76,6 +78,22 @@ public class ContextKeys {
      * pair it with a {@link Flag}.
      */
     public static final String FLAG = "gd_flag";
+
+    /**
+     * Represents a command {@link Option} context key.
+     * 
+     * Used by options {@link Options#PLAYER_COMMAND_ENTER}
+     * and {@link Options#PLAYER_COMMAND_EXIT}.
+     */
+    public static final String RUN_AS = "run_as";
+
+    /**
+     * Represents a command {@link Option} context key.
+     * 
+     * Used by options {@link Options#PLAYER_COMMAND_ENTER}
+     * and {@link Options#PLAYER_COMMAND_EXIT}.
+     */
+    public static final String RUN_FOR = "run_for";
 
     /**
      * Represents a {@link Flag} source context key.

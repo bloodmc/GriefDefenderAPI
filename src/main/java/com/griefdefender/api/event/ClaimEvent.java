@@ -30,6 +30,9 @@ import net.kyori.text.Component;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Base event when one or more {@link Claim}s are affected.
+ */
 public interface ClaimEvent extends Event {
 
     /**

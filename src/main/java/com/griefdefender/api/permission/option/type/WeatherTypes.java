@@ -34,9 +34,9 @@ public class WeatherTypes {
     public static final WeatherType CLEAR = DummyObjectProvider.createFor(WeatherType.class, "clear");
 
     /**
-     * Represents a rain {@link WeatherType}.
+     * Represents a downfall {@link WeatherType}.
      */
-    public static final WeatherType RAIN = DummyObjectProvider.createFor(WeatherType.class, "rain");
+    public static final WeatherType DOWNFALL = DummyObjectProvider.createFor(WeatherType.class, "downfall");
 
     /**
      * Represents undefined {@link WeatherType}.

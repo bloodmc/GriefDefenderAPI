@@ -27,6 +27,11 @@ package com.griefdefender.api.event;
 import java.util.List;
 import java.util.UUID;
 
+import com.griefdefender.api.claim.Claim;
+
+/**
+ * An event that is fired when a {@link User}'s trust changes in a {@link Claim}.
+ */
 public interface UserTrustClaimEvent extends TrustClaimEvent {
 
     /**

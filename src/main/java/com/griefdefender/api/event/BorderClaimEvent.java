@@ -37,6 +37,9 @@ import java.util.UUID;
 
 import org.checkerframework.checker.nullness.qual.Nullable;
 
+/**
+ * An event that is fired when a {@link User} or entity crosses a {@link Claim} border.
+ */
 public interface BorderClaimEvent extends ClaimEvent, Cancellable  {
 
     /**

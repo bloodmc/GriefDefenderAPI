@@ -26,6 +26,11 @@ package com.griefdefender.api.event;
 
 import java.util.List;
 
+import com.griefdefender.api.claim.Claim;
+
+/**
+ * An event that is fired when a {@link Group}'s trust changes in a {@link Claim}.
+ */
 public interface GroupTrustClaimEvent extends TrustClaimEvent {
 
     /**

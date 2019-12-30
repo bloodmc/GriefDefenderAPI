@@ -25,8 +25,12 @@
 package com.griefdefender.api.event;
 
 import com.griefdefender.api.Tristate;
+import com.griefdefender.api.claim.Claim;
 import com.griefdefender.api.permission.flag.Flag;
 
+/**
+ * Base event when a {@link Flag} is changed in a {@link Claim}.
+ */
 public interface FlagPermissionEvent extends PermissionEvent {
 
     interface ClearAll extends FlagPermissionEvent { }

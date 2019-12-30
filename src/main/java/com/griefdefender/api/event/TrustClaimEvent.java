@@ -24,9 +24,13 @@
  */
 package com.griefdefender.api.event;
 
+import com.griefdefender.api.claim.Claim;
 import com.griefdefender.api.claim.TrustType;
 import net.kyori.event.Cancellable;
 
+/**
+ * Base event that is fired when a {@link User}'s or {@link Group}'s trust changes in a {@link Claim}.
+ */
 public interface TrustClaimEvent extends ClaimEvent, Cancellable {
 
     /**

@@ -34,6 +34,8 @@ import com.griefdefender.api.permission.option.type.WeatherType;
 import com.griefdefender.api.permission.option.type.WeatherTypes;
 import com.griefdefender.api.util.generator.DummyObjectProvider;
 
+import java.util.List;
+
 @SuppressWarnings("unchecked")
 public final class Options {
 
@@ -91,7 +93,7 @@ public final class Options {
     public static final Option<Integer> MIN_SIZE_Z = DummyObjectProvider.createFor(Option.class, "min-size-z");
 
     /**
-     * Number of days after not paying taxes before an automatic chest claim will be frozen.
+     * Number of days after not paying taxes before a claim will be frozen.
      */
     public static final Option<Integer> TAX_EXPIRATION = DummyObjectProvider.createFor(Option.class, "tax-expiration");
 
@@ -160,11 +162,6 @@ public final class Options {
     public static final Option<Integer> MIN_LEVEL = DummyObjectProvider.createFor(Option.class, "min-level");
 
     /**
-     * The radius in blocks used to list nearby claims.
-     */
-    public static final Option<Integer> RADIUS_LIST = DummyObjectProvider.createFor(Option.class, "radius-list");
-
-    /**
      * The radius in blocks used to search for nearby claims while inspecting.
      */
     public static final Option<Integer> RADIUS_INSPECT = DummyObjectProvider.createFor(Option.class, "radius-inspect");
@@ -175,12 +172,14 @@ public final class Options {
     public static final Option<Boolean> RAID = DummyObjectProvider.createFor(Option.class, "raid");
 
     /**
-     * The spawn limit for a specific set of {@link Context}'s in a claim.
+     * Used to determine the spawn limit for a specific set of {@link Context}'s in a claim.
+     * 
+     * Note: Supports multiple values.
      */
     public static final Option<Integer> SPAWN_LIMIT = DummyObjectProvider.createFor(Option.class, "spawn-limit");
 
     /**
-     * Used for executing a command with specific {@link Context}'s.<br>
+     * Used for executing a command on {@link Claim} enter with specific {@link Context}'s.<br>
      * Accepts the following placeholders :
      * <ul>
      * <li>%player%
@@ -191,7 +190,21 @@ public final class Options {
      * <li>%location%
      * </ul>
      */
-    public static final Option<String> PLAYER_COMMAND = DummyObjectProvider.createFor(Option.class, "player-command");
+    public static final Option<List<String>> PLAYER_COMMAND_ENTER = DummyObjectProvider.createFor(Option.class, "player-command-enter");
+
+    /**
+     * Used for executing a command on {@link Claim} exit with specific {@link Context}'s.<br>
+     * Accepts the following placeholders :
+     * <ul>
+     * <li>%player%
+     * <li>%owner%
+     * <li>%uuid%
+     * <li>%world%
+     * <li>%server%
+     * <li>%location%
+     * </ul>
+     */
+    public static final Option<List<String>> PLAYER_COMMAND_EXIT = DummyObjectProvider.createFor(Option.class, "player-command-exit");
 
     /**
      * Used to determine if a player is unable to fly in a {@link Claim}.<br>
@@ -274,24 +287,38 @@ public final class Options {
     /**
      * Used to set a player's walk speed in a {@link Claim}.<br>
      * 
-     * Note: (-1 = undefined)
+     * Note: (-1.0 = undefined)
      */
-    public static final Option<Integer> PLAYER_WALK_SPEED = DummyObjectProvider.createFor(Option.class, "player-walk-speed");
+    public static final Option<Double> PLAYER_WALK_SPEED = DummyObjectProvider.createFor(Option.class, "player-walk-speed");
 
     /**
-     * Used to a player's weather in a {@link Claim}.<br>
-     * Default supported types are :
+     * Used to set a player's weather in a {@link Claim}.<br>
      * Accepts the following values :
      * <ul>
      * <li>{@link WeatherTypes#CLEAR}
-     * <li>{@link WeatherTypes#RAIN}
+     * <li>{@link WeatherTypes#DOWNFALL}
      * <li>{@link WeatherTypes#UNDEFINED}
      * </ul>
      */
     public static final Option<WeatherType> PLAYER_WEATHER = DummyObjectProvider.createFor(Option.class, "player-weather");
 
     /**
-     * Used to determine if a player can participate in player versus player combat.
+     * Used to determine if players can combat each other.
      */
     public static final Option<Tristate> PVP = DummyObjectProvider.createFor(Option.class, "pvp");
+
+    /**
+     * Used to determine if a player can use commands during PvP combat.
+     */
+    public static final Option<Boolean> PVP_COMBAT_COMMAND = DummyObjectProvider.createFor(Option.class, "pvp-combat-command");
+
+    /**
+     * Used to determine if a player can teleport during PvP combat.
+     */
+    public static final Option<Boolean> PVP_COMBAT_TELEPORT = DummyObjectProvider.createFor(Option.class, "pvp-combat-teleport");
+
+    /**
+     * Used to determine how many seconds PvP combat is considered to continue after the most recent damage.
+     */
+    public static final Option<Integer> PVP_COMBAT_TIMEOUT = DummyObjectProvider.createFor(Option.class, "pvp-combat-timeout");
 }

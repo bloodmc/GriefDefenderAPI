@@ -26,8 +26,9 @@ package com.griefdefender.api.permission.option;
 
 import com.griefdefender.api.CatalogType;
 import com.griefdefender.api.GriefDefender;
-
 import net.kyori.text.Component;
+
+import java.util.Set;
 
 public interface Option<T> extends CatalogType {
 
@@ -39,6 +40,22 @@ public interface Option<T> extends CatalogType {
      *         <code>false</code> otherwise.
      */
     boolean isGlobal();
+
+    /**
+     * Whether this option can support multiple values.
+     * 
+     * @return <code>true</code> if the option supports
+     *          multiple values. 
+     *         <code>false</code> otherwise.
+     */
+    boolean multiValued();
+
+    /**
+     * A set of required context keys that must be set.
+     * 
+     * @return An immutable set of required context keys
+     */
+    Set<String> getRequiredContextKeys();
 
     /**
      * Gets the option permission.
@@ -93,12 +110,36 @@ public interface Option<T> extends CatalogType {
         Builder<T> id(String pluginId);
 
         /**
-         * The flag name.
+         * The option name.
          * 
-         * @param flagName The flag name
+         * @param name The option name
          * @return The builder
          */
         Builder<T> name(String name);
+
+        /**
+         * The option description.
+         * 
+         * @param description The option description
+         * @return The builder
+         */
+        Builder<T> description(Component description);
+
+        /**
+         * Whether the option supports multiple values.
+         * 
+         * @param multi True if multi, false otherwise 
+         * @return The builder
+         */
+        Builder<T> multiValued(boolean multi);
+
+        /**
+         * The required context keys.
+         * 
+         * @param keys The context keys
+         * @return The builder
+         */
+        Builder<T> requiredContextKeys(Set<String> keys);
 
         /**
          * Resets the builder to default settings.

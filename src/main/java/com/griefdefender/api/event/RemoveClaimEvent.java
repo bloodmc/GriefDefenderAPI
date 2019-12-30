@@ -26,6 +26,9 @@ package com.griefdefender.api.event;
 
 import net.kyori.event.Cancellable;
 
+/**
+ * An event that is fired after a {@link Claim} has been removed.
+ */
 public interface RemoveClaimEvent extends ClaimEvent, Cancellable {
 
     /**
