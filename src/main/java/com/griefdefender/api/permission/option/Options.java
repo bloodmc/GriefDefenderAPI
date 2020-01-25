@@ -147,6 +147,18 @@ public final class Options {
     public static final Option<Integer> INITIAL_BLOCKS = DummyObjectProvider.createFor(Option.class, "initial-blocks");
 
     /**
+     * The total number of claim blocks accrued by a player.
+     * 
+     * Note: This does not account for bonus blocks.
+     */
+    public static final Option<Integer> ACCRUED_BLOCKS = DummyObjectProvider.createFor(Option.class, "accrued-blocks");
+
+    /**
+     * The total number of bonus claim blocks given to a player.
+     */
+    public static final Option<Integer> BONUS_BLOCKS = DummyObjectProvider.createFor(Option.class, "bonus-blocks");
+
+    /**
      * The limit on accrued blocks (over time). doesn't limit purchased or admin-gifted blocks.
      */
     public static final Option<Integer> MAX_ACCRUED_BLOCKS = DummyObjectProvider.createFor(Option.class, "max-accrued-blocks");
