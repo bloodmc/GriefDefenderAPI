@@ -29,6 +29,7 @@ import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.griefdefender.api.CatalogType;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.lang.reflect.InvocationTargetException;
 
 /**
@@ -45,6 +46,7 @@ public final class DummyObjectProvider {
             new CacheLoader<Class<?>, Class<?>>() {
 
                 @Override
+                @ParametersAreNonnullByDefault
                 public Class<?> load(Class<?> type) {
                     return factoryProvider.create(type, UnsupportedOperationException.class);
                 }

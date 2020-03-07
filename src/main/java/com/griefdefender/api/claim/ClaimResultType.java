@@ -25,6 +25,8 @@
 package com.griefdefender.api.claim;
 
 import com.griefdefender.api.data.PlayerData;
+import org.spongepowered.api.entity.living.player.Player;
+import org.spongepowered.api.service.economy.account.Account;
 
 /**
  * Used to provide more information to a plugin when a claim
@@ -99,7 +101,7 @@ public enum ClaimResultType {
 
     /**
      * Returned if a {@link Player} attempts to create a
-     * claim past their {@link PlayerData#getCreateClaimLimit()}.
+     * claim past their {@link PlayerData#getCreateClaimLimit(ClaimType)}.
      */
     EXCEEDS_MAX_CLAIM_LIMIT,
 

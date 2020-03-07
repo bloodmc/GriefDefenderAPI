@@ -24,6 +24,8 @@
  */
 package com.griefdefender.api.event;
 
+import com.griefdefender.api.claim.Claim;
+
 /**
  * An event that is fired after a {@link Claim}'s data has been saved.
  */
@@ -32,10 +34,10 @@ public interface SaveClaimEvent extends ClaimEvent {
     /**
      * Fired before the claim is created.
      */
-    interface Pre extends SaveClaimEvent {};
+    interface Pre extends SaveClaimEvent {}
 
     /**
      * Fired after the claim is created.
      */
-    interface Post extends SaveClaimEvent {};
+    interface Post extends SaveClaimEvent {}
 }

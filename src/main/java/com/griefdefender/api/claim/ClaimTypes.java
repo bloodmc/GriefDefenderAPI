@@ -25,6 +25,7 @@
 package com.griefdefender.api.claim;
 
 import com.griefdefender.api.util.generator.DummyObjectProvider;
+import org.spongepowered.api.world.World;
 
 public final class ClaimTypes {
 

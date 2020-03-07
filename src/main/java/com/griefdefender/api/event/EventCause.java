@@ -392,8 +392,8 @@ public final class EventCause implements Iterable<Object> {
     public String toString() {
         String causeString = "Cause[Stack={";
         StringJoiner joiner = new StringJoiner(", ");
-        for (int i = 0; i < this.cause.length; i++) {
-            joiner.add(this.cause[i].toString());
+        for (Object o : this.cause) {
+            joiner.add(o.toString());
         }
         return causeString + joiner.toString() + "}]";
     }
@@ -479,9 +479,7 @@ public final class EventCause implements Iterable<Object> {
         }
 
         public Builder from(EventCause value) {
-            for (int i = 0; i < value.cause.length; i++) {
-                this.causes.add(value.cause[i]);
-            }
+            this.causes.addAll(Arrays.asList(value.cause));
             return this;
         }
 

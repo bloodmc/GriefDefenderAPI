@@ -119,7 +119,7 @@ public interface BorderClaimEvent extends ClaimEvent, Cancellable  {
      * Note: Setting message to {@code null} will hide the message.
      * If no message is set, the {@link ClaimData#getFarewell()} will be used.
      *
-     * For changing the ChatType see {@link BorderClaimEvent#setExitMessage(Text, ChatType)}
+     * For changing the ChatType see {@link BorderClaimEvent#setExitMessage(Component, ChatType)}
      *
      * @param message The message to set
      */
@@ -135,7 +135,7 @@ public interface BorderClaimEvent extends ClaimEvent, Cancellable  {
      * Note: Setting message to {@code null} will hide the message.
      * If no message is set, the {@link ClaimData#getGreeting()} will be used.
      *
-     * For changing the ChatType see {@link BorderClaimEvent#setEnterMessage(Text, ChatType)}
+     * For changing the ChatType see {@link BorderClaimEvent#setEnterMessage(Component, ChatType)}
      *
      * @param message The message to set
      */

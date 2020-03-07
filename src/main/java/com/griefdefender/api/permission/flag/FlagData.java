@@ -75,11 +75,11 @@ public interface FlagData {
      * 
      * @return A new claim builder instance
      */
-    public static FlagData.Builder builder() {
+    static FlagData.Builder builder() {
         return GriefDefender.getRegistry().createBuilder(FlagData.Builder.class);
     }
 
-    public interface Builder {
+    interface Builder {
 
         /**
          * The {@link Flag} associated with this data.

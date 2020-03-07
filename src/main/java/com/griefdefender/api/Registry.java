@@ -27,6 +27,7 @@ package com.griefdefender.api;
 import com.google.common.base.Supplier;
 import com.griefdefender.api.claim.Claim;
 import com.griefdefender.api.registry.CatalogRegistryModule;
+import org.spongepowered.api.util.ResettableBuilder;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -102,5 +103,5 @@ public interface Registry {
      * 
      * @return The catalog registry module
      */
-    public <T extends CatalogType> Optional<CatalogRegistryModule<T>> getRegistryModuleFor(Class<T> catalogClass);
+    <T extends CatalogType> Optional<CatalogRegistryModule<T>> getRegistryModuleFor(Class<T> catalogClass);
 }

@@ -34,10 +34,10 @@ public interface LoadClaimEvent extends ClaimEvent{
     /**
      * Fired before the claim is created.
      */
-    interface Pre extends LoadClaimEvent {};
+    interface Pre extends LoadClaimEvent {}
 
     /**
      * Fired after the claim is created.
      */
-    interface Post extends LoadClaimEvent {};
+    interface Post extends LoadClaimEvent {}
 }

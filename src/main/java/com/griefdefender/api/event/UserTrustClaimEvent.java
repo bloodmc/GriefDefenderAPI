@@ -27,6 +27,7 @@ package com.griefdefender.api.event;
 import java.util.List;
 import java.util.UUID;
 
+import com.griefdefender.api.User;
 import com.griefdefender.api.claim.Claim;
 
 /**
@@ -44,10 +45,10 @@ public interface UserTrustClaimEvent extends TrustClaimEvent {
     /**
      * Fired when a user is added to claim trust.
      */
-    interface Add extends UserTrustClaimEvent {};
+    interface Add extends UserTrustClaimEvent {}
 
     /**
      * Fired when a user is removed from claim trust.
      */
-    interface Remove extends UserTrustClaimEvent {};
+    interface Remove extends UserTrustClaimEvent {}
 }

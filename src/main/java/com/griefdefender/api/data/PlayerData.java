@@ -24,6 +24,7 @@
  */
 package com.griefdefender.api.data;
 
+import com.griefdefender.api.Core;
 import com.griefdefender.api.claim.Claim;
 import com.griefdefender.api.claim.ClaimType;
 import com.griefdefender.api.permission.option.type.CreateModeType;
@@ -199,7 +200,7 @@ public interface PlayerData {
     /**
      * Gets the economy claim block return on selling a claim block.
      * 
-     * Note: This is only used if {@link GriefDefenderApi#isEconomyModeEnabled()} is false.
+     * Note: This is only used if {@link Core#isEconomyModeEnabled()} is false.
      *      
      * @return The economy claim block return
      */

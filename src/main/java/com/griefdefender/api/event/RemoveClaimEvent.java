@@ -24,6 +24,8 @@
  */
 package com.griefdefender.api.event;
 
+import com.griefdefender.api.claim.Claim;
+import com.griefdefender.api.claim.ClaimSchematic;
 import net.kyori.event.Cancellable;
 
 /**
@@ -45,17 +47,17 @@ public interface RemoveClaimEvent extends ClaimEvent, Cancellable {
      * If nature restore is enabled, this will restore claim back to world gen state.<br>
      * If schematic restore is enabled, this will restore claim back to claim creation {@link ClaimSchematic}.
      * 
-     * @param shouldRestore Whether this claim should restore back to original state
+     * @param restore Whether this claim should restore back to original state
      */
     void shouldRestore(boolean restore);
 
     /**
      * Fired when a claim is abandoned.
      */
-    interface Abandon extends RemoveClaimEvent {};
+    interface Abandon extends RemoveClaimEvent {}
 
     /**
      * Fired when a claim is deleted.
      */
-    interface Delete extends RemoveClaimEvent {};
+    interface Delete extends RemoveClaimEvent {}
 }

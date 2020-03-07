@@ -27,6 +27,7 @@ package com.griefdefender.api.permission.option;
 import com.griefdefender.api.CatalogType;
 import com.griefdefender.api.GriefDefender;
 import net.kyori.text.Component;
+import org.spongepowered.api.event.cause.EventContextKey;
 
 import java.util.Set;
 
@@ -104,7 +105,7 @@ public interface Option<T> extends CatalogType {
         /**
          * The plugin id. 
          * 
-         * @param id The plugin id
+         * @param pluginId The plugin id
          * @return The builder
          */
         Builder<T> id(String pluginId);
