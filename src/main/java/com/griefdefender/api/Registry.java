@@ -27,7 +27,6 @@ package com.griefdefender.api;
 import com.google.common.base.Supplier;
 import com.griefdefender.api.claim.Claim;
 import com.griefdefender.api.registry.CatalogRegistryModule;
-import org.spongepowered.api.util.ResettableBuilder;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -35,7 +34,7 @@ import java.util.Optional;
 public interface Registry {
 
     /**
-     * Registers a {@link Supplier} for creating the desired {@link ResettableBuilder}.
+     * Registers a {@link Supplier} for creating the desired {@link org.spongepowered.api.util.ResettableBuilder}.
      *
      * @param builderClass The builder class
      * @param supplier The supplier

@@ -27,7 +27,6 @@ package com.griefdefender.api.permission.option;
 import com.griefdefender.api.CatalogType;
 import com.griefdefender.api.GriefDefender;
 import net.kyori.text.Component;
-import org.spongepowered.api.event.cause.EventContextKey;
 
 import java.util.Set;
 
@@ -87,7 +86,7 @@ public interface Option<T> extends CatalogType {
     Class<T> getAllowedType();
 
     /**
-     * Creates a builder to be used for creating a new {@link EventContextKey}.
+     * Creates a builder to be used for creating a new {@link org.spongepowered.api.event.cause.EventContextKey}.
      *
      * @param clazz The class the key will allow access to
      * @param <T> The type of the value stored with this key

@@ -25,7 +25,6 @@
 package com.griefdefender.api.claim;
 
 import com.griefdefender.api.util.generator.DummyObjectProvider;
-import org.spongepowered.api.world.World;
 
 public final class ClaimTypes {
 
@@ -53,7 +52,7 @@ public final class ClaimTypes {
     public static final ClaimType TOWN = DummyObjectProvider.createFor(ClaimType.class, "TOWN");
 
     /**
-     * Represents all the block space in a single {@link World} not
+     * Represents all the block space in a single {@link org.spongepowered.api.world.World} not
      * used by any other claim type. There will only be one wilderness
      * claim per world.
      */

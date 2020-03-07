@@ -25,8 +25,6 @@
 package com.griefdefender.api.claim;
 
 import com.griefdefender.api.data.PlayerData;
-import org.spongepowered.api.entity.living.player.Player;
-import org.spongepowered.api.service.economy.account.Account;
 
 /**
  * Used to provide more information to a plugin when a claim
@@ -51,31 +49,31 @@ public enum ClaimResultType {
 
     /**
      * Returned if a claim's y level goes above a
-     * {@link Player}'s {@link PlayerData#getMaxClaimLevel()}.
+     * {@link org.spongepowered.api.entity.living.player.Player}'s {@link PlayerData#getMaxClaimLevel()}.
      */
     ABOVE_MAX_LEVEL,
 
     /**
      * Returned if a claim's y level goes below a
-     * {@link Player}'s {@link PlayerData#getMinClaimLevel()}.
+     * {@link org.spongepowered.api.entity.living.player.Player}'s {@link PlayerData#getMinClaimLevel()}.
      */
     BELOW_MIN_LEVEL,
 
     /**
      * Returned if a claim's x size goes below a
-     * {@link Player}'s {@link PlayerData#getMinClaimX(ClaimType)}.
+     * {@link org.spongepowered.api.entity.living.player.Player}'s {@link PlayerData#getMinClaimX(ClaimType)}.
      */
     BELOW_MIN_SIZE_X,
 
     /**
      * Returned if a claim's y size goes below a
-     * {@link Player}'s {@link PlayerData#getMinClaimY(ClaimType)}.
+     * {@link org.spongepowered.api.entity.living.player.Player}'s {@link PlayerData#getMinClaimY(ClaimType)}.
      */
     BELOW_MIN_SIZE_Y,
 
     /**
      * Returned if a claim's z size goes below a
-     * {@link Player}'s {@link PlayerData#getMinClaimZ(ClaimType)}.
+     * {@link org.spongepowered.api.entity.living.player.Player}'s {@link PlayerData#getMinClaimZ(ClaimType)}.
      */
     BELOW_MIN_SIZE_Z,
 
@@ -90,36 +88,36 @@ public enum ClaimResultType {
     ECONOMY_NOT_ENOUGH_FUNDS,
 
     /**
-     * Returned if required claim funds could not be deposited into an {@link Account}.
+     * Returned if required claim funds could not be deposited into an {@link org.spongepowered.api.service.economy.account.Account}.
      */
     ECONOMY_DEPOSIT_FAIL,
 
     /**
-     * Returned if required claim funds could not be withdrawn from an {@link Account}.
+     * Returned if required claim funds could not be withdrawn from an {@link org.spongepowered.api.service.economy.account.Account}.
      */
     ECONOMY_WITHDRAW_FAIL,
 
     /**
-     * Returned if a {@link Player} attempts to create a
+     * Returned if a {@link org.spongepowered.api.entity.living.player.Player} attempts to create a
      * claim past their {@link PlayerData#getCreateClaimLimit(ClaimType)}.
      */
     EXCEEDS_MAX_CLAIM_LIMIT,
 
     /**
      * Returned if a claim's x size exceeds a
-     * {@link Player}'s {@link PlayerData#getMaxClaimX(ClaimType)}.
+     * {@link org.spongepowered.api.entity.living.player.Player}'s {@link PlayerData#getMaxClaimX(ClaimType)}.
      */
     EXCEEDS_MAX_SIZE_X,
 
     /**
      * Returned if a claim's y size exceeds a
-     * {@link Player}'s {@link PlayerData#getMaxClaimY(ClaimType)}.
+     * {@link org.spongepowered.api.entity.living.player.Player}'s {@link PlayerData#getMaxClaimY(ClaimType)}.
      */
     EXCEEDS_MAX_SIZE_Y,
 
     /**
      * Returned if a claim's z size exceeds a
-     * {@link Player}'s {@link PlayerData#getMaxClaimZ(ClaimType)}.
+     * {@link org.spongepowered.api.entity.living.player.Player}'s {@link PlayerData#getMaxClaimZ(ClaimType)}.
      */
     EXCEEDS_MAX_SIZE_Z,
 
@@ -129,13 +127,13 @@ public enum ClaimResultType {
     FAILURE,
 
     /**
-     * Returned if a {@link Player} doesn't have enough claim blocks
+     * Returned if a {@link org.spongepowered.api.entity.living.player.Player} doesn't have enough claim blocks
      * to perform a claim action.
      */
     INSUFFICIENT_CLAIM_BLOCKS,
 
     /**
-     * Returned if a {@link Player} doesn't have enough funds
+     * Returned if a {@link org.spongepowered.api.entity.living.player.Player} doesn't have enough funds
      * to perform an economy action.
      */
     NOT_ENOUGH_FUNDS,
