@@ -26,6 +26,7 @@ package com.griefdefender.api.permission.option;
 
 import com.griefdefender.api.Tristate;
 import com.griefdefender.api.claim.Claim;
+import com.griefdefender.api.permission.Context;
 import com.griefdefender.api.permission.option.type.CreateModeType;
 import com.griefdefender.api.permission.option.type.CreateModeTypes;
 import com.griefdefender.api.permission.option.type.GameModeType;

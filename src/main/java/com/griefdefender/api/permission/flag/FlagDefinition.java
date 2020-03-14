@@ -135,11 +135,11 @@ public interface FlagDefinition extends CatalogType {
      * 
      * @return A new claim builder instance
      */
-    public static FlagDefinition.Builder builder() {
+    static FlagDefinition.Builder builder() {
         return GriefDefender.getRegistry().createBuilder(FlagDefinition.Builder.class);
     }
 
-    public interface Builder {
+    interface Builder {
 
         /**
          * Whether this definition is enabled.

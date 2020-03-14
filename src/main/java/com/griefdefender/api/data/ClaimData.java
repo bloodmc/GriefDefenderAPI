@@ -27,6 +27,7 @@ package com.griefdefender.api.data;
 import com.flowpowered.math.vector.Vector3i;
 import com.griefdefender.api.Tristate;
 import com.griefdefender.api.claim.ClaimType;
+import com.griefdefender.api.claim.ClaimTypes;
 import net.kyori.text.Component;
 
 import java.time.Instant;
@@ -84,7 +85,7 @@ public interface ClaimData {
     /**
      * Gets the claim owner's {@link UUID}.
      * 
-     * Note: {@link ClaimType#ADMIN} and {@link ClaimType#WILDERNESS} claims do not have
+     * Note: {@link ClaimTypes#ADMIN} and {@link ClaimTypes#WILDERNESS} claims do not have
      * owners.
      * 
      * @return The UUID of this claim
@@ -299,7 +300,7 @@ public interface ClaimData {
     /**
      * Sets if this claim checks for min/max size restrictions.
      * 
-     * Note: {@link ClaimType#ADMIN} and {@link ClaimType#WILDERNESS} can not have restrictions.
+     * Note: {@link ClaimTypes#ADMIN} and {@link ClaimTypes#WILDERNESS} can not have restrictions.
      * 
      * @param sizeRestrictions Whether this claim checks size restrictions.
      */

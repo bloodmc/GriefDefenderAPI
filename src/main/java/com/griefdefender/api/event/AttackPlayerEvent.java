@@ -24,6 +24,7 @@
  */
 package com.griefdefender.api.event;
 
+import com.griefdefender.api.claim.Claim;
 import net.kyori.event.Cancellable;
 
 import com.griefdefender.api.User;

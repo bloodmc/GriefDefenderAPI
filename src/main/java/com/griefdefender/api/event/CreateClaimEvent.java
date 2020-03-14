@@ -36,10 +36,10 @@ public interface CreateClaimEvent extends ClaimEvent, Cancellable  {
     /**
      * Fired before the claim is created.
      */
-    interface Pre extends CreateClaimEvent {};
+    interface Pre extends CreateClaimEvent {}
 
     /**
      * Fired after the claim is created.
      */
-    interface Post extends CreateClaimEvent {};
+    interface Post extends CreateClaimEvent {}
 }

@@ -60,16 +60,16 @@ public interface Flag extends CatalogType {
      * 
      * @return A new claim builder instance
      */
-    public static Flag.Builder builder() {
+    static Flag.Builder builder() {
         return GriefDefender.getRegistry().createBuilder(Flag.Builder.class);
     }
 
-    public interface Builder {
+    interface Builder {
 
         /**
          * The plugin id. 
          * 
-         * @param id The plugin id
+         * @param pluginId The plugin id
          * @return The builder
          */
         Builder id(String pluginId);

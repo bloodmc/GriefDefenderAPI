@@ -24,7 +24,13 @@
  */
 package com.griefdefender.api.permission;
 
+import com.griefdefender.api.claim.Claim;
+import com.griefdefender.api.claim.ClaimType;
+import com.griefdefender.api.permission.flag.Flag;
+import com.griefdefender.api.permission.option.Option;
 import com.griefdefender.api.permission.option.Options;
+
+import java.util.UUID;
 
 public class ContextKeys {
 

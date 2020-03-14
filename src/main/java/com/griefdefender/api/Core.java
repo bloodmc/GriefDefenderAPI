@@ -41,7 +41,7 @@ public interface Core {
     /**
      * Checks if GriefDefender is enabled in world.
      * 
-     * @param worldProperties The world properties to check.
+     * @param worldUniqueId The world to check
      * @return true if enabled, false if not
      */
     boolean isEnabled(UUID worldUniqueId);
@@ -69,7 +69,7 @@ public interface Core {
     /**
      * Gets the world {@link PlayerData} for specified {@link UUID}.
      * 
-     * @param worldProperties The world properties
+     * @param worldUniqueId The world UUID
      * @param playerUniqueId The player UUID
      * @return The player data associated with uuid, if available
      */
@@ -122,7 +122,7 @@ public interface Core {
     /**
      * Gets the {@link Group} with identifier.
      * 
-     * @param identifier
+     * @param name
      * @return The subject
      */
     Group getGroup(String name);

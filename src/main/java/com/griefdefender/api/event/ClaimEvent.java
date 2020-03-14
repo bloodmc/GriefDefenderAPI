@@ -24,6 +24,7 @@
  */
 package com.griefdefender.api.event;
 
+import com.griefdefender.api.Subject;
 import com.griefdefender.api.claim.Claim;
 import net.kyori.text.Component;
 

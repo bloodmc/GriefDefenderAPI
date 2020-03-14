@@ -24,6 +24,8 @@
  */
 package com.griefdefender.api.event;
 
+import com.griefdefender.api.Group;
+import com.griefdefender.api.User;
 import com.griefdefender.api.claim.Claim;
 import com.griefdefender.api.claim.TrustType;
 import net.kyori.event.Cancellable;
@@ -43,10 +45,10 @@ public interface TrustClaimEvent extends ClaimEvent, Cancellable {
     /**
      * Fired when a user is added to claim trust.
      */
-    interface Add extends TrustClaimEvent {};
+    interface Add extends TrustClaimEvent {}
 
     /**
      * Fired when a user is removed from claim trust.
      */
-    interface Remove extends TrustClaimEvent {};
+    interface Remove extends TrustClaimEvent {}
 }

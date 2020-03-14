@@ -26,6 +26,7 @@ package com.griefdefender.api.event;
 
 import java.util.List;
 
+import com.griefdefender.api.Group;
 import com.griefdefender.api.claim.Claim;
 
 /**
@@ -43,10 +44,10 @@ public interface GroupTrustClaimEvent extends TrustClaimEvent {
     /**
      * Fired when a group is added to claim trust.
      */
-    interface Add extends GroupTrustClaimEvent, TrustClaimEvent.Add {};
+    interface Add extends GroupTrustClaimEvent, TrustClaimEvent.Add {}
 
     /**
      * Fired when a group is removed from claim trust.
      */
-    interface Remove extends GroupTrustClaimEvent, TrustClaimEvent.Remove {};
+    interface Remove extends GroupTrustClaimEvent, TrustClaimEvent.Remove {}
 }

@@ -24,6 +24,8 @@
  */
 package com.griefdefender.api.event;
 
+import com.griefdefender.api.claim.Claim;
+
 import java.util.UUID;
 
 /**

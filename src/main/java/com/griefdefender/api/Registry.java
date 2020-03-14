@@ -34,7 +34,7 @@ import java.util.Optional;
 public interface Registry {
 
     /**
-     * Registers a {@link Supplier} for creating the desired {@link ResettableBuilder}.
+     * Registers a {@link Supplier} for creating the desired {@link org.spongepowered.api.util.ResettableBuilder}.
      *
      * @param builderClass The builder class
      * @param supplier The supplier
@@ -102,5 +102,5 @@ public interface Registry {
      * 
      * @return The catalog registry module
      */
-    public <T extends CatalogType> Optional<CatalogRegistryModule<T>> getRegistryModuleFor(Class<T> catalogClass);
+    <T extends CatalogType> Optional<CatalogRegistryModule<T>> getRegistryModuleFor(Class<T> catalogClass);
 }

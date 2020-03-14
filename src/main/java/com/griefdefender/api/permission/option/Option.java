@@ -86,7 +86,7 @@ public interface Option<T> extends CatalogType {
     Class<T> getAllowedType();
 
     /**
-     * Creates a builder to be used for creating a new {@link EventContextKey}.
+     * Creates a builder to be used for creating a new {@link org.spongepowered.api.event.cause.EventContextKey}.
      *
      * @param clazz The class the key will allow access to
      * @param <T> The type of the value stored with this key
@@ -104,7 +104,7 @@ public interface Option<T> extends CatalogType {
         /**
          * The plugin id. 
          * 
-         * @param id The plugin id
+         * @param pluginId The plugin id
          * @return The builder
          */
         Builder<T> id(String pluginId);

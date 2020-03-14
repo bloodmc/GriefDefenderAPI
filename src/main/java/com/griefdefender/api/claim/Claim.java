@@ -62,7 +62,7 @@ public interface Claim extends ContextSource {
     /**
      * Gets the claim owner's name.
      * 
-     * Note: {@link ClaimType#ADMIN} and {@link ClaimType#WILDERNESS} claims do not have
+     * Note: {@link ClaimTypes#ADMIN} and {@link ClaimTypes#WILDERNESS} claims do not have
      * owners. These claims should return a general name such as 'administrator'.
      * 
      * @return The name of claim owner, if available
@@ -160,7 +160,7 @@ public interface Claim extends ContextSource {
 
     /**
      * Gets the list of entities currently in claim.
-     * 
+     *
      * @return The list of entities in claim.
      */
     //List<Entity> getEntities();
@@ -175,7 +175,7 @@ public interface Claim extends ContextSource {
     /**
      * Transfers claim to new owner.
      * 
-     * Note: Both {@link ClaimType#WILDERNESS} and {@link ClaimType#ADMIN} cannot be transferred.
+     * Note: Both {@link ClaimTypes#WILDERNESS} and {@link ClaimTypes#ADMIN} cannot be transferred.
      * This validates if the new owner has enough claim blocks to support this claim.
      * 
      * @param ownerUniqueId
@@ -186,7 +186,7 @@ public interface Claim extends ContextSource {
     /**
      * Attempts to change claim to another type.
      * 
-     * Note: If changing an {@link ClaimType#ADMIN} claim, owner is required.
+     * Note: If changing an {@link ClaimTypes#ADMIN} claim, owner is required.
      * 
      * @param type The new claim type
      * @return The claim result
@@ -198,8 +198,8 @@ public interface Claim extends ContextSource {
     /**
      * Attempts to change claim to another type and owner.
      * 
-     * Note: {@link ClaimType#WILDERNESS} cannot be changed.
-     * If changing an {@link ClaimType#ADMIN} claim, owner is required.
+     * Note: {@link ClaimTypes#WILDERNESS} cannot be changed.
+     * If changing an {@link ClaimTypes#ADMIN} claim, owner is required.
      * 
      * @param type The new claim type
      * @param owner The owner to set
@@ -488,7 +488,7 @@ public interface Claim extends ContextSource {
     /**
      * Checks if the position is within this claim.
      * 
-     * @param location
+     * @param pos
      * @return Whether this claim contains the passed position
      */
     default boolean contains(Vector3i pos) {
@@ -498,7 +498,7 @@ public interface Claim extends ContextSource {
     /**
      * Checks if the position is within this claim.
      * 
-     * @param location
+     * @param pos
      * @param excludeChildren
      * @return Whether this claim contains the passed location
      */
@@ -569,7 +569,7 @@ public interface Claim extends ContextSource {
     /**
      * Deletes the specified schematic if it exists.
      * 
-     * @param name The schematic to delete
+     * @param schematic The schematic to delete
      * @return true if the schematic was deleted
      */
     boolean deleteSchematic(String schematic);
@@ -601,7 +601,7 @@ public interface Claim extends ContextSource {
     /**
      * Gets the claim owner's {@link UUID}.
      * 
-     * Note: {@link ClaimType#ADMIN} and {@link ClaimType#WILDERNESS} claims do not have
+     * Note: {@link ClaimTypes#ADMIN} and {@link ClaimTypes#WILDERNESS} claims do not have
      * owners.
      * 
      * @return The UUID of this claim
@@ -799,11 +799,11 @@ public interface Claim extends ContextSource {
      * 
      * @return A new claim builder instance
      */
-    public static Claim.Builder builder() {
+    static Claim.Builder builder() {
         return GriefDefender.getRegistry().createBuilder(Claim.Builder.class);
     }
 
-    public interface Builder {
+    interface Builder {
 
         /**
          * The position bounds of claim.
@@ -825,7 +825,7 @@ public interface Claim extends ContextSource {
         /**
          * The owner of claim.
          * 
-         * Note: {@link ClaimType#ADMIN} does not use owners.
+         * Note: {@link ClaimTypes#ADMIN} does not use owners.
          * 
          * @param ownerUniqueId The claim owner UUID, if available
          * @return The builder
@@ -843,7 +843,7 @@ public interface Claim extends ContextSource {
         /**
          * The world to add claim into.
          * 
-         * @param world The world
+         * @param worldUniqueId The world's UUID
          * @return The builder
          */
         Builder world(UUID worldUniqueId);
@@ -926,7 +926,7 @@ public interface Claim extends ContextSource {
         Builder resizable(boolean allowResize);
 
         /**
-         * Whether to check {@link PlayerData#getCreateClaimLimit()}.
+         * Whether to check {@link PlayerData#getCreateClaimLimit(ClaimType)}.
          * 
          * @param checkLimit Whether to check for claim creation restrictions.
          * @return The builder

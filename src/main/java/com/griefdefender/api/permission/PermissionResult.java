@@ -32,7 +32,7 @@ import java.util.Optional;
 public interface PermissionResult {
 
     /**
-     * Gets the {@link FlagResultType} of flag action.
+     * Gets the {@link ResultType} of flag action.
      * 
      * @return The result type
      */
