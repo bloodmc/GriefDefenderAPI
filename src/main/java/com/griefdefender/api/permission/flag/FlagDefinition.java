@@ -47,6 +47,13 @@ public interface FlagDefinition extends CatalogType {
     boolean isEnabled();
 
     /**
+     * Whether this definition is for admin use only.
+     * 
+     * @return true if admin only
+     */
+    boolean isAdmin();
+
+    /**
      * Gets the group name associated with this flag definition.
      * 
      * @return The group name
@@ -103,13 +110,6 @@ public interface FlagDefinition extends CatalogType {
     void addFlagData(FlagData flagData);
 
     /**
-     * Sets {@link Context}'s associated with this definition.
-     * 
-     * @param contexts
-     */
-    void setContexts(Set<Context> contexts);
-
-    /**
      * Set to enable or disable this definition.
      * 
      * @param enabled
@@ -122,13 +122,6 @@ public interface FlagDefinition extends CatalogType {
      * @param value The default value
      */
     void setDefaultValue(Tristate value);
-
-    /**
-     * Sets the group associated with this definition.
-     * 
-     * @param group The group name
-     */
-    void setGroupName(String group);
 
     /**
      * Gets a new claim builder instance for {@link Builder}.
@@ -150,6 +143,22 @@ public interface FlagDefinition extends CatalogType {
         Builder enabled(boolean enabled);
 
         /**
+         * Whether definition is for admin use only.
+         * 
+         * @param value
+         * @return The builder
+         */
+        Builder admin(boolean value);
+
+        /**
+         * Sets the definition group.
+         * 
+         * @param group
+         * @return The builder
+         */
+        Builder group(String group);
+
+        /**
          * Sets the default value.
          * 
          * @param value The default value
@@ -163,7 +172,23 @@ public interface FlagDefinition extends CatalogType {
          * @param data The flag data
          * @return The builder
          */
+        Builder flagData(FlagData data);
+
+        /**
+         * Sets the flag data.
+         * 
+         * @param data The flag data
+         * @return The builder
+         */
         Builder flagData(List<FlagData> data);
+
+        /**
+         * Sets the context.
+         * 
+         * @param context The context
+         * @return The builder
+         */
+        Builder context(Context context);
 
         /**
          * Sets the contexts.

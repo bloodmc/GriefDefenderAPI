@@ -48,7 +48,6 @@ public class ContextKeys {
      * <li>subdivision
      * <li>town
      * <li>wilderness
-     * <li>claim uuid
      * </ul>
      */
     public static final String CLAIM_DEFAULT = "gd_claim_default";
@@ -109,4 +108,9 @@ public class ContextKeys {
      * Represents a {@link Flag} target.
      */
     public static final String TARGET = "target";
+
+    /**
+     * Represents the used player item.
+     */
+    public static final String USED_ITEM = "used_item";
 }

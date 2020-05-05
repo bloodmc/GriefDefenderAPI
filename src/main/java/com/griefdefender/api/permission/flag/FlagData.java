@@ -90,6 +90,14 @@ public interface FlagData {
         Builder flag(Flag flag);
 
         /**
+         * The {@link Context} associated with this data.
+         * 
+         * @param context The context
+         * @return The builder
+         */
+        Builder context(Context context);
+
+        /**
          * The {@link Context}'s associated with this data.
          * 
          * @param contexts The contexts
