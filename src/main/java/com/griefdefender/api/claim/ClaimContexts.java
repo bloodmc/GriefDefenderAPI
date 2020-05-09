@@ -42,6 +42,7 @@ public class ClaimContexts {
     public static final Context BASIC_DEFAULT_CONTEXT = new Context(ContextKeys.CLAIM_DEFAULT, "basic");
     public static final Context SUBDIVISION_DEFAULT_CONTEXT = new Context(ContextKeys.CLAIM_DEFAULT, "subdivision");
     public static final Context TOWN_DEFAULT_CONTEXT = new Context(ContextKeys.CLAIM_DEFAULT, "town");
+    public static final Context USER_DEFAULT_CONTEXT = new Context(ContextKeys.CLAIM_DEFAULT, "user");
     public static final Context WILDERNESS_DEFAULT_CONTEXT = new Context(ContextKeys.CLAIM_DEFAULT, "wilderness");
     public static final Context WORLD_DEFAULT_CONTEXT = new Context(ContextKeys.CLAIM_DEFAULT, "world");
 
@@ -53,6 +54,7 @@ public class ClaimContexts {
     public static final Context BASIC_OVERRIDE_CONTEXT = new Context(ContextKeys.CLAIM_OVERRIDE, "basic");
     public static final Context SUBDIVISION_OVERRIDE_CONTEXT = new Context(ContextKeys.CLAIM_OVERRIDE, "subdivision");
     public static final Context TOWN_OVERRIDE_CONTEXT = new Context(ContextKeys.CLAIM_OVERRIDE, "town");
+    public static final Context USER_OVERRIDE_CONTEXT = new Context(ContextKeys.CLAIM_OVERRIDE, "user");
     public static final Context WILDERNESS_OVERRIDE_CONTEXT = new Context(ContextKeys.CLAIM_OVERRIDE, "wilderness");
     public static final Context WORLD_OVERRIDE_CONTEXT = new Context(ContextKeys.CLAIM_OVERRIDE, "world");
 }

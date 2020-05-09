@@ -28,7 +28,9 @@ import java.util.List;
 import java.util.Set;
 
 import com.griefdefender.api.CatalogType;
+import com.griefdefender.api.Core;
 import com.griefdefender.api.GriefDefender;
+import com.griefdefender.api.Subject;
 import com.griefdefender.api.Tristate;
 import com.griefdefender.api.permission.Context;
 
@@ -103,11 +105,12 @@ public interface FlagDefinition extends CatalogType {
     List<Flag> getFlags();
 
     /**
-     * Adds {@link FlagData} to this definition.
+     * Gets the subject this definition will be applied to.
      * 
-     * @param flagData The flag data to add
+     * Note: If no subject is set, {@link Core#getDefaultSubject()} will be used.
+     * @return
      */
-    void addFlagData(FlagData flagData);
+    Subject getSubject();
 
     /**
      * Set to enable or disable this definition.
@@ -213,6 +216,14 @@ public interface FlagDefinition extends CatalogType {
          * @return The builder
          */
         Builder description(Component description);
+
+        /**
+         * Sets the subject.
+         * 
+         * @param subject The subject
+         * @return The builder
+         */
+        Builder subject(Subject subject);
 
         /**
          * Resets the builder to default settings.
