@@ -29,6 +29,7 @@ import com.griefdefender.api.claim.ClaimBlockSystem;
 import com.griefdefender.api.claim.ClaimManager;
 import com.griefdefender.api.data.PlayerData;
 import com.griefdefender.api.permission.flag.Flag;
+import com.griefdefender.api.provider.WorldEditProvider;
 
 import java.util.List;
 import java.util.Optional;
@@ -74,6 +75,20 @@ public interface Core {
      * @return The player data associated with uuid, if available
      */
     Optional<PlayerData> getPlayerData(UUID worldUniqueId, UUID playerUniqueId);
+
+    /**
+     * Gets the claim with uuid.
+     * 
+     * @return The claim with uuid, if available
+     */
+    @Nullable Claim getClaim(UUID uuid);
+
+    /**
+     * Gets an immutable list of all {@link Claim}'s.
+     * 
+     * @return An immutable list of all claims, empty list if none were found
+     */
+    List<Claim> getAllClaims();
 
     /**
      * Gets an immutable list of all player {@link Claim}'s.
@@ -126,4 +141,13 @@ public interface Core {
      * @return The subject
      */
     Group getGroup(String name);
+
+    /**
+     * Gets the {@link WorldEditProvider}.
+     * 
+     * Note: This will return null if WorldEdit is not installed.
+     * 
+     * @return The worldedit provider, if available
+     */
+    @Nullable WorldEditProvider getWorldEditProvider();
 }

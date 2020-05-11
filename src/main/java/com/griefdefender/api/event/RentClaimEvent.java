@@ -22,35 +22,62 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.griefdefender.api.economy;
+package com.griefdefender.api.event;
+
+import java.util.List;
+import java.util.UUID;
+
+import net.kyori.event.Cancellable;
 
 /**
- * Contains all possible {@link BankTransaction} types.
+ * An event that is fired before a claim is rented.
+ * 
+ * Note: Canceling this event will prevent claim being rented.
  */
-public enum BankTransactionType {
+public interface RentClaimEvent extends ClaimEvent, Cancellable  {
 
     /**
-     * Bank deposit was successful.
+     * Gets an immutable list of {@link UUID}'s of users 
+     * renting claim.
+     * 
+     * @return The immutable list of uuid's
      */
-    DEPOSIT_SUCCESS,
+    List<UUID> getRenters();
+
     /**
-     * Bank deposit failed.
+     * Gets the original rent amount for claim.
+     * 
+     * @return The original rent amount
      */
-    DEPOSIT_FAIL,
+    double getOriginalRentAmount();
+
     /**
-     * Bank withdrawal was successful.
+     * Gets the original rent rate for claim.
+     * 
+     * @return The original rent rate
      */
-    WITHDRAW_SUCCESS,
+    double getOriginalRentRate();
+
     /**
-     * Bank withdrawal failed.
+     * Gets the current total rent amount to be applied to claim.
+     * 
+     * Note: To adjust the rent amount, use {{@link #setRentRate(double)}
+     * 
+     * @return The current total rent amount
      */
-    WITHDRAW_FAIL,
+    double getRentAmount();
+
     /**
-     * Tax payment was successful.
+     * Gets the current rent rate to be applied to claim.
+     * 
+     * @return The current rent rate
      */
-    TAX_SUCCESS,
+    double getRentRate();
+
     /**
-     * Tax payment failed.
+     * Sets a new rent rate for claim.
+     * 
+     * @param newRentRate The new rent rate.
      */
-    TAX_FAIL
+    void setRentRate(double newRentRate);
 }

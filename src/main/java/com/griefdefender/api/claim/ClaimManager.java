@@ -54,6 +54,17 @@ public interface ClaimManager {
     Claim getClaimAt(Vector3i pos);
 
     /**
+     * Gets the {@link Claim} at specified position.
+     * 
+     * @param x X coordinate
+     * @param y Y coordinate
+     * @param z Z coordinate
+     * @return The claim if available, otherwise returns the wilderness claim
+     * if none were found.
+     */
+    Claim getClaimAt(int x, int y, int z);
+
+    /**
      * Gets the {@link Claim} with specified {@link UUID}.
      * 
      * @param claimUniqueId The claim UUID to search for

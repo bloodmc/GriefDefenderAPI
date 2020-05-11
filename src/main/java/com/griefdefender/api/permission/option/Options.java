@@ -93,6 +93,16 @@ public final class Options {
     public static final Option<Integer> MIN_SIZE_Z = DummyObjectProvider.createFor(Option.class, "min-size-z");
 
     /**
+     * Number of days after not paying rent before a claim will be frozen.
+     */
+    public static final Option<Integer> RENT_EXPIRATION = DummyObjectProvider.createFor(Option.class, "rent-expiration");
+
+    /**
+     * Number of days to keep a rented claim after frozen and before being deleted.
+     */
+    public static final Option<Integer> RENT_EXPIRATION_DAYS_KEEP = DummyObjectProvider.createFor(Option.class, "rent-expiration-days-keep");
+
+    /**
      * Number of days after not paying taxes before a claim will be frozen.
      */
     public static final Option<Integer> TAX_EXPIRATION = DummyObjectProvider.createFor(Option.class, "tax-expiration");

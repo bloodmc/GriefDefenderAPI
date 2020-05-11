@@ -47,6 +47,8 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+
 /**
  * Represents a protected claim.
  */
@@ -60,6 +62,13 @@ public interface Claim extends ContextSource {
     UUID getUniqueId();
 
     /**
+     * Gets the active {@link ClaimVisual}.
+     * 
+     * @return The claim visual, if available
+     */
+    @Nullable ClaimVisual getClaimVisual();
+
+    /**
      * Gets the claim owner's name.
      * 
      * Note: {@link ClaimType#ADMIN} and {@link ClaimType#WILDERNESS} claims do not have
@@ -67,7 +76,17 @@ public interface Claim extends ContextSource {
      * 
      * @return The name of claim owner, if available
      */
-    Component getOwnerName();
+    String getOwnerName();
+
+    /**
+     * Gets the claim owner's display name as a {@link Component}.
+     * 
+     * Note: {@link ClaimType#ADMIN} and {@link ClaimType#WILDERNESS} claims do not have
+     * owners. These claims should return a general name such as 'administrator'.
+     * 
+     * @return The display name of claim owner, if available
+     */
+    Component getOwnerDisplayName();
 
     /**
      * Gets the claim's parent.
@@ -488,6 +507,18 @@ public interface Claim extends ContextSource {
     /**
      * Checks if the position is within this claim.
      * 
+     * @param x X coordinate
+     * @param y Y coordinate
+     * @param z Z coordinate
+     * @return Whether this claim contains the passed position
+     */
+    default boolean contains(int x, int y, int z) {
+        return this.contains(x, y, z, false);
+    }
+
+    /**
+     * Checks if the position is within this claim.
+     * 
      * @param location
      * @return Whether this claim contains the passed position
      */
@@ -502,7 +533,18 @@ public interface Claim extends ContextSource {
      * @param excludeChildren
      * @return Whether this claim contains the passed location
      */
-    boolean contains(Vector3i pos, boolean excludeChildren);
+    default boolean contains(Vector3i pos, boolean excludeChildren) {
+        return this.contains(pos.getX(), pos.getY(), pos.getZ(), excludeChildren);
+    }
+
+    /**
+     * Checks if the position is within this claim.
+     * 
+     * @param location
+     * @param excludeChildren
+     * @return Whether this claim contains the passed location
+     */
+    boolean contains(int x, int y, int z, boolean excludeChildren);
 
     /**
      * Checks if this claim overlaps another.
@@ -635,6 +677,60 @@ public interface Claim extends ContextSource {
     * 
     * @param flag The flag
     * @param subject The subject
+    * @param contexts The contexts
+    * @return
+    */
+    default Tristate getActiveFlagPermissionValue(Flag flag, Subject subject, Set<Context> contexts) {
+        return getActiveFlagPermissionValue(flag, subject, null, null, contexts, false);
+    }
+
+    /**
+    * Gets the active {@link Flag} permission value for {@link Subject} in this {@link Claim}.
+    * 
+    * @param flag The flag
+    * @param subject The subject
+    * @param contexts The contexts
+    * @param type The trust type
+    * @return
+    */
+    default Tristate getActiveFlagPermissionValue(Flag flag, Subject subject, Set<Context> contexts, TrustType type) {
+        return getActiveFlagPermissionValue(flag, subject, null, null, contexts, type, false);
+    }
+
+    /**
+    * Gets the active {@link Flag} permission value for {@link Subject} in this {@link Claim}.
+    * 
+    * @param flag The flag
+    * @param subject The subject
+    * @param source The source
+    * @param target The target
+    * @param contexts The contexts
+    * @param checkOverride Whether to check override
+    * @return
+    */
+    default Tristate getActiveFlagPermissionValue(Flag flag, Subject subject, Set<Context> contexts, boolean checkOverride) {
+        return getActiveFlagPermissionValue(flag, subject, null, null, contexts, null, checkOverride);
+    }
+
+    /**
+    * Gets the active {@link Flag} permission value for {@link Subject} in this {@link Claim}.
+    * 
+    * @param flag The flag
+    * @param subject The subject
+    * @param contexts The contexts
+    * @param type The trust type
+    * @param checkOverride Whether to check override
+    * @return
+    */
+    default Tristate getActiveFlagPermissionValue(Flag flag, Subject subject, Set<Context> contexts, TrustType type, boolean checkOverride) {
+        return getActiveFlagPermissionValue(flag, subject, null, null, contexts, type, checkOverride);
+    }
+
+    /**
+    * Gets the active {@link Flag} permission value for {@link Subject} in this {@link Claim}.
+    * 
+    * @param flag The flag
+    * @param subject The subject
     * @param source The source
     * @param target The target
     * @param contexts The contexts
@@ -667,6 +763,8 @@ public interface Claim extends ContextSource {
     * @param source The source
     * @param target The target
     * @param contexts The contexts
+    * @param type The trust type
+    * @param checkOverride Whether to check override
     * @return
     */
     default Tristate getActiveFlagPermissionValue(Flag flag, Subject subject, Object source, Object target, Set<Context> contexts, TrustType type, boolean checkOverride) {
@@ -808,11 +906,26 @@ public interface Claim extends ContextSource {
         /**
          * The position bounds of claim.
          * 
-         * @param point1 The lesser boundary position
-         * @param point2 The greater boundary position
+         * @param p1 The lesser boundary position
+         * @param p2 The greater boundary position
          * @return The builder
          */
-        Builder bounds(Vector3i point1, Vector3i point2);
+        default Builder bounds(Vector3i p1, Vector3i p2) {
+            return this.bounds(p1.getX(), p2.getX(), p1.getY(), p2.getY(), p1.getZ(), p2.getZ());
+        }
+
+        /**
+         * The position bounds of claim.
+         * 
+         * @param x1 The start X-axis position
+         * @param x2 The end X-axis position
+         * @param y1 The start Y-axis position
+         * @param y2 The end Y-axis position
+         * @param z1 The start Z-axis position
+         * @param z2 The end Z-axis position
+         * @return The builder
+         */
+        Builder bounds(int x1, int x2, int y1, int y2, int z1, int z2);
 
         /**
          * Toggles whether this claim is cuboid
@@ -953,10 +1066,22 @@ public interface Claim extends ContextSource {
         /**
          * The spawn position of this claim.
          * 
-         * @param spawnPos The spawn position
+         * @param pos The spawn position
          * @return The builder
          */
-        Builder spawnPos(Vector3i spawnPos);
+        default Builder spawnPos(Vector3i pos) {
+            return this.spawnPos(pos.getX(), pos.getY(), pos.getZ());
+        }
+
+        /**
+         * The spawn position of this claim.
+         * 
+         * @param x X coordinate
+         * @param y Y coordinate
+         * @param z Z coordinate
+         * @return The builder
+         */
+        Builder spawnPos(int x, int y, int z);
 
         /**
          * Resets the builder to default settings.

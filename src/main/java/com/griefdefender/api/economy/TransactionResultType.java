@@ -24,64 +24,17 @@
  */
 package com.griefdefender.api.economy;
 
-import com.griefdefender.api.GriefDefender;
-
-import java.time.Instant;
-import java.util.Optional;
-import java.util.UUID;
-
 /**
- * Contains information of a bank transaction in a claim.
+ * Transaction result types
  */
-public interface BankTransaction {
+public enum TransactionResultType {
 
     /**
-     * Gets the {@link BankTransactionType}.
-     * 
-     * @return The type
+     * Transaction was successful.
      */
-    BankTransactionType getType();
-
+    SUCCESS,
     /**
-     * Gets the source of this transaction.
-     * 
-     * @return The source, if available
+     * Transaction failed.
      */
-    Optional<UUID> getSource();
-
-    /**
-     * Gets the timestamp of this transaction.
-     * 
-     * @return The timestamp
-     */
-    Instant getTimestamp();
-
-    /**
-     * Gets the amount of the this transaction.
-     * 
-     * @return The amount
-     */
-    Double getAmount();
-
-    /**
-     * Gets a new claim builder instance for {@link Builder}.
-     * 
-     * @return A new claim builder instance
-     */
-    public static BankTransaction.Builder builder() {
-        return GriefDefender.getRegistry().createBuilder(BankTransaction.Builder.class);
-    }
-
-    public interface Builder {
-
-        Builder type(BankTransactionType type);
-
-        Builder source(UUID source);
-
-        Builder amount(double amount);
-
-        Builder reset();
-
-        BankTransaction build();
-    }
+    FAIL
 }

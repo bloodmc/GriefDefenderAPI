@@ -44,6 +44,15 @@ public interface ClaimSchematic {
     void setOrigin(Vector3i pos);
 
     /**
+     * Sets origin of schematic.
+     * 
+     * @param x X coordinate
+     * @param y Y coordinate
+     * @param z Z coordinate
+     */
+    void setOrigin(int x, int y, int z);
+
+    /**
      * Applies schematic to claim.
      * 
      * @return If schematic apply was successful, false if not
@@ -84,6 +93,16 @@ public interface ClaimSchematic {
          * @return The builder
          */
         Builder origin(Vector3i origin);
+
+        /**
+         * The origin to use for claim.
+         * 
+         * @param x X coordinate
+         * @param y Y coordinate
+         * @param z Z coordinate
+         * @return The builder
+         */
+        Builder origin(int x, int y, int z);
 
         /**
          * Resets the builder to default settings.

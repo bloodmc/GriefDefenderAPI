@@ -22,45 +22,27 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.griefdefender.api.event;
-
-import net.kyori.event.Cancellable;
+package com.griefdefender.api.economy;
 
 /**
- * An event that is fired after a {@link Claim} has been removed.
+ * Contains all possible {@link PaymentTransaction} types.
  */
-public interface RemoveClaimEvent extends ClaimEvent, Cancellable {
+public enum TransactionType {
 
     /**
-     * Whether this claim will restore on removal.
-     * 
-     * @return Whether this claim will restore on removal.
+     * Represents a claim bank deposit transaction.
      */
-    boolean isRestoring();
-
+    BANK_DEPOSIT,
     /**
-     * Whether this claim should restore back to original state on removal.<br>
-     * Note: This setting will be ignored if auto-restore functionality is disabled.<br>
-     * 
-     * If nature restore is enabled, this will restore claim back to world gen state.<br>
-     * If schematic restore is enabled, this will restore claim back to claim creation {@link ClaimSchematic}.
-     * 
-     * @param shouldRestore Whether this claim should restore back to original state
+     * Represents a claim bank withdraw transaction.
      */
-    void shouldRestore(boolean restore);
-
+    BANK_WITHDRAW,
     /**
-     * Fired when a claim is abandoned.
+     * Represents a claim rent transaction.
      */
-    interface Abandon extends RemoveClaimEvent {};
-
+    RENT,
     /**
-     * Fired when a claim is deleted.
+     * Represents a claim tax transaction.
      */
-    interface Delete extends RemoveClaimEvent {};
-
-    /**
-     * Fired when a claim has expired.
-     */
-    interface Expire extends RemoveClaimEvent {};
+    TAX
 }

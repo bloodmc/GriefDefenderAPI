@@ -49,6 +49,62 @@ public interface PermissionManager {
     * @param claim The target claim
     * @param subject The subject
     * @param flag The flag
+    * @param contexts The contexts
+    * @return
+    */
+    default Tristate getActiveFlagPermissionValue(Claim claim, Subject subject, Flag flag, Set<Context> contexts) {
+        return getActiveFlagPermissionValue(claim, subject, flag, null, null, contexts, false);
+    }
+
+    /**
+    * Gets the active {@link Flag} permission value for {@link Subject} in {@link Claim}.
+    * 
+    * @param claim The target claim
+    * @param subject The subject
+    * @param flag The flag
+    * @param contexts The contexts
+    * @param type The trust type
+    * @return
+    */
+    default Tristate getActiveFlagPermissionValue(Claim claim, Subject subject, Flag flag, Set<Context> contexts, TrustType type) {
+        return getActiveFlagPermissionValue(claim, subject, flag, null, null, contexts, type, false);
+    }
+
+    /**
+    * Gets the active {@link Flag} permission value for {@link Subject} in {@link Claim}.
+    * 
+    * @param claim The target claim
+    * @param subject The subject
+    * @param flag The flag
+    * @param contexts The contexts
+    * @param checkOverride Whether to check override
+    * @return
+    */
+    default Tristate getActiveFlagPermissionValue(Claim claim, Subject subject, Flag flag, Set<Context> contexts, boolean checkOverride) {
+        return getActiveFlagPermissionValue(claim, subject, flag, null, null, contexts, checkOverride);
+    }
+
+    /**
+    * Gets the active {@link Flag} permission value for {@link Subject} in {@link Claim}.
+    * 
+    * @param claim The target claim
+    * @param subject The subject
+    * @param flag The flag
+    * @param contexts The contexts
+    * @param type The trust type
+    * @param checkOverride Whether to check override
+    * @return
+    */
+    default Tristate getActiveFlagPermissionValue(Claim claim, Subject subject, Flag flag, Set<Context> contexts, TrustType type, boolean checkOverride) {
+        return getActiveFlagPermissionValue(claim, subject, flag, null, null, contexts, type, checkOverride);
+    }
+
+    /**
+    * Gets the active {@link Flag} permission value for {@link Subject} in {@link Claim}.
+    * 
+    * @param claim The target claim
+    * @param subject The subject
+    * @param flag The flag
     * @param source The source
     * @param target The target
     * @param contexts The contexts

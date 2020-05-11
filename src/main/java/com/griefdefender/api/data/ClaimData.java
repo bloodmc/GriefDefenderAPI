@@ -25,13 +25,14 @@
 package com.griefdefender.api.data;
 
 import com.flowpowered.math.vector.Vector3i;
-import com.griefdefender.api.Tristate;
 import com.griefdefender.api.claim.ClaimType;
 import net.kyori.text.Component;
 
 import java.time.Instant;
 import java.util.Optional;
 import java.util.UUID;
+
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Represents the persisted data of a claim.
@@ -73,6 +74,11 @@ public interface ClaimData {
      */
     Optional<Vector3i> getSpawnPos();
 
+    /**
+     * Gets the parent claim {@link UUID}.
+     * 
+     * @return The parent claim UUID, if available
+     */
     Optional<UUID> getParent();
 
     /** Gets the claim's world {@link UUID}.
@@ -118,20 +124,6 @@ public interface ClaimData {
      * @return The last active date
      */
     Instant getDateLastActive();
-
-    /**
-     * Gets PvP override for claim.
-     * 
-     * Possible values are :
-     * <ul>
-     *     <li>{@link Tristate#UNDEFINED} uses server setting</li>
-     *     <li>{@link Tristate#TRUE} will force PvP in claim</li>
-     *     <li>{@link Tristate#FALSE} will force disable PvP in claim</li>
-     * </ul>
-     * 
-     * @return
-     */
-    Tristate getPvpOverride();
 
     /**
      * Gets whether the claim allows sending deny messages
@@ -274,20 +266,6 @@ public interface ClaimData {
     void setParent(UUID uniqueId);
 
     /**
-     * Overrides the world PvP setting.
-     * 
-     * Possible values are :
-     * <ul>
-     *     <li>{@link Tristate#UNDEFINED} will use world PvP setting</li>
-     *     <li>{@link Tristate#TRUE} will force PvP in claim</li>
-     *     <li>{@link Tristate#FALSE} will force disable PvP in claim</li>
-     * </ul>
-     * 
-     * @param value The new value
-     */
-    void setPvpOverride(Tristate value);
-
-    /**
      * Sets if this claim requires claim blocks from players.
      * 
      * Note: This is true by default.
@@ -313,9 +291,23 @@ public interface ClaimData {
     void setSpawnPos(Vector3i pos);
 
     /**
+     * Sets the spawn position of claim.
+     * 
+     * @param x X coordinate
+     * @param y Y coordinate
+     * @param z Z coordinate
+     */
+    void setSpawnPos(int x, int y, int z);
+
+    /**
      * Saves all changes to storage.
      */
     void save();
 
-    EconomyData getEconomyData();
+    /**
+     * Gets the economy data.
+     * 
+     * @return The economy data, if available
+     */
+    @Nullable EconomyData getEconomyData();
 }
