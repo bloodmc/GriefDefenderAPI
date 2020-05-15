@@ -24,6 +24,7 @@
  */
 package com.griefdefender.api.data;
 
+import com.flowpowered.math.vector.Vector3i;
 import com.griefdefender.api.claim.Claim;
 import com.griefdefender.api.economy.PaymentTransaction;
 import com.griefdefender.api.economy.TransactionType;
@@ -57,16 +58,22 @@ public interface EconomyData {
     List<UUID> getRenters();
 
     /**
-     * Gets the first instant rent was not paid.
+     * Gets the rent past due date.
      * 
-     * @return The instant, if available
+     * Note: This will only return a date if
+     * the current renter has missed a payment.
+     * 
+     * @return The rent past due date, if available
      */
     @Nullable Instant getRentPastDueDate();
 
     /**
-     * Gets the first instant tax was not paid.
+     * Gets the tax past due date.
      * 
-     * @return The instant, if available
+     * Note: This will only return a date if
+     * the current tax payer has missed a payment.
+     * 
+     * @return The tax past due date, if available
      */
     @Nullable Instant getTaxPastDueDate();
 
@@ -91,6 +98,11 @@ public interface EconomyData {
      */
     boolean isForRent();
 
+    /**
+     * Gets whether claim is currently being rented.
+     * 
+     * @return whether claim is rented
+     */
     default boolean isRented() {
         return !this.getRenters().isEmpty();
     }
@@ -110,11 +122,42 @@ public interface EconomyData {
     @Nullable Instant getRentStartDate();
 
     /**
+     * Gets the rent end date.
+     * 
+     * Note: If not set, the claim may be 
+     * rented as long as needed.
+     * 
+     * @return The rent end date, if available
+     */
+    @Nullable Instant getRentEndDate();
+
+    /**
      * Gets the next rent payment due date.
      * 
      * @return The rent payment due date
      */
     @Nullable Instant getRentPaymentDueDate();
+
+    /**
+     * Gets the rent sign location.
+     * 
+     * @return The rent sign position, if available
+     */
+    @Nullable Vector3i getRentSignPosition();
+
+    /**
+     * Gets the sale end date of claim.
+     * 
+     * @return The sale end date, if available
+     */
+    @Nullable Instant getSaleEndDate();
+
+    /**
+     * Gets the sale sign location.
+     * 
+     * @return The sale sign position, if available
+     */
+    @Nullable Vector3i getSaleSignPosition();
 
     /**
      * Gets the sale price of {@link Claim}.
@@ -176,14 +219,25 @@ public interface EconomyData {
      * 
      * @param date The new date
      */
-    void setRentPastDueDate(Instant date);
+    void setRentPastDueDate(@Nullable Instant date);
 
     /**
      * Sets the rent start date.
      * 
      * @param date The start date
      */
-    void setRentStartDate(Instant date);
+    void setRentStartDate(@Nullable Instant date);
+
+    /**
+     * Sets the rent end date.
+     * 
+     * Note: If set, renters may rent until
+     * end date. Once end date is reached, the claim
+     * will no longer be rentable.
+     * 
+     * @param date The end date
+     */
+    void setRentEndDate(@Nullable Instant date);
 
     /**
      * Sets a rent rate for {@link Claim}.
@@ -192,11 +246,34 @@ public interface EconomyData {
      */
     void setRentRate(double rate);
 
-    
+    /**
+     * Sets the sign position of claim being rented.
+     * 
+     * @param pos The rent sign pos
+     */
+    void setRentSignPosition(@Nullable Vector3i pos);
+
+    /**
+     * Sets the sale end date.
+     * 
+     * Note: The claim will no longer be for sale
+     * when end date is reached.
+     * 
+     * @param date The end date
+     */
+    void setSaleEndDate(@Nullable Instant date);
+
+    /**
+     * Sets the sign position of claim being sold.
+     * 
+     * @param pos The sell sign pos
+     */
+    void setSaleSignPosition(@Nullable Vector3i pos);
+
     /**
      * Sets a sale price for {@link Claim}.
      * 
-     * @param price
+     * @param price The sale price
      */
     void setSalePrice(double price);
 
@@ -226,7 +303,7 @@ public interface EconomyData {
      * 
      * @param date The new date
      */
-    void setTaxPastDueDate(Instant date);
+    void setTaxPastDueDate(@Nullable Instant date);
 
     /**
      * Adds a payment transaction to the {@link Claim} log.

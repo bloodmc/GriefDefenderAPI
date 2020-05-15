@@ -540,7 +540,9 @@ public interface Claim extends ContextSource {
     /**
      * Checks if the position is within this claim.
      * 
-     * @param location
+     * @param x X coordinate
+     * @param y Y coordinate
+     * @param z Z coordinate
      * @param excludeChildren
      * @return Whether this claim contains the passed location
      */
@@ -702,8 +704,6 @@ public interface Claim extends ContextSource {
     * 
     * @param flag The flag
     * @param subject The subject
-    * @param source The source
-    * @param target The target
     * @param contexts The contexts
     * @param checkOverride Whether to check override
     * @return
