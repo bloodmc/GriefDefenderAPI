@@ -53,6 +53,13 @@ public interface ClaimSchematic {
     void setOrigin(int x, int y, int z);
 
     /**
+     * Whether schematic has entities.
+     * 
+     * @return true if schematic has entities, false if not
+     */
+    boolean hasEntities();
+
+    /**
      * Applies schematic to claim.
      * 
      * @return If schematic apply was successful, false if not
@@ -103,6 +110,14 @@ public interface ClaimSchematic {
          * @return The builder
          */
         Builder origin(int x, int y, int z);
+
+        /**
+         * Whether entities should be copied.
+         * 
+         * @param entities true if entities should be copied
+         * @return The builder
+         */
+        Builder entities(boolean entities);
 
         /**
          * Resets the builder to default settings.
