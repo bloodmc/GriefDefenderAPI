@@ -180,6 +180,32 @@ public interface WorldEditProvider {
     void stopDragVisual(User user);
 
     /**
+     * Regenerates a claim back to its natural state.
+     * 
+     * Note: This will regenerate claim with block
+     * updates. If you need block updates disabled, 
+     * use {@link #regenerateClaim(Claim, boolean)}
+     * 
+     * @param claim The claim to regenerate
+     * @return true if success, false if not
+     */
+    default boolean regenerateClaim(Claim claim) {
+        return this.regenerateClaim(claim, false);
+    }
+
+    /**
+     * Regenerates a claim back to its natural state.
+     * 
+     * Note: If fastmode is enabled, players will
+     * need to reconnect to see changes.
+     * 
+     * @param claim The claim to regenerate
+     * @param fastMode true to disable block updates
+     * @return true if success, false if not
+     */
+    boolean regenerateClaim(Claim claim, boolean fastMode);
+
+    /**
      * Gets whether user has WECUI support.
      * 
      * @param uuid The user uuid
