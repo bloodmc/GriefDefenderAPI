@@ -42,12 +42,12 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 public interface EconomyData {
 
     /**
-     * Gets the payment transaction log.
+     * Gets the {@link PaymentTransaction}'s.
      * 
      * @param type The payment transaction type
-     * @return The payment transaction log
+     * @return The list of payment transactions
      */
-    List<String> getPaymentTransactionLog(TransactionType type);
+    List<PaymentTransaction> getPaymentTransactions(TransactionType type);
 
     /**
      * Gets a list of {@link UUID}'s of users 
@@ -189,9 +189,11 @@ public interface EconomyData {
     int getRentMax();
 
     /**
-     * Clears the payment transaction log.
+     * Clears the payment transactions.
+     * 
+     * @param type The payment transaction type
      */
-    void clearPaymentTransactionLog();
+    void clearPaymentTransactions(TransactionType type);
 
     /**
      * Sets the {link PaymentType}.
