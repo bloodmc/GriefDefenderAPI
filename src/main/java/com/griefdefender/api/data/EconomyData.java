@@ -25,6 +25,7 @@
 package com.griefdefender.api.data;
 
 import com.flowpowered.math.vector.Vector3i;
+import com.griefdefender.api.User;
 import com.griefdefender.api.claim.Claim;
 import com.griefdefender.api.economy.PaymentTransaction;
 import com.griefdefender.api.economy.TransactionType;
@@ -56,6 +57,35 @@ public interface EconomyData {
      * @return The list of uuid's renting claim
      */
     List<UUID> getRenters();
+
+    /**
+     * Gets a list of {@link UUID}'s of delinquent
+     * users who still owe a balance for past rentals.
+     * 
+     * @return The list of delinquent uuid's who owe balance
+     */
+    List<UUID> getDelinquentRenters();
+
+    /**
+     * Checks if {@link User} is renting.
+     * 
+     * @param user The user
+     * @return true if renting, false if not
+     */
+    default boolean isUserRenting(User user) {
+        if (user == null) {
+            return false;
+        }
+        return this.isUserRenting(user.getUniqueId());
+    }
+
+    /**
+     * Checks if {@link User} is renting.
+     * 
+     * @param uuid The uuid
+     * @return true if renting, false if not
+     */
+    boolean isUserRenting(UUID uuid);
 
     /**
      * Gets the rent past due date.
@@ -167,13 +197,6 @@ public interface EconomyData {
     double getSalePrice();
 
     /**
-     * Gets the current owed rent balance.
-     * 
-     * @return The rent balance
-     */
-    double getRentBalance();
-
-    /**
      * Gets the current owed tax balance.
      * 
      * @return The tax balance
@@ -181,12 +204,18 @@ public interface EconomyData {
     double getTaxBalance();
 
     /**
-     * Gets the maximum number of time the 
-     * current renter can rent for.
+     * Gets the minimum rent time.
      * 
-     * @return The maximum number of rent time
+     * @return The minimum rent time
      */
-    int getRentMax();
+    int getRentMinTime();
+
+    /**
+     * Gets the maximum rent time.
+     * 
+     * @return The maximum rent time
+     */
+    int getRentMaxTime();
 
     /**
      * Clears the payment transactions.
@@ -203,18 +232,22 @@ public interface EconomyData {
     void setPaymentType(PaymentType type);
 
     /**
-     * Sets the rent balance of {@link Claim}.
+     * Sets the minimum time to rent.
      * 
-     * @param balance The new rent balance
+     * Note: The time is based on {@link #getPaymentType()}.
+     * 
+     * @param min The min rent time
      */
-    void setRentBalance(double balance);
+    void setRentMinTime(int min);
 
     /**
-     * Sets the maximum number of rent time.
+     * Sets the maximum time to rent.
      * 
+     * Note: The time is based on {@link #getPaymentType()}.
+     *  
      * @param max The max rent time
      */
-    void setRentMax(int max);
+    void setRentMaxTime(int max);
 
     /**
      * Sets the new rent past due date.

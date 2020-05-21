@@ -24,8 +24,8 @@
  */
 package com.griefdefender.api.event;
 
-import java.util.List;
-import java.util.UUID;
+import com.griefdefender.api.User;
+import com.griefdefender.api.economy.PaymentType;
 
 import net.kyori.event.Cancellable;
 
@@ -37,19 +37,14 @@ import net.kyori.event.Cancellable;
 public interface RentClaimEvent extends ClaimEvent, Cancellable  {
 
     /**
-     * Gets an immutable list of {@link UUID}'s of users 
-     * renting claim.
+     * Gets the original rent balance.
      * 
-     * @return The immutable list of uuid's
-     */
-    List<UUID> getRenters();
-
-    /**
-     * Gets the original rent amount for claim.
+     * Note: This is the previous balance
+     * before the new rate was applied.
      * 
-     * @return The original rent amount
+     * @return The original rent balance
      */
-    double getOriginalRentAmount();
+    double getOriginalRentBalance();
 
     /**
      * Gets the original rent rate for claim.
@@ -59,16 +54,16 @@ public interface RentClaimEvent extends ClaimEvent, Cancellable  {
     double getOriginalRentRate();
 
     /**
-     * Gets the current total rent amount to be applied to claim.
+     * Gets the current rent balance due.
      * 
-     * Note: To adjust the rent amount, use {{@link #setRentRate(double)}
+     * Note: To adjust the rent balance, use {@link #setRentRate(double)}
      * 
-     * @return The current total rent amount
+     * @return The current rent balance
      */
-    double getRentAmount();
+    double getRentBalance();
 
     /**
-     * Gets the current rent rate to be applied to claim.
+     * Gets the current rent rate.
      * 
      * @return The current rent rate
      */
@@ -80,4 +75,18 @@ public interface RentClaimEvent extends ClaimEvent, Cancellable  {
      * @param newRentRate The new rent rate.
      */
     void setRentRate(double newRentRate);
+
+    /**
+     * Gets the {@link User} being charged.
+     * 
+     * @return The user being charged
+     */
+    User getRenter();
+
+    /**
+     * Gets the rent {@link PaymentType}
+     * 
+     * @return The payment type
+     */
+    PaymentType getPaymentType();
 }

@@ -206,6 +206,13 @@ public interface PlayerData {
     double getEconomyClaimBlockReturn();
 
     /**
+     * Gets the rent balance owed in {@link Claim}.
+     * 
+     * @param claim The claim to check rent balance
+     */
+    double getRentBalance(Claim claim);
+
+    /**
      * Checks if this player can ignore a claim.
      * 
      * @param claim The claim to check
@@ -227,5 +234,19 @@ public interface PlayerData {
      */
     void setBonusClaimBlocks(int blocks);
 
+    /**
+     * Sets the rent balance owed in {@link Claim}.
+     * 
+     * @param claim The claim
+     * @param newBalance The new balance
+     */
+    void setRentBalance(Claim claim, double newBalance);
+
+    /**
+     * Gets the current tax rate for {@link ClaimType}.
+     * 
+     * @param type The claim type
+     * @return The current tax rate
+     */
     double getTaxRate(ClaimType type);
 }

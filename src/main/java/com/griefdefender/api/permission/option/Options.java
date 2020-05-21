@@ -26,6 +26,7 @@ package com.griefdefender.api.permission.option;
 
 import com.griefdefender.api.Tristate;
 import com.griefdefender.api.claim.Claim;
+import com.griefdefender.api.permission.ContextKeys;
 import com.griefdefender.api.permission.option.type.CreateModeType;
 import com.griefdefender.api.permission.option.type.CreateModeTypes;
 import com.griefdefender.api.permission.option.type.GameModeType;
@@ -51,6 +52,28 @@ public final class Options {
     public static final Option<Double> ABANDON_RETURN_RATIO = DummyObjectProvider.createFor(Option.class, "abandon-return-ratio");
 
     /**
+     * The total number of claim blocks accrued by a player.
+     * 
+     * Note: This does not account for bonus blocks.
+     */
+    public static final Option<Integer> ACCRUED_BLOCKS = DummyObjectProvider.createFor(Option.class, "accrued-blocks");
+
+    /**
+     * Blocks earned per hour.
+     */
+    public static final Option<Integer> BLOCKS_ACCRUED_PER_HOUR = DummyObjectProvider.createFor(Option.class, "blocks-accrued-per-hour");
+
+    /**
+     * The total number of bonus claim blocks given to a player.
+     */
+    public static final Option<Integer> BONUS_BLOCKS = DummyObjectProvider.createFor(Option.class, "bonus-blocks");
+
+    /**
+     * Number of days of inactivity before an automatic chest claim will be deleted.
+     */
+    public static final Option<Integer> CHEST_EXPIRATION = DummyObjectProvider.createFor(Option.class, "chest-expiration");
+
+    /**
      * Maximum number of basic claims per player.<br>
      * 
      * Note: (-1 = unlimited)
@@ -58,9 +81,38 @@ public final class Options {
     public static final Option<Integer> CREATE_LIMIT = DummyObjectProvider.createFor(Option.class, "create-limit");
 
     /**
+     * The default claiming mode set for players on login.<br>
+     * 
+     * Accepts the following values :
+     * <ul>
+     * <li>{@link CreateModeTypes#AREA}
+     * <li>{@link CreateModeTypes#VOLUME}
+     * <li>{@link CreateModeTypes#UNDEFINED}
+     * </ul>
+     */
+    public static final Option<CreateModeType> CREATE_MODE = DummyObjectProvider.createFor(Option.class, "create-mode");
+
+    /**
+     * The economy amount to charge per block of a {@link Claim}.<br>
+     * 
+     * Note: The formula to calculate price is {amount} * {@link Claim#getClaimBlocks()}
+     */
+    public static final Option<Double> ECONOMY_BLOCK_COST = DummyObjectProvider.createFor(Option.class, "economy-block-cost");
+
+    /**
+     * The return ration for selling claim blocks.
+     */
+    public static final Option<Double> ECONOMY_BLOCK_SELL_RETURN = DummyObjectProvider.createFor(Option.class, "economy-block-sell-return");
+
+    /**
      * Number of days of inactivity before a basic claim will be deleted.
      */
     public static final Option<Integer> EXPIRATION = DummyObjectProvider.createFor(Option.class, "expiration");
+
+    /**
+     * The number of claim blocks a player has initially, by default.
+     */
+    public static final Option<Integer> INITIAL_BLOCKS = DummyObjectProvider.createFor(Option.class, "initial-blocks");
 
     /**
      * The max size in blocks that the x-axis can be.
@@ -93,82 +145,6 @@ public final class Options {
     public static final Option<Integer> MIN_SIZE_Z = DummyObjectProvider.createFor(Option.class, "min-size-z");
 
     /**
-     * Number of days after not paying rent before a claim will be frozen.
-     */
-    public static final Option<Integer> RENT_EXPIRATION = DummyObjectProvider.createFor(Option.class, "rent-expiration");
-
-    /**
-     * Number of days to keep a rented claim after frozen and before being deleted.
-     */
-    public static final Option<Integer> RENT_EXPIRATION_DAYS_KEEP = DummyObjectProvider.createFor(Option.class, "rent-expiration-days-keep");
-
-    /**
-     * Number of days after not paying taxes before a claim will be frozen.
-     */
-    public static final Option<Integer> TAX_EXPIRATION = DummyObjectProvider.createFor(Option.class, "tax-expiration");
-
-    /**
-     * Number of days to keep a basic claim after frozen and before being deleted.
-     */
-    public static final Option<Integer> TAX_EXPIRATION_DAYS_KEEP = DummyObjectProvider.createFor(Option.class, "tax-expiration-days-keep");
-
-    /**
-     * Tax is calculated by the number of claimblocks in the basic claim.
-     */
-    public static final Option<Double> TAX_RATE = DummyObjectProvider.createFor(Option.class, "tax-rate");
-
-    /**
-     * Blocks earned per hour.
-     */
-    public static final Option<Integer> BLOCKS_ACCRUED_PER_HOUR = DummyObjectProvider.createFor(Option.class, "blocks-accrued-per-hour");
-
-    /**
-     * Number of days of inactivity before an automatic chest claim will be deleted.
-     */
-    public static final Option<Integer> CHEST_EXPIRATION = DummyObjectProvider.createFor(Option.class, "chest-expiration");
-
-    /**
-     * The default claiming mode set for players on login.<br>
-     * 
-     * Accepts the following values :
-     * <ul>
-     * <li>{@link CreateModeTypes#AREA}
-     * <li>{@link CreateModeTypes#VOLUME}
-     * <li>{@link CreateModeTypes#UNDEFINED}
-     * </ul>
-     */
-    public static final Option<CreateModeType> CREATE_MODE = DummyObjectProvider.createFor(Option.class, "create-mode");
-
-    /**
-     * The economy amount to charge per block of a {@link Claim}.<br>
-     * 
-     * Note: The formula to calculate price is {amount} * {@link Claim#getClaimBlocks()}
-     */
-    public static final Option<Double> ECONOMY_BLOCK_COST = DummyObjectProvider.createFor(Option.class, "economy-block-cost");
-
-    /**
-     * The return ration for selling claim blocks.
-     */
-    public static final Option<Double> ECONOMY_BLOCK_SELL_RETURN = DummyObjectProvider.createFor(Option.class, "economy-block-sell-return");
-
-    /**
-     * The number of claim blocks a player has initially, by default.
-     */
-    public static final Option<Integer> INITIAL_BLOCKS = DummyObjectProvider.createFor(Option.class, "initial-blocks");
-
-    /**
-     * The total number of claim blocks accrued by a player.
-     * 
-     * Note: This does not account for bonus blocks.
-     */
-    public static final Option<Integer> ACCRUED_BLOCKS = DummyObjectProvider.createFor(Option.class, "accrued-blocks");
-
-    /**
-     * The total number of bonus claim blocks given to a player.
-     */
-    public static final Option<Integer> BONUS_BLOCKS = DummyObjectProvider.createFor(Option.class, "bonus-blocks");
-
-    /**
      * The limit on accrued blocks (over time). doesn't limit purchased or admin-gifted blocks.
      */
     public static final Option<Integer> MAX_ACCRUED_BLOCKS = DummyObjectProvider.createFor(Option.class, "max-accrued-blocks");
@@ -182,23 +158,6 @@ public final class Options {
      * The minimum level that a claim can be created in.
      */
     public static final Option<Integer> MIN_LEVEL = DummyObjectProvider.createFor(Option.class, "min-level");
-
-    /**
-     * The radius in blocks used to search for nearby claims while inspecting.
-     */
-    public static final Option<Integer> RADIUS_INSPECT = DummyObjectProvider.createFor(Option.class, "radius-inspect");
-
-    /**
-     * Used to determine if a raid can occur in a {@link Claim}.
-     */
-    public static final Option<Boolean> RAID = DummyObjectProvider.createFor(Option.class, "raid");
-
-    /**
-     * Used to determine the spawn limit for a specific set of {@link Context}'s in a claim.
-     * 
-     * Note: Supports multiple values.
-     */
-    public static final Option<Integer> SPAWN_LIMIT = DummyObjectProvider.createFor(Option.class, "spawn-limit");
 
     /**
      * Used for executing a command on {@link Claim} enter with specific {@link Context}'s.<br>
@@ -254,6 +213,13 @@ public final class Options {
      * plugins.
      */
     public static final Option<Boolean> PLAYER_DENY_HUNGER = DummyObjectProvider.createFor(Option.class, "player-deny-hunger");
+
+    /**
+     * Used to set a player's fly speed in a {@link Claim}.<br>
+     * 
+     * Note: (-1.0 = undefined)
+     */
+    public static final Option<Double> PLAYER_FLY_SPEED = DummyObjectProvider.createFor(Option.class, "player-fly-speed");
 
     /**
      * Used to determine the gamemode of a player in a {@link Claim}.<br>
@@ -343,4 +309,58 @@ public final class Options {
      * Used to determine how many seconds PvP combat is considered to continue after the most recent damage.
      */
     public static final Option<Integer> PVP_COMBAT_TIMEOUT = DummyObjectProvider.createFor(Option.class, "pvp-combat-timeout");
+
+    /**
+     * The radius in blocks used to search for nearby claims while inspecting.
+     */
+    public static final Option<Integer> RADIUS_INSPECT = DummyObjectProvider.createFor(Option.class, "radius-inspect");
+
+    /**
+     * Used to determine if a raid can occur in a {@link Claim}.
+     */
+    public static final Option<Boolean> RAID = DummyObjectProvider.createFor(Option.class, "raid");
+
+    /**
+     * The total rent balance owed by a player.
+     * 
+     * Note: This should always be set with context {@link ContextKeys#CLAIM}.
+     */
+    public static final Option<Double> RENT_BALANCE = DummyObjectProvider.createFor(Option.class, "rent-balance");
+
+    /**
+     * Number of days after not paying rent before a claim will be frozen.
+     */
+    public static final Option<Integer> RENT_EXPIRATION = DummyObjectProvider.createFor(Option.class, "rent-expiration");
+
+    /**
+     * Number of days to keep a rented claim after frozen and before being deleted.
+     */
+    public static final Option<Integer> RENT_EXPIRATION_DAYS_KEEP = DummyObjectProvider.createFor(Option.class, "rent-expiration-days-keep");
+
+    /**
+     * Controls whether a claim rental will be restored on expiration or max time of rental.
+     */
+    public static final Option<Boolean> RENT_RESTORE = DummyObjectProvider.createFor(Option.class, "rent-restore");
+
+    /**
+     * Used to determine the spawn limit for a specific set of {@link Context}'s in a claim.
+     * 
+     * Note: Supports multiple values.
+     */
+    public static final Option<Integer> SPAWN_LIMIT = DummyObjectProvider.createFor(Option.class, "spawn-limit");
+
+    /**
+     * Number of days after not paying taxes before a claim will be frozen.
+     */
+    public static final Option<Integer> TAX_EXPIRATION = DummyObjectProvider.createFor(Option.class, "tax-expiration");
+
+    /**
+     * Number of days to keep a basic claim after frozen and before being deleted.
+     */
+    public static final Option<Integer> TAX_EXPIRATION_DAYS_KEEP = DummyObjectProvider.createFor(Option.class, "tax-expiration-days-keep");
+
+    /**
+     * Tax is calculated by the number of claimblocks in the basic claim.
+     */
+    public static final Option<Double> TAX_RATE = DummyObjectProvider.createFor(Option.class, "tax-rate");
 }
