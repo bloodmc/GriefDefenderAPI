@@ -87,7 +87,7 @@ public interface ClaimVisual {
      * @param user The user to apply visual
      */
     default void apply(User user) {
-        this.apply(user, true);
+        this.apply(user, false);
     }
 
     /**

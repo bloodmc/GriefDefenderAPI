@@ -29,10 +29,23 @@ import com.griefdefender.api.claim.ClaimType;
 import com.griefdefender.api.permission.option.type.CreateModeType;
 
 import java.util.Set;
+import java.util.UUID;
 
 public interface PlayerData {
 
-    String getSubjectId();
+    /**
+     * Gets the {@link UUID} of player.
+     * 
+     * @return The unique identifier
+     */
+    UUID getUniqueId();
+
+    /**
+     * Gets the player name.
+     * 
+     * @return The player name
+     */
+    String getName();
 
     /**
      * Gets an immutable list of claims owned by this player.
@@ -206,13 +219,6 @@ public interface PlayerData {
     double getEconomyClaimBlockReturn();
 
     /**
-     * Gets the rent balance owed in {@link Claim}.
-     * 
-     * @param claim The claim to check rent balance
-     */
-    double getRentBalance(Claim claim);
-
-    /**
      * Checks if this player can ignore a claim.
      * 
      * @param claim The claim to check
@@ -235,18 +241,29 @@ public interface PlayerData {
     void setBonusClaimBlocks(int blocks);
 
     /**
-     * Sets the rent balance owed in {@link Claim}.
-     * 
-     * @param claim The claim
-     * @param newBalance The new balance
-     */
-    void setRentBalance(Claim claim, double newBalance);
-
-    /**
      * Gets the current tax rate for {@link ClaimType}.
      * 
      * @param type The claim type
      * @return The current tax rate
      */
     double getTaxRate(ClaimType type);
+
+    /**
+     * Reverts all current visuals.
+     */
+    void revertAllVisuals();
+
+    /**
+     * Reverts the visual of a {@link Claim}.
+     * 
+     * @param claim The claim to revert
+     */
+    void revertVisual(Claim claim);
+
+    /**
+     * Reverts visual with {@link UUID}.
+     * 
+     * @param uuid The visual uuid
+     */
+    void revertVisual(UUID uuid);
 }

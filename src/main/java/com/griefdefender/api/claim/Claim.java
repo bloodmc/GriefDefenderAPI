@@ -30,6 +30,7 @@ import com.griefdefender.api.ContextSource;
 import com.griefdefender.api.GriefDefender;
 import com.griefdefender.api.Subject;
 import com.griefdefender.api.Tristate;
+import com.griefdefender.api.User;
 import com.griefdefender.api.data.ClaimData;
 import com.griefdefender.api.data.EconomyData;
 import com.griefdefender.api.data.PlayerData;
@@ -673,6 +674,14 @@ public interface Claim extends ContextSource {
      * @return the economy account, if available
      */
     Optional<UUID> getEconomyAccountId();
+
+    /**
+     * Whether the {@link User} has an active visual on this {@link Claim}.
+     * 
+     * @param user The user
+     * @return true if active visual, false if not
+     */
+    boolean hasActiveVisual(User user);
 
     /**
     * Gets the active {@link Flag} permission value for {@link Subject} in this {@link Claim}.

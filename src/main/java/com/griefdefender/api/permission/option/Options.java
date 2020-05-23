@@ -321,13 +321,6 @@ public final class Options {
     public static final Option<Boolean> RAID = DummyObjectProvider.createFor(Option.class, "raid");
 
     /**
-     * The total rent balance owed by a player.
-     * 
-     * Note: This should always be set with context {@link ContextKeys#CLAIM}.
-     */
-    public static final Option<Double> RENT_BALANCE = DummyObjectProvider.createFor(Option.class, "rent-balance");
-
-    /**
      * Number of days after not paying rent before a claim will be frozen.
      */
     public static final Option<Integer> RENT_EXPIRATION = DummyObjectProvider.createFor(Option.class, "rent-expiration");

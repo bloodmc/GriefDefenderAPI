@@ -197,11 +197,26 @@ public interface EconomyData {
     double getSalePrice();
 
     /**
+     * Gets the current owed rent balance.
+     * 
+     * @return The rent balance
+     */
+    double getRentBalance(UUID uuid);
+
+    /**
      * Gets the current owed tax balance.
      * 
      * @return The tax balance
      */
     double getTaxBalance();
+
+    /**
+     * Sets the rent balance of {@link User}.
+     * 
+     * @param uuid The user uuid
+     * @param balance The new rent balance
+     */
+    void setRentBalance(UUID uuid, double balance);
 
     /**
      * Gets the minimum rent time.
