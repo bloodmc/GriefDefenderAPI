@@ -143,6 +143,10 @@ public final class Flags {
      */
     public static final Flag INTERACT_ITEM_SECONDARY = DummyObjectProvider.createFor(Flag.class, "interact-item-secondary");
     /**
+     * Used to allow or deny a block or entity that attempts to transfer items from one inventory to another.
+     */
+    public static final Flag INVENTORY_ITEM_MOVE = DummyObjectProvider.createFor(Flag.class, "inventory-item-move");
+    /**
      * Used to allow or deny an item from dropping into the world.
      */
     public static final Flag ITEM_DROP = DummyObjectProvider.createFor(Flag.class, "item-drop");
