@@ -26,14 +26,31 @@ package com.griefdefender.api.event;
 
 import java.util.UUID;
 
+import net.kyori.event.Cancellable;
+
 /**
  * An event that is fired after a {@link Claim} has been transferred to a new owner.
  */
-public interface TransferClaimEvent extends ClaimEvent {
+public interface TransferClaimEvent extends ClaimEvent, Cancellable {
 
+    /**
+     * Gets the original owner's {@link UUID} of {@link Claim}.
+     * 
+     * @return The original owner's uuid
+     */
     UUID getOriginalOwner();
 
+    /**
+     * Gets the new owner's {@link UUID} of {@link Claim}.
+     * 
+     * @return The new owner's uuid
+     */
     UUID getNewOwner();
 
+    /**
+     * Sets the new owner's {@link UUID}
+     * 
+     * @param uuid
+     */
     void setNewOwner(UUID uuid);
 }
