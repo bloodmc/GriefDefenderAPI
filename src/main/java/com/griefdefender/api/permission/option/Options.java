@@ -244,6 +244,11 @@ public final class Options {
     public static final Option<Double> PLAYER_HEALTH_REGEN = DummyObjectProvider.createFor(Option.class, "player-health-regen");
 
     /**
+     * Used to determine if a player's dropped items should be locked from pickup by others on death.
+     */
+    public static final Option<Boolean> PLAYER_ITEM_DROP_LOCK = DummyObjectProvider.createFor(Option.class, "player-item-drop-lock");
+
+    /**
      * Used to determine if a player can keep inventory after death in a {@link Claim}.<br>
      * 
      * Accepts the following values :
@@ -309,6 +314,11 @@ public final class Options {
      * Used to determine how many seconds PvP combat is considered to continue after the most recent damage.
      */
     public static final Option<Integer> PVP_COMBAT_TIMEOUT = DummyObjectProvider.createFor(Option.class, "pvp-combat-timeout");
+
+    /**
+     * Used to determine if a player's dropped items should be locked from pickup by others on pvp death.
+     */
+    public static final Option<Boolean> PVP_ITEM_DROP_LOCK = DummyObjectProvider.createFor(Option.class, "pvp-item-drop-lock");
 
     /**
      * The radius in blocks used to search for nearby claims while inspecting.
