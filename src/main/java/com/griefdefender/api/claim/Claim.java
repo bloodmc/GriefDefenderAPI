@@ -684,6 +684,13 @@ public interface Claim extends ContextSource {
     boolean hasActiveVisual(User user);
 
     /**
+     * Whether PVP is allowed in this {@link Claim}.
+     * 
+     * @return true if allowed, false if not
+     */
+    boolean isPvpAllowed();
+
+    /**
     * Gets the active {@link Flag} permission value for {@link Subject} in this {@link Claim}.
     * 
     * @param flag The flag

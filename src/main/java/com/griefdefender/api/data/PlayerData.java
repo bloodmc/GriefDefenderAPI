@@ -24,6 +24,7 @@
  */
 package com.griefdefender.api.data;
 
+import com.griefdefender.api.User;
 import com.griefdefender.api.claim.Claim;
 import com.griefdefender.api.claim.ClaimType;
 import com.griefdefender.api.permission.option.type.CreateModeType;
@@ -32,6 +33,13 @@ import java.util.Set;
 import java.util.UUID;
 
 public interface PlayerData {
+
+    /**
+     * Gets the {@link User}.
+     * 
+     * @return The user associated with player data
+     */
+    User getUser();
 
     /**
      * Gets the {@link UUID} of player.
@@ -180,6 +188,14 @@ public interface PlayerData {
     int getRemainingClaimBlocks();
 
     /**
+     * Gets the remaining pvp combat time in seconds.
+     * 
+     * @param claim The claim to check in
+     * @return The remaining pvp combat time
+     */
+    int getRemainingPvpCombatTime(Claim claim);
+
+    /**
      * Gets the amount of days for this player's
      * auto-created chest claim's to expire.
      * 
@@ -225,6 +241,21 @@ public interface PlayerData {
      * @return Whether this player can ignore the claim
      */
     boolean canIgnoreClaim(Claim claim);
+
+    /**
+     * Checks if this player can pvp in {@link Claim}.
+     * 
+     * @param claim The claim to check
+     * @return Whether player has ability to pvp inside claim
+     */
+    boolean canPvp(Claim claim);
+
+    /**
+     * Checks if this player is in pvp combat.
+     * 
+     * @return true if in pvp combat, false if not
+     */
+    boolean inPvpCombat();
 
     /**
      * Sets the total amount of accrued claim blocks.
