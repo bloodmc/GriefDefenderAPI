@@ -24,13 +24,13 @@
  */
 package com.griefdefender.api.data;
 
-import net.kyori.text.Component;
+import net.kyori.adventure.text.Component;
 
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface TownData extends ClaimData {
+public interface TownData extends LocatableClaimData {
 
     Optional<Component> getTownTag();
 

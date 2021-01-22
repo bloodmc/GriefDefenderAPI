@@ -22,61 +22,31 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.griefdefender.api.claim;
+package com.griefdefender.api.event;
 
-import com.griefdefender.api.data.TownData;
-import net.kyori.adventure.text.Component;
+import java.util.List;
 
-import java.util.Optional;
-import java.util.UUID;
+import com.griefdefender.api.claim.Claim;
 
-public interface Town extends Claim {
-
-    /**
-     * Gets the {@link ClaimType}.
-     * 
-     * @return The claim type
-     */
-    default ClaimType getType() {
-        return ClaimTypes.TOWN;
-    }
+/**
+ * An event that is fired when one or more clan trust changes in a {@link Claim}.
+ */
+public interface ClanTrustClaimEvent extends TrustClaimEvent {
 
     /**
-     * Gets the town tag.
+     * Gets the list of clans requesting trust.
      * 
-     * @return The town tag
+     * @return The list of clans requesting trust
      */
-    default Optional<Component> getTownTag() {
-        return this.getData().getTownTag();
-    }
+    List<String> getClans();
 
     /**
-     * Gets the {@link UUID}'s accrued claim blocks.
-     * 
-     * @return The uuid's accrued claim blocks
+     * Fired when a group is added to claim trust.
      */
-    default int getAccruedClaimBlocks(UUID uuid) {
-        final Integer accrued = this.getData().getAccruedClaimBlocks().get(uuid);
-        if (accrued == null) {
-            return 0;
-        }
-
-        return accrued;
-    }
+    interface Add extends ClanTrustClaimEvent, TrustClaimEvent.Add {};
 
     /**
-     * Gets the {@link UUID}'s bonus claim blocks.
-     * 
-     * @return The uuid's bonus claim blocks
+     * Fired when a group is removed from claim trust.
      */
-    default int getBonusClaimBlocks(UUID uuid) {
-        final Integer bonus = this.getData().getBonusClaimBlocks().get(uuid);
-        if (bonus == null) {
-            return 0;
-        }
-
-        return bonus;
-    }
-
-    TownData getData();
+    interface Remove extends ClanTrustClaimEvent, TrustClaimEvent.Remove {};
 }

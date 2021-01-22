@@ -26,7 +26,7 @@ package com.griefdefender.api.permission.option;
 
 import com.griefdefender.api.CatalogType;
 import com.griefdefender.api.GriefDefender;
-import net.kyori.text.Component;
+import net.kyori.adventure.text.Component;
 
 import java.util.Set;
 

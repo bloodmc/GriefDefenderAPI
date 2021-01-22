@@ -25,7 +25,7 @@
 package com.griefdefender.api.permission;
 
 import com.griefdefender.api.CatalogType;
-import net.kyori.text.Component;
+import net.kyori.adventure.text.Component;
 
 public interface ResultType extends CatalogType {
 

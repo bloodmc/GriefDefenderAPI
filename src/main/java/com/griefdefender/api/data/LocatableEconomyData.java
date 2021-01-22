@@ -22,61 +22,39 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.griefdefender.api.claim;
+package com.griefdefender.api.data;
 
-import com.griefdefender.api.data.TownData;
-import net.kyori.adventure.text.Component;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
-import java.util.Optional;
-import java.util.UUID;
+import com.flowpowered.math.vector.Vector3i;
 
-public interface Town extends Claim {
+public interface LocatableEconomyData extends EconomyData {
 
     /**
-     * Gets the {@link ClaimType}.
+     * Gets the rent sign location.
      * 
-     * @return The claim type
+     * @return The rent sign position, if available
      */
-    default ClaimType getType() {
-        return ClaimTypes.TOWN;
-    }
+    @Nullable Vector3i getRentSignPosition();
 
     /**
-     * Gets the town tag.
+     * Gets the sale sign location.
      * 
-     * @return The town tag
+     * @return The sale sign position, if available
      */
-    default Optional<Component> getTownTag() {
-        return this.getData().getTownTag();
-    }
+    @Nullable Vector3i getSaleSignPosition();
 
     /**
-     * Gets the {@link UUID}'s accrued claim blocks.
+     * Sets the sign position of claim being rented.
      * 
-     * @return The uuid's accrued claim blocks
+     * @param pos The rent sign pos
      */
-    default int getAccruedClaimBlocks(UUID uuid) {
-        final Integer accrued = this.getData().getAccruedClaimBlocks().get(uuid);
-        if (accrued == null) {
-            return 0;
-        }
-
-        return accrued;
-    }
+    void setRentSignPosition(@Nullable Vector3i pos);
 
     /**
-     * Gets the {@link UUID}'s bonus claim blocks.
+     * Sets the sign position of claim being sold.
      * 
-     * @return The uuid's bonus claim blocks
+     * @param pos The sell sign pos
      */
-    default int getBonusClaimBlocks(UUID uuid) {
-        final Integer bonus = this.getData().getBonusClaimBlocks().get(uuid);
-        if (bonus == null) {
-            return 0;
-        }
-
-        return bonus;
-    }
-
-    TownData getData();
+    void setSaleSignPosition(@Nullable Vector3i pos);
 }

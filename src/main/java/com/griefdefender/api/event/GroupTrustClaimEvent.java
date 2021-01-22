@@ -24,7 +24,7 @@
  */
 package com.griefdefender.api.event;
 
-import java.util.List;
+import java.util.Set;
 
 import com.griefdefender.api.claim.Claim;
 
@@ -38,7 +38,7 @@ public interface GroupTrustClaimEvent extends TrustClaimEvent {
      * 
      * @return The list of groups requesting trust
      */
-    List<String> getGroups();
+    Set<String> getGroups();
 
     /**
      * Fired when a group is added to claim trust.

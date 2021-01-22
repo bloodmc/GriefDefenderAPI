@@ -25,7 +25,7 @@
 package com.griefdefender.api.claim;
 
 import com.griefdefender.api.event.CreateClaimEvent;
-import net.kyori.text.Component;
+import net.kyori.adventure.text.Component;
 
 import java.util.List;
 import java.util.Optional;

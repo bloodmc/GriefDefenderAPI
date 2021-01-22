@@ -22,61 +22,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.griefdefender.api.claim;
+package com.griefdefender.api;
 
-import com.griefdefender.api.data.TownData;
-import net.kyori.adventure.text.Component;
-
-import java.util.Optional;
-import java.util.UUID;
-
-public interface Town extends Claim {
+public interface ClanPlayer extends User {
 
     /**
-     * Gets the {@link ClaimType}.
+     * Gets the player's {@link Clan}.
      * 
-     * @return The claim type
+     * @return The player's clan
      */
-    default ClaimType getType() {
-        return ClaimTypes.TOWN;
-    }
+    Clan getClan();
 
     /**
-     * Gets the town tag.
+     * Sets the player's {@link Clan}.
      * 
-     * @return The town tag
+     * @param clan The clan to set
      */
-    default Optional<Component> getTownTag() {
-        return this.getData().getTownTag();
-    }
-
-    /**
-     * Gets the {@link UUID}'s accrued claim blocks.
-     * 
-     * @return The uuid's accrued claim blocks
-     */
-    default int getAccruedClaimBlocks(UUID uuid) {
-        final Integer accrued = this.getData().getAccruedClaimBlocks().get(uuid);
-        if (accrued == null) {
-            return 0;
-        }
-
-        return accrued;
-    }
-
-    /**
-     * Gets the {@link UUID}'s bonus claim blocks.
-     * 
-     * @return The uuid's bonus claim blocks
-     */
-    default int getBonusClaimBlocks(UUID uuid) {
-        final Integer bonus = this.getData().getBonusClaimBlocks().get(uuid);
-        if (bonus == null) {
-            return 0;
-        }
-
-        return bonus;
-    }
-
-    TownData getData();
+    void setClan(Clan clan);
 }

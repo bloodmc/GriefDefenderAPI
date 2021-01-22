@@ -30,7 +30,8 @@ import com.griefdefender.api.User;
 import com.griefdefender.api.claim.Claim;
 import com.griefdefender.api.data.ClaimData;
 import net.kyori.event.Cancellable;
-import net.kyori.text.Component;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.title.Title;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -90,6 +91,22 @@ public interface BorderClaimEvent extends ClaimEvent, Cancellable  {
     Optional<Component> getExitMessage();
 
     /**
+     * Gets the event enter message if available.
+     * 
+     * Note: If no message is set, the {@link ClaimData#getGreeting()}
+     * will be used.
+     */
+    Optional<Title> getEnterTitle();
+
+    /**
+     * Gets the event exit message if available.
+     * 
+     * Note: If no message is set, the {@link ClaimData#getFarewell()}
+     * will be used.
+     */
+    Optional<Title> getExitTitle();
+
+    /**
      * Sets the enter message for this event only.
      * 
      * Note: Setting message to {@code null} will hide the message.
@@ -111,6 +128,27 @@ public interface BorderClaimEvent extends ClaimEvent, Cancellable  {
      */
     void setExitMessage(@Nullable Component message, ChatType chatType);
 
+    /**
+     * Sets the enter title for this event only.
+     * 
+     * Note: Setting title to {@code null} will hide the message.
+     * If no title is set, the {@link ClaimData#getGreeting()} will be used.
+     * 
+     * @param message The message to set
+     * @param chatType The desired chat type, in which the message will be displayed
+     */
+    void setEnterTitle(@Nullable Title title);
+
+    /**
+     * Sets the exit title for this event only.
+     * 
+     * Note: Setting title to {@code null} will hide the message.
+     * If no message is set, the {@link ClaimData#getFarewell()} will be used.
+     * 
+     * @param message The message to set
+     * @param chatType The desired chat type, in which the message will be displayed
+     */
+    void setExitTitle(@Nullable Title title);
 
     /**
      * Sets the exit message for this event only.

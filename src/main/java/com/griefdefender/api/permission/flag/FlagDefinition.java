@@ -34,7 +34,7 @@ import com.griefdefender.api.Subject;
 import com.griefdefender.api.Tristate;
 import com.griefdefender.api.permission.Context;
 
-import net.kyori.text.Component;
+import net.kyori.adventure.text.Component;
 
 /**
  * Represents a flag definition which can hold one or more {@link Flag} permissions.

@@ -71,12 +71,43 @@ public class ContextKeys {
     public static final String CLAIM_OVERRIDE = "gd_claim_override";
 
     /**
+     * Represents a clan context key.
+     * 
+     * Note: This context is designed to be paired with one of the following contexts :
+     * <ul>
+     * <li>gd_claim
+     * <li>gd_claim_default
+     * <li>gd_claim_override
+     * </ul>
+     */
+    public static final String CLAN = "gd_clan";
+
+    /**
+     * Represents a custom type context key.
+     * 
+     * Note: This context is designed to be paired with one of the following contexts :
+     * <ul>
+     * <li>gd_claim
+     * <li>gd_claim_default
+     * <li>gd_claim_override
+     * </ul>
+     */
+    public static final String CUSTOM_TYPE = "gd_custom_type";
+
+    /**
      * Represents a flag context key.
      * 
      * Note: This is only used for {@link Option}'s to
      * pair it with a {@link Flag}.
      */
     public static final String FLAG = "gd_flag";
+
+    /**
+     * Represents a rent context key.
+     * 
+     * Note: This should always be applied to claims that are rented.
+     */
+    public static final String RENT = "gd_rent";
 
     /**
      * Represents a command {@link Option} context key.

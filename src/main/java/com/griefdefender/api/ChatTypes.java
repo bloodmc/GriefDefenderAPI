@@ -46,11 +46,6 @@ public final class ChatTypes {
      * The standard chat position in prompt at the bottom-left.
      */
     public static ChatType CHAT = DummyObjectProvider.createFor(ChatType.class, "CHAT");
-
-    /**
-     * The center position of player screen.
-     */
-    public static ChatType TITLE = DummyObjectProvider.createFor(ChatType.class, "TITLE");
     // SORTFIELDS:OFF
 
 }

@@ -55,7 +55,7 @@ dependencies {
     compile "com.google.code.findbugs:jsr305:3.0.2"
     compile "net.kyori:event-api:3.0.0"
     compile "net.kyori:event-method-asm:3.0.0"
-    compile "net.kyori:text-api:3.0.2"
+    compileOnly "net.kyori:adventure-api:4.4.0"
 }
 
 jar {
@@ -70,7 +70,7 @@ shadowJar {
         include dependency("com.flowpowered:flow-math:1.0.3")
         include dependency("net.kyori:event-api:3.0.0")
         include dependency("net.kyori:event-method-asm:3.0.0")
-        include dependency("net.kyori:text-api:3.0.2")
+        include dependency("net.kyori:adventure-api:4.4.0")
     }
 }
 

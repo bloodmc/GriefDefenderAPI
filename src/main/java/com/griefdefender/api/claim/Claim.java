@@ -31,15 +31,16 @@ import com.griefdefender.api.GriefDefender;
 import com.griefdefender.api.Subject;
 import com.griefdefender.api.Tristate;
 import com.griefdefender.api.User;
-import com.griefdefender.api.data.ClaimData;
 import com.griefdefender.api.data.EconomyData;
+import com.griefdefender.api.data.LocatableClaimData;
+import com.griefdefender.api.data.LocatableEconomyData;
 import com.griefdefender.api.data.PlayerData;
 import com.griefdefender.api.permission.Context;
 import com.griefdefender.api.permission.PermissionResult;
 import com.griefdefender.api.permission.flag.Flag;
 import com.griefdefender.api.permission.option.Option;
 
-import net.kyori.text.Component;
+import net.kyori.adventure.text.Component;
 
 import java.util.List;
 import java.util.Map;
@@ -61,6 +62,72 @@ public interface Claim extends ContextSource {
      * @return The UUID of this claim
      */
     UUID getUniqueId();
+
+    /**
+     * Gets the {@link ClaimType} of claim.
+     * 
+     * @return The claim type
+     */
+    default ClaimType getType() {
+        return this.getData().getType();
+    }
+
+    /** Gets the claim's world {@link UUID}.
+     * 
+     * @return The world UUID
+     */
+    default UUID getWorldUniqueId() {
+        return this.getData().getWorldUniqueId();
+    }
+
+    /**
+     * Gets the claim's display name {@link Component}.
+     * 
+     * @return The display name component, if available
+     */
+    Optional<Component> getDisplayNameComponent();
+
+    /**
+     * Gets the claim's display name.
+     * 
+     * @return The display name, if available
+     */
+    Optional<String> getDisplayName();
+
+    /**
+     * Gets the unique name identifier of claim.
+     * 
+     * Note: This represents the unique friendly identifier of claim and is different from 
+     * the {@link #getDisplayName()}.
+     * 
+     * @return The unique name identifier, if available
+     */
+    @Nullable String getName();
+
+    /**
+     * Sets the unique name identifier of claim.
+     * 
+     * Note: This represents the unique friendly identifier of claim and is different from 
+     * the {@link #setDisplayName(Component)}.
+     * 
+     * @param name The unique name identifier
+     * @return true if successful, false if already exists
+     */
+    default boolean setName(String name) {
+        return this.setName(name, false);
+    }
+
+    /**
+     * Sets the unique name identifier of claim.
+     * 
+     * Note: This represents the unique friendly identifier of claim and is different from 
+     * the {@link #setDisplayName(Component)}.
+     * 
+     * @param name The unique name identifier
+     * @param replace Whether to replace if identifier exists
+     * @return true if successful, false if no replace
+     */
+    boolean setName(String name, boolean replace);
 
     /**
      * Gets the active {@link ClaimVisual}.
@@ -88,6 +155,18 @@ public interface Claim extends ContextSource {
      * @return The display name of claim owner, if available
      */
     Component getOwnerDisplayName();
+
+    /**
+     * Gets the claim owner's {@link UUID}.
+     * 
+     * Note: {@link ClaimType#ADMIN} and {@link ClaimType#WILDERNESS} claims do not have
+     * owners.
+     * 
+     * @return The UUID of this claim
+     */
+    default UUID getOwnerUniqueId() {
+        return this.getData().getOwnerUniqueId();
+    }
 
     /**
      * Gets the claim's parent.
@@ -274,32 +353,32 @@ public interface Claim extends ContextSource {
     List<Claim> getParents(boolean recursive);
 
     /**
-     * Gets an immutable list of all trusted users.
+     * Gets an immutable set of all trusted users.
      * 
-     * @return An immutable list of all trusted users
+     * @return An immutable set of all trusted users
      */
-    List<UUID> getUserTrusts();
+    Set<UUID> getUserTrusts();
 
     /**
-     * Gets an immutable list of trusted users for {@link TrustType}.
+     * Gets an immutable set of trusted users for {@link TrustType}.
      * 
-     * @return An immutable list of trusted users
+     * @return An immutable set of trusted users
      */
-    List<UUID> getUserTrusts(TrustType type);
+    Set<UUID> getUserTrusts(TrustType type);
 
     /**
-     * Gets an immutable list of all trusted groups.
+     * Gets an immutable set of all trusted groups.
      * 
-     * @return An immutable list of all trusted groups
+     * @return An immutable set of all trusted groups
      */
-    List<String> getGroupTrusts();
+    Set<String> getGroupTrusts();
 
     /**
-     * Gets an immutable list of trusted groups for {@link TrustType}.
+     * Gets an immutable set of trusted groups for {@link TrustType}.
      * 
-     * @return An immutable list of trusted groups
+     * @return An immutable set of trusted groups
      */
-    List<String> getGroupTrusts(TrustType type);
+    Set<String> getGroupTrusts(TrustType type);
 
     /**
      * Clears all trusts for claim.
@@ -332,13 +411,13 @@ public interface Claim extends ContextSource {
     ClaimResult addUserTrust(UUID uuid, TrustType type);
 
     /**
-     * Grants claim trust to the list of UUID's for given {@link TrustType}.
+     * Grants claim trust to the set of UUID's for given {@link TrustType}.
      * 
-     * @param uuid The list of user UUID's
+     * @param uuid The set of user UUID's
      * @param type The trust type
      * @return The claim result
      */
-    ClaimResult addUserTrusts(List<UUID> uuid, TrustType type);
+    ClaimResult addUserTrusts(Set<UUID> uuid, TrustType type);
 
     /**
      * Removes UUID from claim trust for given {@link TrustType}.
@@ -350,13 +429,13 @@ public interface Claim extends ContextSource {
     ClaimResult removeUserTrust(UUID uuid, TrustType type);
 
     /**
-     * Removes the list of UUID's from claim trust for given {@link TrustType}.
+     * Removes the set of UUID's from claim trust for given {@link TrustType}.
      * 
-     * @param uuid The list of user UUID's
+     * @param uuid The set of user UUID's
      * @param type The trust type
      * @return The claim result
      */
-    ClaimResult removeUserTrusts(List<UUID> uuid, TrustType type);
+    ClaimResult removeUserTrusts(Set<UUID> uuid, TrustType type);
 
     /**
      * Grants claim trust to the group for given {@link TrustType}.
@@ -368,13 +447,13 @@ public interface Claim extends ContextSource {
     ClaimResult addGroupTrust(String group, TrustType type);
 
     /**
-     * Grants claim trust to the list of groups for given {@link TrustType}.
+     * Grants claim trust to the set of groups for given {@link TrustType}.
      * 
-     * @param groups The list of groups
+     * @param groups The set of groups
      * @param type The trust type
      * @return The claim result
      */
-    ClaimResult addGroupTrusts(List<String> groups, TrustType type);
+    ClaimResult addGroupTrusts(Set<String> groups, TrustType type);
 
     /**
      * Removes a group from claim trust for given {@link TrustType}.
@@ -386,13 +465,13 @@ public interface Claim extends ContextSource {
     ClaimResult removeGroupTrust(String group, TrustType type);
 
     /**
-     * Removes the list of UUID's from claim trust for given {@link TrustType}.
+     * Removes the set of UUID's from claim trust for given {@link TrustType}.
      * 
-     * @param groups The list of groups
+     * @param groups The set of groups
      * @param type The trust type
      * @return The claim result
      */
-    ClaimResult removeGroupTrusts(List<String> groups, TrustType type);
+    ClaimResult removeGroupTrusts(Set<String> groups, TrustType type);
 
     /**
      * Checks if the {@link UUID} is able to build in claim.
@@ -609,10 +688,10 @@ public interface Claim extends ContextSource {
      * 
      * @return The claim's persisted data
      */
-    ClaimData getData();
+    LocatableClaimData getData();
 
     /**
-     * Deletes the specified schematic if it exists.
+     * Deletes the specified {@link ClaimSchematic} if it exists.
      * 
      * @param name The schematic to delete
      * @return true if the schematic was deleted
@@ -620,51 +699,59 @@ public interface Claim extends ContextSource {
     boolean deleteSchematic(String schematic);
 
     /**
-     * Gets a map of currently stored schematics.
+     * Gets a map of currently stored {@link ClaimSchematic}'s.
      * 
      * @return The map of schematics, empty if none
      */
     Map<String, ClaimSchematic> getSchematics();
 
     /**
-     * Gets the {@link ClaimType} of claim.
+     * Creates a {@link ClaimSnapshot}.
      * 
-     * @return The claim type
-     */
-    default ClaimType getType() {
-        return this.getData().getType();
-    }
-
-    /** Gets the claim's world {@link UUID}.
+     * Note: This will use default {@link SnapshotCreateSettings}
      * 
-     * @return The world UUID
+     * @param name The snapshot name
+     * @return The claim snapshot
      */
-    default UUID getWorldUniqueId() {
-        return this.getData().getWorldUniqueId();
-    }
+    ClaimSnapshot createSnapshot(String name);
 
     /**
-     * Gets the claim owner's {@link UUID}.
+     * Creates a {@link ClaimSnapshot}.
      * 
-     * Note: {@link ClaimType#ADMIN} and {@link ClaimType#WILDERNESS} claims do not have
-     * owners.
+     * Note: This will use default {@link SnapshotCreateSettings}
      * 
-     * @return The UUID of this claim
+     * @param name The snapshot name
+     * @param description The snapshot description
+     * @return The claim snapshot
      */
-    default UUID getOwnerUniqueId() {
-        return this.getData().getOwnerUniqueId();
-    }
+    ClaimSnapshot createSnapshot(String name, Component description);
 
     /**
-     * Gets the claim's name.
+     * Creates a {@link ClaimSnapshot}.
      * 
-     * @return The name of claim, if available
+     * @param name The snapshot name
+     * @param settings The creation settings
+     * @param description The snapshot description
+     * @return The claim snapshot
      */
-    default Optional<Component> getName() {
-        return this.getData().getName();
-    }
+    ClaimSnapshot createSnapshot(String name, Component description, SnapshotCreateSettings settings);
 
-    default EconomyData getEconomyData() {
+    /**
+     * Deletes the specified {@link ClaimSnapshot} if it exists.
+     * 
+     * @param name The snapshot to delete
+     * @return true if the snapshot was deleted
+     */
+    boolean deleteSnapshot(String snapshot);
+
+    /**
+     * Gets a map of currently stored {@link ClaimSnapshot}'s.
+     * 
+     * @return The map of snapshots, empty if none
+     */
+    Map<String, ClaimSnapshot> getSnapshots();
+
+    default LocatableEconomyData getEconomyData() {
         return this.getData().getEconomyData();
     }
 

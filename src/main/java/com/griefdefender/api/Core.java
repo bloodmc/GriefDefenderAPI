@@ -27,11 +27,14 @@ package com.griefdefender.api;
 import com.griefdefender.api.claim.Claim;
 import com.griefdefender.api.claim.ClaimBlockSystem;
 import com.griefdefender.api.claim.ClaimManager;
+import com.griefdefender.api.claim.ClaimSnapshot;
+import com.griefdefender.api.claim.SnapshotCreateSettings;
 import com.griefdefender.api.data.PlayerData;
 import com.griefdefender.api.permission.flag.Flag;
 import com.griefdefender.api.provider.WorldEditProvider;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -84,6 +87,20 @@ public interface Core {
     @Nullable Claim getClaim(UUID uuid);
 
     /**
+     * Gets the claim with friendly identifier.
+     * 
+     * @return The claim with friendly identifier, if available
+     */
+    @Nullable Claim getClaim(String friendlyIdentifier);
+
+    /**
+     * Gets an unmodifiable map view of friendly claim identifiers.
+     * 
+     * @return The unmodifiable map view, empty map if none exist
+     */
+    Map<String, UUID> getFriendlyIdentifierMapView();
+
+    /**
      * Gets an immutable list of all {@link Claim}'s.
      * 
      * @return An immutable list of all claims, empty list if none were found
@@ -106,7 +123,7 @@ public interface Core {
      * @param worldUniqueId The world uuid
      * @return The claim manager of world
      */
-    ClaimManager getClaimManager(UUID worldUniqueId);
+    @Nullable ClaimManager getClaimManager(UUID worldUniqueId);
 
     /**
      * Gets the default {@link Subject}.
@@ -150,4 +167,13 @@ public interface Core {
      * @return The worldedit provider, if available
      */
     @Nullable WorldEditProvider getWorldEditProvider();
+
+    /**
+     * Gets a global {@link ClaimSnapshot}.
+     * 
+     * @param type The type of snapshot
+     * @param id The id of snapshot
+     * @return The claim snapshot, if available
+     */
+    Optional<ClaimSnapshot> getGlobalClaimSnapshot(String id, SnapshotCreateSettings.Type type);
 }

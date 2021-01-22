@@ -31,7 +31,7 @@ import com.griefdefender.api.Subject;
 import com.griefdefender.api.permission.Context;
 
 import net.kyori.event.Cancellable;
-import net.kyori.text.Component;
+import net.kyori.adventure.text.Component;
 
 public interface PermissionEvent extends Cancellable, Event {
 

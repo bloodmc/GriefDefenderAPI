@@ -24,59 +24,21 @@
  */
 package com.griefdefender.api.claim;
 
-import com.griefdefender.api.data.TownData;
-import net.kyori.adventure.text.Component;
+import com.griefdefender.api.util.generator.DummyObjectProvider;
 
-import java.util.Optional;
-import java.util.UUID;
-
-public interface Town extends Claim {
+public class ApplyTypes {
 
     /**
-     * Gets the {@link ClaimType}.
-     * 
-     * @return The claim type
+     * Replaces all existing trust with snapshot on apply.
      */
-    default ClaimType getType() {
-        return ClaimTypes.TOWN;
+    public static final ApplyType IGNORE = DummyObjectProvider.createFor(ApplyType.class, "IGNORE");
+
+    public static final ApplyType MERGE = DummyObjectProvider.createFor(ApplyType.class, "MERGE");
+
+    public static final ApplyType REPLACE = DummyObjectProvider.createFor(ApplyType.class, "REPLACE");
+
+    // Suppress default constructor to ensure non-instantiability.
+    private ApplyTypes() {
+        throw new AssertionError("You should not be attempting to instantiate this class.");
     }
-
-    /**
-     * Gets the town tag.
-     * 
-     * @return The town tag
-     */
-    default Optional<Component> getTownTag() {
-        return this.getData().getTownTag();
-    }
-
-    /**
-     * Gets the {@link UUID}'s accrued claim blocks.
-     * 
-     * @return The uuid's accrued claim blocks
-     */
-    default int getAccruedClaimBlocks(UUID uuid) {
-        final Integer accrued = this.getData().getAccruedClaimBlocks().get(uuid);
-        if (accrued == null) {
-            return 0;
-        }
-
-        return accrued;
-    }
-
-    /**
-     * Gets the {@link UUID}'s bonus claim blocks.
-     * 
-     * @return The uuid's bonus claim blocks
-     */
-    default int getBonusClaimBlocks(UUID uuid) {
-        final Integer bonus = this.getData().getBonusClaimBlocks().get(uuid);
-        if (bonus == null) {
-            return 0;
-        }
-
-        return bonus;
-    }
-
-    TownData getData();
 }

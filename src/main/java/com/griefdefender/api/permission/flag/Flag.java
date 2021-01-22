@@ -28,7 +28,7 @@ import com.griefdefender.api.CatalogType;
 import com.griefdefender.api.GriefDefender;
 import com.griefdefender.api.claim.ClaimType;
 
-import net.kyori.text.Component;
+import net.kyori.adventure.text.Component;
 
 public interface Flag extends CatalogType {
 

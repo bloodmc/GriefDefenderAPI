@@ -27,10 +27,12 @@ package com.griefdefender.api.data;
 import com.griefdefender.api.User;
 import com.griefdefender.api.claim.Claim;
 import com.griefdefender.api.claim.ClaimType;
+import com.griefdefender.api.permission.PermissionResult;
 import com.griefdefender.api.permission.option.type.CreateModeType;
 
 import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 
 public interface PlayerData {
 
@@ -262,14 +264,14 @@ public interface PlayerData {
      * 
      * @param blocks The new total of accrued claim blocks
      */
-    boolean setAccruedClaimBlocks(int blocks);
+    CompletableFuture<PermissionResult> setAccruedClaimBlocks(int blocks);
 
     /**
      * Sets the total amount of bonus claim blocks.
      * 
      * @param blocks The new total of bonus claim blocks
      */
-    void setBonusClaimBlocks(int blocks);
+    CompletableFuture<PermissionResult> setBonusClaimBlocks(int blocks);
 
     /**
      * Gets the current tax rate for {@link ClaimType}.

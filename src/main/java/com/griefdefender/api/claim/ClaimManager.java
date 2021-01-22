@@ -78,7 +78,7 @@ public interface ClaimManager {
      * @param name The claim name to search for
      * @return The list of claims, empty list if none were found
      */
-    List<Claim> getClaimsByName(String name);
+    List<Claim> getClaimsByDisplayName(String name);
 
     /**
      * Gets an immutable list of player {@link Claim}'s for specified {@link UUID}.
