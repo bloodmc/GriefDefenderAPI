@@ -6,12 +6,12 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.github.jengelman.gradle.plugins:shadow:5.1.0'
+        classpath 'com.github.jengelman.gradle.plugins:shadow:5.2.0'
     }
 }
 
 plugins {
-    id 'com.github.johnrengelman.shadow' version '5.1.0'
+    id 'com.github.johnrengelman.shadow' version '5.2.0'
     id 'java'
     id 'maven'
 }
@@ -55,7 +55,7 @@ dependencies {
     compile "com.google.code.findbugs:jsr305:3.0.2"
     compile "net.kyori:event-api:3.0.0"
     compile "net.kyori:event-method-asm:3.0.0"
-    compileOnly "net.kyori:adventure-api:4.4.0"
+    compile "net.kyori:adventure-api:4.4.0"
 }
 
 jar {
@@ -66,6 +66,8 @@ jar {
 }
 
 shadowJar {
+    classifier = ""
+    relocate("net.kyori", "com.griefdefender.lib.kyori")
     dependencies {
         include dependency("com.flowpowered:flow-math:1.0.3")
         include dependency("net.kyori:event-api:3.0.0")
