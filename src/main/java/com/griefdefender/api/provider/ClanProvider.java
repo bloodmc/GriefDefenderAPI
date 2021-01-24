@@ -1,5 +1,5 @@
 /*
- * This file is part of GriefDefenderAPI, licensed under the MIT License (MIT).
+ * This file is part of GriefDefender, licensed under the MIT License (MIT).
  *
  * Copyright (c) bloodmc
  * Copyright (c) contributors
@@ -22,32 +22,44 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.griefdefender.api.event;
+package com.griefdefender.api.provider;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 import com.griefdefender.api.Clan;
-import com.griefdefender.api.claim.Claim;
+import com.griefdefender.api.ClanPlayer;
 
-/**
- * An event that is fired when one or more clan trust changes in a {@link Claim}.
- */
-public interface ClanTrustClaimEvent extends TrustClaimEvent {
+public interface ClanProvider {
 
     /**
-     * Gets the list of clans requesting trust.
+     * Gets a list of {@link Clan}'s available.
      * 
-     * @return The list of clans requesting trust
+     * @return The clan list or empty list if none
      */
     List<Clan> getClans();
 
     /**
-     * Fired when a group is added to claim trust.
+     * Gets a list of all {@link ClanPlayer}'s available.
+     * 
+     * @return The clan player list or empty list if none
      */
-    interface Add extends ClanTrustClaimEvent, TrustClaimEvent.Add {};
+    List<ClanPlayer> getClanPlayers();
 
     /**
-     * Fired when a group is removed from claim trust.
+     * Gets clan with tag.
+     * 
+     * @param tag The clan tag
+     * @return The clan, if available
      */
-    interface Remove extends ClanTrustClaimEvent, TrustClaimEvent.Remove {};
+    Optional<Clan> getClan(String tag);
+
+    /**
+     * Gets the {@link ClanPlayer}.
+     * 
+     * @param playerUniqueId The player uuid
+     * @return The clan player, if available
+     */
+    Optional<ClanPlayer> getClanPlayer(UUID playerUniqueId);
 }

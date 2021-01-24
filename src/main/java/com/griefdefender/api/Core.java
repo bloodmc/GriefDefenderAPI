@@ -31,6 +31,7 @@ import com.griefdefender.api.claim.ClaimSnapshot;
 import com.griefdefender.api.claim.SnapshotCreateSettings;
 import com.griefdefender.api.data.PlayerData;
 import com.griefdefender.api.permission.flag.Flag;
+import com.griefdefender.api.provider.ClanProvider;
 import com.griefdefender.api.provider.WorldEditProvider;
 
 import java.util.List;
@@ -158,6 +159,15 @@ public interface Core {
      * @return The subject
      */
     Group getGroup(String name);
+
+    /**
+     * Gets the {@link ClanProvider}.
+     * 
+     * Note: This will return null if a Clan plugin is not installed.
+     * 
+     * @return The clan provider, if available
+     */
+    @Nullable ClanProvider getClanProvider();
 
     /**
      * Gets the {@link WorldEditProvider}.
