@@ -78,6 +78,20 @@ public interface ClaimData extends ClaimDataGetter {
     void setGreeting(Component greeting);
 
     /**
+     * Sets the {@link Title} when a player enters the claim.
+     * 
+     * @param title The enter title
+     */
+    void setEnterTitle(Title title);
+
+    /**
+     * Sets the {@link Title} when a player exits the claim.
+     * 
+     * @param title The exit title
+     */
+    void setExitTitle(Title title);
+
+    /**
      * Sets last active date of claim.
      * 
      * Note: The date is used to determine whether the claim expires
