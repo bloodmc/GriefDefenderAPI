@@ -30,7 +30,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface TownData extends LocatableClaimData {
+public interface TownData extends ClaimData {
 
     Optional<Component> getTownTag();
 

@@ -28,9 +28,10 @@ import com.flowpowered.math.vector.Vector3i;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
+
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Used to manage one or more {@link Claim}'s in a world.
@@ -70,7 +71,7 @@ public interface ClaimManager {
      * @param claimUniqueId The claim UUID to search for
      * @return The claim, if available
      */
-    Optional<Claim> getClaimByUUID(UUID claimUniqueId);
+    @Nullable Claim getClaimByUUID(UUID claimUniqueId);
 
     /**
      * Gets a list of {@link Claim}'s with specified name.
@@ -81,28 +82,28 @@ public interface ClaimManager {
     List<Claim> getClaimsByDisplayName(String name);
 
     /**
-     * Gets an immutable list of player {@link Claim}'s for specified {@link UUID}.
+     * Gets a set view of player {@link Claim}'s for specified {@link UUID}.
      * 
      * Note: This will return an empty list if player has no claims.
      * 
      * @param playerUniqueId The player UUID
-     * @return An immutable list of claims, empty list if none were found
+     * @return An unmodifiable set view of claims, empty list if none were found
      */
     Set<Claim> getPlayerClaims(UUID playerUniqueId);
 
     /**
-     * Gets an immutable list all world {@link Claim}'s for specified {@link UUID}.
+     * Gets a set view all world {@link Claim}'s for specified {@link UUID}.
      * 
      * Note: This will return an empty list if no world claims are found.
      * 
-     * @return An immutable list of world claims, empty list if none were found
+     * @return An unmodifiable set view of world claims, empty list if none were found
      */
     Set<Claim> getWorldClaims();
 
     /**
-     * Gets an immutable map of chunk hashes to {@link Claim}'s.
+     * Gets an unmodifiable map view of chunk hashes to {@link Claim}'s.
      * 
-     * @return An immutable map of chunk hashes to claims, empty map if none exist.
+     * @return An unmodifiable map view of chunk hashes to claims, empty map if none exist.
      */
     Map<Long, Set<Claim>> getChunksToClaimsMap();
 

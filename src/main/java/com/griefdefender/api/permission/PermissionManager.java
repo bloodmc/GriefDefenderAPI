@@ -37,9 +37,10 @@ import com.griefdefender.api.permission.option.Option;
 
 import java.util.HashSet;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
+
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 public interface PermissionManager {
 
@@ -312,16 +313,26 @@ public interface PermissionManager {
     CompletableFuture<PermissionResult> setOption(Option option, Subject subject, String value, Set<Context> contexts);
 
     /**
-     * Gets the global {@link Option} option value in the default subject's current context.
+     * Adds a value to a multi option with contexts to a holder.
      * 
-     * Note: This uses the default subject which applies to all users in all claims.
-     * 
-     * @param option The claim option
-     * @return The option value
+     * @param subject The subject
+     * @param option The multi option to update
+     * @param value The value to add
+     * @param contexts The contexts
+     * @return The permission result
      */
-    default Optional<String> getOptionValue(Option option) {
-        return getOptionValue(option, new HashSet<>());
-    }
+    CompletableFuture<PermissionResult> addOptionListValue(Subject subject, Option option, String value, Set<Context> contexts);
+
+    /**
+     * Removes a value from a multi option with contexts to a holder.
+     * 
+     * @param subject The subject
+     * @param option The multi option to update
+     * @param value The value to remove
+     * @param contexts The contexts
+     * @return The permission result
+     */
+    CompletableFuture<PermissionResult> removeOptionListValue(Subject subject, Option option, String value, Set<Context> contexts);
 
     /**
      * Gets the global {@link Option} option value in the default subject's current context.
@@ -331,7 +342,20 @@ public interface PermissionManager {
      * @param option The claim option
      * @return The option value
      */
-     default <T> Optional<T> getOptionValue(TypeToken<T> type, Option<T> option) {
+    default @Nullable String getOptionValue(Option option) {
+        return getOptionValue(option, new HashSet<>());
+    }
+
+    /**
+     * Gets the global {@link Option} option value in the default subject's current context.
+     * 
+     * Note: This uses the default subject which applies to all users in all claims.
+     * @param <T>
+     * 
+     * @param option The claim option
+     * @return The option value
+     */
+     default <T> T getOptionValue(TypeToken<T> type, Option<T> option) {
          return getOptionValue(type, option, new HashSet<>());
      }
 
@@ -344,7 +368,7 @@ public interface PermissionManager {
      * @param contexts The claim contexts
      * @return The option value
      */
-    Optional<String> getOptionValue(Option option, Set<Context> contexts);
+     @Nullable String getOptionValue(Option option, Set<Context> contexts);
 
     /**
      * Gets the global {@link Option} option value with {@link Context}'s.
@@ -355,7 +379,7 @@ public interface PermissionManager {
      * @param contexts The claim contexts
      * @return The option value
      */
-    <T> Optional<T> getOptionValue(TypeToken<T> type, Option<T> option, Set<Context> contexts);
+     <T> T getOptionValue(TypeToken<T> type, Option<T> option, Set<Context> contexts);
 
     /**
      * Gets the global {@link Option} option value for subject with {@link Context}'s.
@@ -367,7 +391,7 @@ public interface PermissionManager {
      * @param contexts The claim contexts
      * @return The option value
      */
-    default Optional<String> getOptionValue(Subject subject, Option option) {
+    default @Nullable String getOptionValue(Subject subject, Option option) {
         return getOptionValue(subject, option, new HashSet<>());
     }
 
@@ -379,7 +403,7 @@ public interface PermissionManager {
      * @param contexts The claim contexts
      * @return The option value
      */
-    default <T> Optional<T> getOptionValue(TypeToken<T> type, Subject subject, Option<T> option) {
+    default <T> T getOptionValue(TypeToken<T> type, Subject subject, Option<T> option) {
         return getOptionValue(type, subject, option, new HashSet<>());
     }
 
@@ -391,7 +415,7 @@ public interface PermissionManager {
      * @param contexts The claim contexts
      * @return The option value
      */
-    Optional<String> getOptionValue(Subject subject, Option option, Set<Context> contexts);
+    @Nullable String getOptionValue(Subject subject, Option option, Set<Context> contexts);
 
     /**
      * Gets the {@link Option} option value with {@link Context}'s on {@link Subject}.
@@ -401,7 +425,7 @@ public interface PermissionManager {
      * @param contexts The claim contexts
      * @return The option value
      */
-    <T> Optional<T> getOptionValue(TypeToken<T> type, Subject subject, Option<T> option, Set<Context> contexts);
+    <T> T getOptionValue(TypeToken<T> type, Subject subject, Option<T> option, Set<Context> contexts);
 
     /**
      * Clear all options.

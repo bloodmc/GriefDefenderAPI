@@ -1,5 +1,5 @@
 /*
- * This file is part of GriefDefender, licensed under the MIT License (MIT).
+ * This file is part of GriefDefenderAPI, licensed under the MIT License (MIT).
  *
  * Copyright (c) bloodmc
  * Copyright (c) contributors
@@ -22,45 +22,24 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.griefdefender.api.provider;
+package com.griefdefender.api.claim;
 
-import java.util.List;
-import java.util.UUID;
+import com.griefdefender.api.util.generator.DummyObjectProvider;
 
-import org.checkerframework.checker.nullness.qual.Nullable;
-
-import com.griefdefender.api.Clan;
-import com.griefdefender.api.ClanPlayer;
-
-public interface ClanProvider {
+public final class ClaimGroupTypes {
 
     /**
-     * Gets a list of {@link Clan}'s available.
-     * 
-     * @return The clan list or empty list if none
+     * Represents a {@link ClaimGroupType} that is managed by admins.
      */
-    List<Clan> getClans();
+    public static final ClaimGroupType ADMIN = DummyObjectProvider.createFor(ClaimGroupType.class, "ADMIN");
 
     /**
-     * Gets a list of all {@link ClanPlayer}'s available.
-     * 
-     * @return The clan player list or empty list if none
+     * Represents a {@link ClaimGroupType} that is managed by one or more players.
      */
-    List<ClanPlayer> getClanPlayers();
+    public static final ClaimGroupType USER = DummyObjectProvider.createFor(ClaimGroupType.class, "USER");
 
-    /**
-     * Gets clan with tag.
-     * 
-     * @param tag The clan tag
-     * @return The clan, if available
-     */
-    @Nullable Clan getClan(String tag);
-
-    /**
-     * Gets the {@link ClanPlayer}.
-     * 
-     * @param playerUniqueId The player uuid
-     * @return The clan player, if available
-     */
-    @Nullable ClanPlayer getClanPlayer(UUID playerUniqueId);
+    // Suppress default constructor to ensure non-instantiability.
+    private ClaimGroupTypes() {
+        throw new AssertionError("You should not be attempting to instantiate this class.");
+    }
 }

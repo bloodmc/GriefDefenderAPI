@@ -53,6 +53,13 @@ public class ContextKeys {
     public static final String CLAIM_DEFAULT = "gd_claim_default";
 
     /**
+     * Represents a {@link Claim} group context key.
+     * 
+     * Note: This context links a permission to a claim group.
+     */
+    public static final String CLAIM_GROUP = "gd_claim_group";
+
+    /**
      * Represents a {@link Claim} or {@link ClaimType} override context key.
      * 
      * Note: This context forces a permission to all users of a

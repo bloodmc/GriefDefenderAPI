@@ -59,6 +59,11 @@ public final class Options {
     public static final Option<Integer> ACCRUED_BLOCKS = DummyObjectProvider.createFor(Option.class, "accrued-blocks");
 
     /**
+     * The list of admin claim groups with their mapped UUID's.
+     */
+    public static final Option<List<String>> ADMIN_CLAIM_GROUPS = DummyObjectProvider.createFor(Option.class, "admin-claim-groups");
+
+    /**
      * Blocks earned per hour.
      */
     public static final Option<Integer> BLOCKS_ACCRUED_PER_HOUR = DummyObjectProvider.createFor(Option.class, "blocks-accrued-per-hour");
@@ -158,6 +163,11 @@ public final class Options {
      * The minimum level that a claim can be created in.
      */
     public static final Option<Integer> MIN_LEVEL = DummyObjectProvider.createFor(Option.class, "min-level");
+
+    /**
+     * The list of player claim groups with their mapped UUID's.
+     */
+    public static final Option<List<String>> PLAYER_CLAIM_GROUPS = DummyObjectProvider.createFor(Option.class, "player-claim-groups");
 
     /**
      * Used for executing a command on {@link Claim} enter with specific {@link Context}'s.<br>

@@ -24,7 +24,7 @@
  */
 package com.griefdefender.api.claim;
 
-import java.util.Optional;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 import com.griefdefender.api.GriefDefender;
 
@@ -67,7 +67,7 @@ public interface SnapshotCreateSettings {
      * 
      * @return The group
      */
-    Optional<String> getGroup();
+    @Nullable String getGroup();
 
     /**
      * Whether to create schematic.
@@ -154,7 +154,7 @@ public interface SnapshotCreateSettings {
          * 
          * @return The group, if available
          */
-        Optional<String> getGroup();
+        @Nullable String getGroup();
 
         /**
          * Gets the create {@link Type}.

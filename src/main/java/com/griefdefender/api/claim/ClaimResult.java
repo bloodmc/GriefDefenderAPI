@@ -30,6 +30,8 @@ import net.kyori.adventure.text.Component;
 import java.util.List;
 import java.util.Optional;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+
 public interface ClaimResult {
 
     /**
@@ -74,13 +76,13 @@ public interface ClaimResult {
      * 
      * @return The result claim, if available
      */
-    default Optional<Claim> getClaim() {
+    default @Nullable Claim getClaim() {
         List<Claim> claimList = this.getClaims();
         if (claimList.isEmpty()) {
-            return Optional.empty();
+            return null;
         }
 
-        return Optional.of(claimList.get(0));
+        return claimList.get(0);
     }
 
     /**

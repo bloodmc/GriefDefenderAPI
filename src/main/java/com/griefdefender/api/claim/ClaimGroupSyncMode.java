@@ -22,39 +22,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.griefdefender.api.data;
+package com.griefdefender.api.claim;
 
-import org.checkerframework.checker.nullness.qual.Nullable;
+import com.griefdefender.api.CatalogType;
 
-import com.flowpowered.math.vector.Vector3i;
+public interface ClaimGroupSyncMode extends CatalogType {
 
-public interface LocatableEconomyData extends EconomyData {
-
-    /**
-     * Gets the rent sign location.
-     * 
-     * @return The rent sign position, if available
-     */
-    @Nullable Vector3i getRentSignPosition();
-
-    /**
-     * Gets the sale sign location.
-     * 
-     * @return The sale sign position, if available
-     */
-    @Nullable Vector3i getSaleSignPosition();
-
-    /**
-     * Sets the sign position of claim being rented.
-     * 
-     * @param pos The rent sign pos
-     */
-    void setRentSignPosition(@Nullable Vector3i pos);
-
-    /**
-     * Sets the sign position of claim being sold.
-     * 
-     * @param pos The sell sign pos
-     */
-    void setSaleSignPosition(@Nullable Vector3i pos);
 }

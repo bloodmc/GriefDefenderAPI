@@ -34,7 +34,7 @@ import java.util.Optional;
 public interface Registry {
 
     /**
-     * Registers a {@link Supplier} for creating the desired {@link ResettableBuilder}.
+     * Registers a {@link Supplier} for creating the desired {@link Builder}.
      *
      * @param builderClass The builder class
      * @param supplier The supplier

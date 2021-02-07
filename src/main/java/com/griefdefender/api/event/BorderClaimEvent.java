@@ -72,7 +72,7 @@ public interface BorderClaimEvent extends ClaimEvent, Cancellable  {
      *
      * @return The target user if available
      */
-    Optional<User> getUser();
+    @Nullable User getUser();
 
     /**
      * Gets the event enter message if available.

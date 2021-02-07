@@ -31,9 +31,8 @@ import com.griefdefender.api.GriefDefender;
 import com.griefdefender.api.Subject;
 import com.griefdefender.api.Tristate;
 import com.griefdefender.api.User;
+import com.griefdefender.api.data.ClaimData;
 import com.griefdefender.api.data.EconomyData;
-import com.griefdefender.api.data.LocatableClaimData;
-import com.griefdefender.api.data.LocatableEconomyData;
 import com.griefdefender.api.data.PlayerData;
 import com.griefdefender.api.permission.Context;
 import com.griefdefender.api.permission.PermissionResult;
@@ -92,7 +91,7 @@ public interface Claim extends ContextSource {
      * 
      * @return The display name, if available
      */
-    Optional<String> getDisplayName();
+    @Nullable  String getDisplayName();
 
     /**
      * Gets the unique name identifier of claim.
@@ -103,6 +102,13 @@ public interface Claim extends ContextSource {
      * @return The unique name identifier, if available
      */
     @Nullable String getName();
+
+    /**
+     * Gets the claim group this claim is associated with.
+     * 
+     * @return The claim group, if available
+     */
+    @Nullable ClaimGroup getClaimGroup();
 
     /**
      * Sets the unique name identifier of claim.
@@ -173,7 +179,7 @@ public interface Claim extends ContextSource {
      * 
      * @return The parent claim, if available
      */
-    Optional<Claim> getParent();
+    @Nullable Claim getParent();
 
     List<Claim> getInheritedParents();
 
@@ -291,7 +297,7 @@ public interface Claim extends ContextSource {
      * @return The claim result
      */
     default ClaimResult changeType(ClaimType type) {
-        return changeType(type, Optional.empty());
+        return changeType(type, null);
     }
 
     /**
@@ -304,7 +310,7 @@ public interface Claim extends ContextSource {
      * @param owner The owner to set
      * @return The claim result
      */
-    ClaimResult changeType(ClaimType type, Optional<UUID> owner);
+    ClaimResult changeType(ClaimType type, @Nullable UUID owner);
 
     /**
      * Resizes a claim.
@@ -568,7 +574,7 @@ public interface Claim extends ContextSource {
      * 
      * @return the town this claim is in, if any
      */
-    Optional<Claim> getTown();
+    @Nullable Claim getTown();
 
     /**
      * Gets the {@link ClaimManager} of this claim's world.
@@ -688,7 +694,7 @@ public interface Claim extends ContextSource {
      * 
      * @return The claim's persisted data
      */
-    LocatableClaimData getData();
+    ClaimData getData();
 
     /**
      * Deletes the specified {@link ClaimSchematic} if it exists.
@@ -704,6 +710,16 @@ public interface Claim extends ContextSource {
      * @return The map of schematics, empty if none
      */
     Map<String, ClaimSchematic> getSchematics();
+
+    /**
+     * Creates a {@link ClaimSnapshot}.
+     * 
+     * @param name The snapshot name
+     * @param settings The creation settings
+     * @param description The snapshot description
+     * @return The claim snapshot
+     */
+    ClaimSnapshot createSnapshot(String name, Component description, SnapshotCreateSettings settings);
 
     /**
      * Creates a {@link ClaimSnapshot}.
@@ -727,22 +743,12 @@ public interface Claim extends ContextSource {
     ClaimSnapshot createSnapshot(String name, Component description);
 
     /**
-     * Creates a {@link ClaimSnapshot}.
-     * 
-     * @param name The snapshot name
-     * @param settings The creation settings
-     * @param description The snapshot description
-     * @return The claim snapshot
-     */
-    ClaimSnapshot createSnapshot(String name, Component description, SnapshotCreateSettings settings);
-
-    /**
      * Deletes the specified {@link ClaimSnapshot} if it exists.
      * 
      * @param name The snapshot to delete
      * @return true if the snapshot was deleted
      */
-    boolean deleteSnapshot(String snapshot);
+    boolean deleteSnapshot(String name);
 
     /**
      * Gets a map of currently stored {@link ClaimSnapshot}'s.
@@ -751,7 +757,7 @@ public interface Claim extends ContextSource {
      */
     Map<String, ClaimSnapshot> getSnapshots();
 
-    default LocatableEconomyData getEconomyData() {
+    default EconomyData getEconomyData() {
         return this.getData().getEconomyData();
     }
 
@@ -760,7 +766,7 @@ public interface Claim extends ContextSource {
      * 
      * @return the economy account, if available
      */
-    Optional<UUID> getEconomyAccountId();
+    @Nullable UUID getEconomyAccountId();
 
     /**
      * Whether the {@link User} has an active visual on this {@link Claim}.

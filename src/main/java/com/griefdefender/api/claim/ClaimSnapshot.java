@@ -26,14 +26,13 @@ package com.griefdefender.api.claim;
 
 import java.time.Instant;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+
 import com.griefdefender.api.GriefDefender;
-import com.griefdefender.api.data.ClaimData;
 import com.griefdefender.api.data.ClaimDataGetter;
-import com.griefdefender.api.data.EconomyData;
 import com.griefdefender.api.data.EconomyDataGetter;
 import com.griefdefender.api.permission.Context;
 
@@ -60,14 +59,14 @@ public interface ClaimSnapshot {
      * 
      * @return The snapshot description, if available
      */
-    Optional<Component> getDescription();
+    @Nullable Component getDescription();
 
     /**
      * Gets creator claim's {@link UUID}
      * 
      * @return The creator claim unique identifer
      */
-    Optional<UUID> getCreatorUniqueId();
+    @Nullable UUID getCreatorUniqueId();
 
     /**
      * Gets a {@link ClaimDataGetter}.
@@ -156,28 +155,28 @@ public interface ClaimSnapshot {
          * 
          * @return The snapshot description, if available
          */
-        Optional<Component> getDescription();
+        @Nullable Component getDescription();
 
         /**
          * Gets the creator claim's {@link UUID}
          * 
          * @return The creator claim unique identifer, if available
          */
-        Optional<UUID> getCreatorUniqueId();
+        @Nullable UUID getCreatorClaimUniqueId();
 
         /**
-         * Gets the {@link ClaimData}.
+         * Gets the {@link ClaimDataGetter}.
          * 
          * @return The claim data
          */
-        ClaimData getClaimData();
+        ClaimDataGetter getClaimData();
 
         /**
          * Gets the {@link EconomyDataGetter}.
          * 
          * @return The economy data
          */
-        EconomyData getEconomyData();
+        EconomyDataGetter getEconomyData();
 
         /**
          * Gets the flag permissions stored in snapshot.
@@ -201,6 +200,9 @@ public interface ClaimSnapshot {
 
         /**
          * The claim to use for snapshot.
+         * 
+         * Note: This will copy claim data, economy data, permissions, and options.
+         * It will not set the {@link #claimUniqueId(UUID)
          * 
          * @param claim The claim
          * @return The builder
@@ -232,10 +234,10 @@ public interface ClaimSnapshot {
          * @param claimUniqueId The claim uuid
          * @return The builder
          */
-        Builder claimUniqueId(UUID claimUniqueId);
+        Builder creatorClaimUniqueId(UUID claimUniqueId);
 
         /**
-         * The claim {@link ClaimData} the snapshot is based on.
+         * The claim {@link ClaimDataGetter} the snapshot is based on.
          * 
          * @param data The claim data
          * @return The builder
@@ -256,9 +258,31 @@ public interface ClaimSnapshot {
          * Note: Key is a context containing permission:value
          * Note: Value is a set of contexts attached to permission
          * 
+         * @param claim The claim to copy permissions from
+         * @return The builder
+         */
+        Builder permissions(Claim claim);
+
+        /**
+         * The claim flag permissions.
+         * 
+         * Note: Key is a context containing permission:value
+         * Note: Value is a set of contexts attached to permission
+         * 
          * @return The builder
          */
         Builder permissions(Map<String, Map<Set<Context>, Map<String, Boolean>>> permissions);
+
+        /**
+         * The claim options.
+         * 
+         * Note: Key is a context containing option:value
+         * Note: Value is a set of contexts attached to option
+         * 
+         * @param claim The claim to copy options from
+         * @return The builder
+         */
+        Builder options(Claim claim);
 
         /**
          * The claim options.

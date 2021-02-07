@@ -28,7 +28,8 @@ import com.flowpowered.math.vector.Vector3i;
 import com.griefdefender.api.GriefDefender;
 
 import java.time.Instant;
-import java.util.Optional;
+
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 public interface ClaimSchematic {
 
@@ -155,6 +156,6 @@ public interface ClaimSchematic {
          * 
          * @return The created schematic, if successful
          */
-        Optional<ClaimSchematic> build();
+         @Nullable ClaimSchematic build();
     }
 }

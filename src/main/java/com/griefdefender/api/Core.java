@@ -26,6 +26,7 @@ package com.griefdefender.api;
 
 import com.griefdefender.api.claim.Claim;
 import com.griefdefender.api.claim.ClaimBlockSystem;
+import com.griefdefender.api.claim.ClaimGroup;
 import com.griefdefender.api.claim.ClaimManager;
 import com.griefdefender.api.claim.ClaimSnapshot;
 import com.griefdefender.api.claim.SnapshotCreateSettings;
@@ -36,7 +37,6 @@ import com.griefdefender.api.provider.WorldEditProvider;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.UUID;
 
 import org.checkerframework.checker.nullness.qual.Nullable;
@@ -78,7 +78,7 @@ public interface Core {
      * @param playerUniqueId The player UUID
      * @return The player data associated with uuid, if available
      */
-    Optional<PlayerData> getPlayerData(UUID worldUniqueId, UUID playerUniqueId);
+    @Nullable PlayerData getPlayerData(UUID worldUniqueId, UUID playerUniqueId);
 
     /**
      * Gets the claim with uuid.
@@ -179,11 +179,64 @@ public interface Core {
     @Nullable WorldEditProvider getWorldEditProvider();
 
     /**
-     * Gets a global {@link ClaimSnapshot}.
+     * Gets a global {@link ClaimSnapshot}.  
+     * 
+     * Note: This does not support {@link SnapshotCreateSettings.Type#CLAIM}. 
+     * Use {@link Claim#getSnapshots()) instead.
      * 
      * @param type The type of snapshot
      * @param id The id of snapshot
      * @return The claim snapshot, if available
      */
-    Optional<ClaimSnapshot> getGlobalClaimSnapshot(String id, SnapshotCreateSettings.Type type);
+    @Nullable ClaimSnapshot getGlobalClaimSnapshot(String id, SnapshotCreateSettings.Type type);
+
+    /**
+     * Gets the current map view of admin {@link ClaimSnapshot}'s.
+     * 
+     * @return An unmodifiable map of admin claim snapshots
+     */
+    Map<String, ClaimSnapshot> getAdminClaimSnapshots();
+
+    /**
+     * Gets the current map view of player {@link ClaimSnapshot}'s.
+     * 
+     * @return An unmodifiable map of player claim snapshots
+     */
+    Map<String, ClaimSnapshot> getPlayerClaimSnapshots();
+
+    /**
+     * Gets the current map view of public {@link ClaimSnapshot}'s.
+     * 
+     * @return An unmodifiable map of public claim snapshots
+     */
+    Map<String, ClaimSnapshot> getPublicClaimSnapshots();
+
+    /**
+     * Gets the current map view of admin {@link ClaimGroup}'s.
+     * 
+     * @return An unmodifiable map of admin claim groups
+     */
+    Map<String, ClaimGroup> getAdminClaimGroupsByName();
+
+    /**
+     * Gets the current map view of admin {@link ClaimGroup}'s.
+     * 
+     * @return An unmodifiable map of admin claim groups
+     */
+    Map<UUID, ClaimGroup> getAdminClaimGroupsByUUID();
+
+    /**
+     * Gets the current map view of player {@link ClaimGroup}'s.
+     * 
+     * @return An unmodifiable map of player claim groups
+     */
+    Map<UUID, ClaimGroup> getPlayerClaimGroupsByUUID();
+
+    /**
+     * Gets a {@link ClaimGroup} associated with uuid.
+     * 
+     * @param uuid The claim group uuid to search for.
+     * @return The claim group, if available
+     */
+    @Nullable ClaimGroup getClaimGroupByUUID(UUID uuid);
 }

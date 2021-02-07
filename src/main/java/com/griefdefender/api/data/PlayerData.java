@@ -26,10 +26,15 @@ package com.griefdefender.api.data;
 
 import com.griefdefender.api.User;
 import com.griefdefender.api.claim.Claim;
+import com.griefdefender.api.claim.ClaimGroup;
+import com.griefdefender.api.claim.ClaimGroupSyncMode;
+import com.griefdefender.api.claim.ClaimGroupTypes;
 import com.griefdefender.api.claim.ClaimType;
 import com.griefdefender.api.permission.PermissionResult;
 import com.griefdefender.api.permission.option.type.CreateModeType;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
@@ -58,9 +63,9 @@ public interface PlayerData {
     String getName();
 
     /**
-     * Gets an immutable list of claims owned by this player.
+     * Gets an unmodifiable set view of claims owned by this player.
      * 
-     * @return The immutable list of owned claims, empty if none
+     * @return The unmodifiable set view of owned claims, empty if none
      */
     Set<Claim> getClaims();
 
@@ -263,6 +268,7 @@ public interface PlayerData {
      * Sets the total amount of accrued claim blocks.
      * 
      * @param blocks The new total of accrued claim blocks
+     * @return The permission result
      */
     CompletableFuture<PermissionResult> setAccruedClaimBlocks(int blocks);
 
@@ -270,8 +276,43 @@ public interface PlayerData {
      * Sets the total amount of bonus claim blocks.
      * 
      * @param blocks The new total of bonus claim blocks
+     * @return The permission result
      */
     CompletableFuture<PermissionResult> setBonusClaimBlocks(int blocks);
+
+    /**
+     * Gets the current map view of player {@link ClaimGroup}'s this player is using.
+     * 
+     * @return An unmodifiable map view of claim groups used by player
+     */
+    Map<String, ClaimGroup> getClaimGroupsByName();
+
+    /**
+     * Gets the current map view of player {@link ClaimGroup}'s this player is using.
+     * 
+     * @return An unmodifiable map view of claim groups used by player
+     */
+    Map<UUID, ClaimGroup> getClaimGroupsByUUID();
+
+    /**
+     * Creates a claim group for player.
+     * 
+     * @param group The claim group to create
+     * @param mode The sync mode
+     * @return The permission result
+     */
+    CompletableFuture<PermissionResult> createClaimGroup(String claimGroupName, ClaimGroupSyncMode mode);
+
+    /**
+     * Deletes a {@link ClaimGroup} from player.
+     * 
+     * <br><br>Note: Deleting a {@link ClaimGroup} will remove all claims
+     * associated with it causing the claim to use its own permissions.
+     * 
+     * @param group The claim group to delete
+     * @return The permission result
+     */
+    CompletableFuture<PermissionResult> deleteClaimGroup(String name);
 
     /**
      * Gets the current tax rate for {@link ClaimType}.

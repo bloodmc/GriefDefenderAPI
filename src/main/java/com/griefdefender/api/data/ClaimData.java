@@ -33,9 +33,10 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.title.Title;
 
 import java.time.Instant;
-import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
+
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Represents the persisted data of a claim.
@@ -43,11 +44,77 @@ import java.util.UUID;
 public interface ClaimData extends ClaimDataGetter {
 
     /**
-     * Sets the name of claim.
+     * Sets the claim group uuid this claim should be part of.
      * 
-     * @param name The claim name
+     * <br><br>Note: If joined to a group, all settings and permissions will
+     * be taken from group instead of claim.
+     * 
+     * @param uuid The claim group uuid
+     * @return true if the group was set, false if the group does not exist
      */
-    void setName(Component name);
+    boolean setClaimGroupUniqueId(UUID uuid);
+
+    /**
+     * Sets the lesser boundary corner position.
+     * 
+     * @param pos The lesser boundary
+     */
+    void setLesserBoundaryCorner(Vector3i pos);
+
+    /**
+     * Sets the lesser boundary corner position.
+     * 
+     * @param x X coordinate
+     * @param y Y coordinate
+     * @param z Z coordinate
+     */
+    void setLesserBoundaryCorner(int x, int y, int z);
+
+    /**
+     * Sets the greater boundary corner position.
+     * 
+     * @param pos The greater boundary
+     */
+    void setGreaterBoundaryCorner(Vector3i pos);
+
+    /**
+     * Sets the greater boundary corner position.
+     * 
+     * @param x X coordinate
+     * @param y Y coordinate
+     * @param z Z coordinate
+     */
+    void setGreaterBoundaryCorner(int x, int y, int z);
+
+    /**
+     * Sets the spawn position of claim.
+     * 
+     * @param pos The new spawn position
+     */
+    void setSpawnPos(@Nullable Vector3i pos);
+
+    /**
+     * Sets the spawn position of claim.
+     * 
+     * @param x X coordinate
+     * @param y Y coordinate
+     * @param z Z coordinate
+     */
+    void setSpawnPos(int x, int y, int z);
+
+    /**
+     * Sets the world {@link UUID} of claim.
+     * 
+     * @param worldUniqueId The world uuid
+     */
+    void setWorldUniqueId(UUID worldUniqueId);
+
+    /**
+     * Sets the display name of claim.
+     * 
+     * @param name The claim display name
+     */
+    void setDisplayName(Component name);
 
     /**
      * Sets the owner {@link UUID} of claim.
@@ -90,6 +157,13 @@ public interface ClaimData extends ClaimDataGetter {
      * @param title The exit title
      */
     void setExitTitle(Title title);
+
+    /**
+     * Toggles whether this claim is expired.
+     * 
+     * @param expired true if expired, false if not
+     */
+    void setExpired(boolean expired);
 
     /**
      * Sets last active date of claim.
@@ -135,7 +209,7 @@ public interface ClaimData extends ClaimDataGetter {
      * 
      * @param allowExpire Whether this claim allows expirations
      */
-    void setExpiration(boolean allowExpire);
+    void setAllowExpiration(boolean allowExpire);
 
     /**
      * Toggles whether this claim should allow flag overrides.
@@ -227,6 +301,20 @@ public interface ClaimData extends ClaimDataGetter {
     void setManagerGroups(Set<String> managerGroups);
 
     /**
+     * Sets the {@link ClanData}.
+     * 
+     * @param clanData The clan data
+     */
+    void setClanData(ClanData clanData);
+
+    /**
+     * Sets the @{link EconomyData}.
+     * 
+     * @param economyData The economy data
+     */
+    void setEconomyData(EconomyData economyData);
+
+    /**
      * Saves all changes to storage.
      */
     void save();
@@ -242,47 +330,59 @@ public interface ClaimData extends ClaimDataGetter {
 
     public interface Builder {
 
+        UUID getWorldUniqueId();
+
+        Vector3i getLesserBoundaryPos();
+
+        Vector3i getGreaterBoundaryPos();
+
+        @Nullable Vector3i getSpawnPos();
+
+        @Nullable ClanData getClanData();
+
+        @Nullable EconomyData getEconomyData();
+
         /**
          * Gets the claim's display name {@link Component}.
          * 
          * @return The display name component, if available
          */
-        Optional<Component> getDisplayNameComponent();
+        @Nullable Component getDisplayNameComponent();
 
         /**
          * Gets the {@link ClaimType} of claim.
          * 
          * @return The claim type
          */
-        Optional<ClaimType> getType();
+        @Nullable ClaimType getType();
 
         /**
          * Gets the claim's greeting message.
          * 
          * @return The greeting message, if available
          */
-        Optional<Component> getGreeting();
+        @Nullable Component getGreeting();
 
         /**
          * Gets the claim's farewell message.
          * 
          * @return The farewell message, if available
          */
-        Optional<Component> getFarewell();
+        @Nullable Component getFarewell();
 
         /**
          * Gets the claim's enter title.
          * 
          * @return The enter title, if available
          */
-        Optional<Title> getEnterTitle();
+        @Nullable Title getEnterTitle();
 
         /**
          * Gets the claim's exit title.
          * 
          * @return The exit title, if available
          */
-        Optional<Title> getExitTitle();
+        @Nullable Title getExitTitle();
 
         /**
          * Gets whether the snapshot is inheriting from parent claim.
@@ -299,11 +399,11 @@ public interface ClaimData extends ClaimDataGetter {
         boolean getResizable();
 
         /**
-         * Gets whether the snapshot allows flag overrides.
+         * Gets whether the claim allows flag overrides.
          * 
-         * @return Whether flag overrides are allowed
+         * @return true if flag overrides are allowed, false if not
          */
-        boolean getOverrides();
+        boolean getFlagOverrides();
 
         /**
          * Gets whether the snapshot allows sending deny messages
@@ -318,21 +418,49 @@ public interface ClaimData extends ClaimDataGetter {
          * 
          * @return If snapshot can expire
          */
-        boolean getExpiration();
+        boolean getAllowExpiration();
+
+        /**
+         * Gets if claim is cuboid.
+         * 
+         * @return true if cuboid, false if not
+         */
+        boolean getIsCuboid();
+
+        /**
+         * Gets whether this claim is expired.
+         * 
+         * @return true if expired, false if not
+         */
+        boolean getIsExpired();
 
         /**
          * Gets whether this snapshot requires claim blocks.
          * 
-         * @return Whether snapshot requires claim blocks
+         * @return true if claim blocks are required, false if not
          */
         boolean getClaimBlocks();
 
         /**
          * Gets whether this snapshot has min/max size restrictions.
          * 
-         * @return Whether snapshot has size restrictions
+         * @return true if claim has size restrictions, false if not
          */
         boolean getSizeRestrictions();
+
+        /**
+         * Gets the claim creation date.
+         * 
+         * @return The claim creation date
+         */
+        Instant getDateCreated();
+
+        /**
+         * Gets the last active claim date.
+         * 
+         * @return The last active claim date
+         */
+        Instant getDateLastActive();
 
         /**
          * Gets the trusted accessor set of {@link UUID}'s.
@@ -390,6 +518,18 @@ public interface ClaimData extends ClaimDataGetter {
          */
         Set<String> getManagerGroups();
 
+        Builder lesserBoundaryPos(int x, int y, int z);
+
+        Builder greaterBoundaryPos(int x, int y, int z);
+
+        Builder spawnPos(int x, int y, int z);
+
+        Builder clanData(ClanData data);
+
+        Builder economyData(EconomyData data);
+
+        Builder worldUniqueId(UUID worldUniqueId);
+
         /**
          * The claim to use for snapshot.
          * 
@@ -399,12 +539,20 @@ public interface ClaimData extends ClaimDataGetter {
         Builder from(Claim claim);
 
         /**
-         * The claim name.
+         * Whether claim is a cuboid or not.
          * 
-         * @param name The claim name
+         * @param cuboid whether claim is cuboid
          * @return The builder
          */
-        Builder name(Component name);
+        Builder cuboid(boolean cuboid);
+
+        /**
+         * The claim display name.
+         * 
+         * @param name The claim display name
+         * @return The builder
+         */
+        Builder displayName(Component name);
 
         /**
          * The claim {@link ClaimType} the snapshot is based on.
@@ -476,7 +624,31 @@ public interface ClaimData extends ClaimDataGetter {
          * @param expiration Whether claim allows expirations
          * @return The builder
          */
-        Builder expiration(boolean expiration);
+        Builder allowExpiration(boolean expiration);
+
+        /**
+         * The claim creation date.
+         * 
+         * @param dateCreated The claim creation date
+         * @return The builder
+         */
+        Builder dateCreated(Instant dateCreated);
+
+        /**
+         * The last active claim date.
+         * 
+         * @param dateLastActive The last active claim date
+         * @return The builder
+         */
+        Builder dateLastActive(Instant dateLastActive);
+
+        /**
+         * Whether claim is expired.
+         * 
+         * @param isExpired whether claim is expired
+         * @return The builder
+         */
+        Builder isExpired(boolean isExpired);
 
         /**
          * Whether claim should allow flag overrides.
@@ -484,7 +656,7 @@ public interface ClaimData extends ClaimDataGetter {
          * @param overrides Whether claim allows flag overrides
          * @return The builder
          */
-        Builder overrides(boolean overrides);
+        Builder flagOverrides(boolean overrides);
 
         /**
          * Whether claim requires claim blocks from players.

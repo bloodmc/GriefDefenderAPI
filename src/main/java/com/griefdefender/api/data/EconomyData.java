@@ -24,6 +24,7 @@
  */
 package com.griefdefender.api.data;
 
+import com.flowpowered.math.vector.Vector3i;
 import com.griefdefender.api.GriefDefender;
 import com.griefdefender.api.User;
 import com.griefdefender.api.claim.Claim;
@@ -40,6 +41,38 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * Contains all economy data of a {@link Claim}.
  */
 public interface EconomyData extends EconomyDataGetter {
+
+    /**
+     * Sets the sign position of claim being rented.
+     * 
+     * @param pos The rent sign pos
+     */
+    void setRentSignPosition(@Nullable Vector3i pos);
+
+    /**
+     * Sets the sign position of claim being rented.
+     * 
+     * @param x The x pos
+     * @param y The y pos
+     * @param z The z pos
+     */
+    void setRentSignPosition(int x, int y, int z);
+
+    /**
+     * Sets the sign position of claim being sold.
+     * 
+     * @param pos The sell sign pos
+     */
+    void setSaleSignPosition(@Nullable Vector3i pos);
+
+    /**
+     * Sets the sign position of claim being sold.
+     * 
+     * @param x The x pos
+     * @param y The y pos
+     * @param z The z pos
+     */
+    void setSaleSignPosition(int x, int y, int z);
 
     /**
      * Sets the rent balance of {@link User}.
@@ -184,6 +217,31 @@ public interface EconomyData extends EconomyDataGetter {
     }
 
     public interface Builder {
+
+        Vector3i getRentSignPos();
+
+        Vector3i getSaleSignPos();
+
+        /**
+         * Sets the rent sign pos.
+         * 
+         * @param x The x pos
+         * @param y The y pos
+         * @param z The z pos
+         * @return The builder
+         */
+        Builder rentSignPosition(int x, int y, int z);
+
+        /**
+         * Sets the sale sign pos.
+         * 
+         * @param x The x pos
+         * @param y The y pos
+         * @param z The z pos
+         * @return The builder
+         */
+        Builder saleSignPosition(int x, int y, int z);
+
         /**
          * Gets the {@link PaymentType}.
          * 

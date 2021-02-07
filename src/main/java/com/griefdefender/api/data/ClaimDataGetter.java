@@ -32,14 +32,59 @@ import java.util.UUID;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
 import com.flowpowered.math.vector.Vector3i;
-import com.griefdefender.api.GriefDefender;
-import com.griefdefender.api.claim.Claim;
+import com.griefdefender.api.claim.ClaimGroupType;
 import com.griefdefender.api.claim.ClaimType;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.title.Title;
 
 public interface ClaimDataGetter {
+
+    /** Gets the claim's world {@link UUID}.
+     * 
+     * Note: This will return null if tied to a {@link ClaimSnapshot} 
+     * as it is not locatable.
+     * 
+     * @return The world UUID
+     */
+    @Nullable UUID getWorldUniqueId();
+
+    /**
+     * Gets the lesser boundary corner of claim.
+     * 
+     * Note: This will return null if tied to a {@link ClaimSnapshot} 
+     * as it is not locatable.
+     * 
+     * @return The lesser boundary corner position, if available
+     */
+    @Nullable Vector3i getLesserBoundaryCorner();
+
+    /**
+     * Gets the greater boundary corner of claim.
+     * 
+     * Note: This will return null if tied to a {@link ClaimSnapshot} 
+     * as it is not locatable.
+     * 
+     * @return The greater boundary corner position, if available
+     */
+    @Nullable Vector3i getGreaterBoundaryCorner();
+
+    /**
+     * Gets the spawn position of claim.
+     * 
+     * Note: This will return null if tied to a {@link ClaimSnapshot} 
+     * as it is not locatable.
+     * 
+     * @return The spawn position, if available
+     */
+    @Nullable Vector3i getSpawnPos();
+
+    /**
+     * Gets the claim group uuid this claim is joined to.
+     * 
+     * @return The claim group uuid, or null if not joined to one
+     */
+    @Nullable UUID getClaimGroupUniqueId();
 
     /**
      * Gets the claim's display name {@link Component}.
@@ -53,7 +98,7 @@ public interface ClaimDataGetter {
      * 
      * @return The display name, if available
      */
-    Optional<String> getDisplayName();
+    @Nullable String getDisplayName();
 
     /**
      * Gets the {@link ClaimType} of claim.
@@ -67,7 +112,7 @@ public interface ClaimDataGetter {
      * 
      * @return The parent claim UUID, if available
      */
-    Optional<UUID> getParent();
+    @Nullable UUID getParent();
 
     /**
      * Gets the claim owner's {@link UUID}.
@@ -77,7 +122,7 @@ public interface ClaimDataGetter {
      * 
      * @return The UUID of this claim
      */
-    UUID getOwnerUniqueId();
+    @Nullable UUID getOwnerUniqueId();
 
     /**
      * Gets the claim's greeting message.
@@ -186,6 +231,20 @@ public interface ClaimDataGetter {
      * @return Whether claim has size restrictions
      */
     boolean hasSizeRestrictions();
+
+    /**
+     * Gets the {@link ClanData}.
+     * 
+     * @return The clan data, if available
+     */
+    @Nullable ClanData getClanData();
+
+    /**
+     * Gets the {@link EconomyData}
+     * 
+     * The economy data, if available
+     */
+    @Nullable EconomyData getEconomyData();
 
     /**
      * Gets the trusted accessor set of {@link UUID}'s.

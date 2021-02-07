@@ -27,8 +27,9 @@ package com.griefdefender.api.economy;
 import com.griefdefender.api.GriefDefender;
 
 import java.time.Instant;
-import java.util.Optional;
 import java.util.UUID;
+
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Contains information of a payment transaction in a claim.
@@ -54,7 +55,7 @@ public interface PaymentTransaction {
      * 
      * @return The source, if available
      */
-    Optional<UUID> getSource();
+    @Nullable UUID getSource();
 
     /**
      * Gets the timestamp of this transaction.

@@ -26,11 +26,12 @@ package com.griefdefender.api.data;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.checkerframework.checker.nullness.qual.Nullable;
 
-import com.griefdefender.api.GriefDefender;
+import com.flowpowered.math.vector.Vector3i;
 import com.griefdefender.api.User;
 import com.griefdefender.api.claim.Claim;
 import com.griefdefender.api.economy.PaymentTransaction;
@@ -38,6 +39,20 @@ import com.griefdefender.api.economy.PaymentType;
 import com.griefdefender.api.economy.TransactionType;
 
 public interface EconomyDataGetter {
+
+    /**
+     * Gets the rent sign location.
+     * 
+     * @return The rent sign position, if available
+     */
+    @Nullable Vector3i getRentSignPosition();
+
+    /**
+     * Gets the sale sign location.
+     * 
+     * @return The sale sign position, if available
+     */
+    @Nullable Vector3i getSaleSignPosition();
 
     /**
      * Gets the {@link PaymentTransaction}'s.
@@ -213,4 +228,11 @@ public interface EconomyDataGetter {
      * @return The tax balance
      */
     double getTaxBalance();
+
+    /**
+     * Gets a mutable map of user rent balances.
+     * 
+     * @return The mutable map of user rent balances
+     */
+    Map<UUID, Double> getRentBalances();
 }
