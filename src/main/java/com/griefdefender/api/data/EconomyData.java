@@ -223,26 +223,6 @@ public interface EconomyData extends EconomyDataGetter {
         Vector3i getSaleSignPos();
 
         /**
-         * Sets the rent sign pos.
-         * 
-         * @param x The x pos
-         * @param y The y pos
-         * @param z The z pos
-         * @return The builder
-         */
-        Builder rentSignPosition(int x, int y, int z);
-
-        /**
-         * Sets the sale sign pos.
-         * 
-         * @param x The x pos
-         * @param y The y pos
-         * @param z The z pos
-         * @return The builder
-         */
-        Builder saleSignPosition(int x, int y, int z);
-
-        /**
          * Gets the {@link PaymentType}.
          * 
          * @return The payment type
@@ -397,6 +377,26 @@ public interface EconomyData extends EconomyDataGetter {
          * @param forSale true to enable, false to disable
          */
         Builder forSale(boolean forSale);
+
+        /**
+         * Sets the rent sign pos.
+         * 
+         * @param x The x pos
+         * @param y The y pos
+         * @param z The z pos
+         * @return The builder
+         */
+        Builder rentSignPosition(int x, int y, int z);
+
+        /**
+         * Sets the sale sign pos.
+         * 
+         * @param x The x pos
+         * @param y The y pos
+         * @param z The z pos
+         * @return The builder
+         */
+        Builder saleSignPosition(int x, int y, int z);
 
         /**
          * Returns the {@link EconomyData}.

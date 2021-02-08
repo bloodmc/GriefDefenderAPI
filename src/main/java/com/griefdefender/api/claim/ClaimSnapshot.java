@@ -25,6 +25,7 @@
 package com.griefdefender.api.claim;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
@@ -76,13 +77,6 @@ public interface ClaimSnapshot {
     ClaimDataGetter getClaimData();
 
     /**
-     * Gets the {@link EconomyDataGetter} copy.
-     * 
-     * @return The economy data copy
-     */
-    EconomyDataGetter getEconomyData();
-
-    /**
      * Gets the flag permissions stored in snapshot.
      * 
      * Note: Key is identifier of permission holder
@@ -102,7 +96,7 @@ public interface ClaimSnapshot {
      * 
      * @return The immutable option map
      */
-    Map<String, Map<Set<Context>, Map<String, String>>> getOptions();
+    Map<String, Map<Set<Context>, Map<String, List<String>>>> getOptions();
 
     /**
      * Applies snapshot to creator claim.
@@ -172,13 +166,6 @@ public interface ClaimSnapshot {
         ClaimDataGetter getClaimData();
 
         /**
-         * Gets the {@link EconomyDataGetter}.
-         * 
-         * @return The economy data
-         */
-        EconomyDataGetter getEconomyData();
-
-        /**
          * Gets the flag permissions stored in snapshot.
          * 
          * Note: Key is a context containing permission:value
@@ -196,7 +183,7 @@ public interface ClaimSnapshot {
          * 
          * @return The mutable option map
          */
-        Map<String, Map<Set<Context>, Map<String, String>>> getOptions();
+        Map<String, Map<Set<Context>, Map<String, List<String>>>> getOptions();
 
         /**
          * The claim to use for snapshot.
@@ -245,14 +232,6 @@ public interface ClaimSnapshot {
         Builder claimData(ClaimDataGetter data);
 
         /**
-         * The claim {@link EconomyDataGetter} the snapshot is based on.
-         * 
-         * @param data The economy data
-         * @return The builder
-         */
-        Builder economyData(EconomyDataGetter data);
-
-        /**
          * The claim flag permissions.
          * 
          * Note: Key is a context containing permission:value
@@ -292,7 +271,7 @@ public interface ClaimSnapshot {
          * 
          * @return The builder
          */
-        Builder options(Map<String, Map<Set<Context>, Map<String, String>>> options);
+        Builder options(Map<String, Map<Set<Context>, Map<String, List<String>>>> options);
 
         /**
          * Resets the builder to default settings.
