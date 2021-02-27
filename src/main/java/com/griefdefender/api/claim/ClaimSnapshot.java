@@ -34,7 +34,6 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 
 import com.griefdefender.api.GriefDefender;
 import com.griefdefender.api.data.ClaimDataGetter;
-import com.griefdefender.api.data.EconomyDataGetter;
 import com.griefdefender.api.permission.Context;
 
 import net.kyori.adventure.text.Component;
@@ -77,6 +76,13 @@ public interface ClaimSnapshot {
     ClaimDataGetter getClaimData();
 
     /**
+     * Gets an immutable map of children snapshots.
+     * 
+     * @return The immutable map of children snapshots
+     */
+    Map<UUID, ClaimSnapshot> getChildrenSnapshots();
+
+    /**
      * Gets the flag permissions stored in snapshot.
      * 
      * Note: Key is identifier of permission holder
@@ -101,16 +107,30 @@ public interface ClaimSnapshot {
     /**
      * Applies snapshot to creator claim.
      * 
+     * <br><br>Note: This will automatically apply all
+     * children snapshots that are part of this snapshot.
+     * 
      * @return If snapshot apply was successful, false if not
      */
-    boolean applyToCreator();
+    default boolean applyToCreator() {
+        return this.applyToCreator(true);
+    }
 
     /**
      * Applies snapshot to creator claim.
      * 
+     * @param includeChildren True to include children snapshots, false if not
      * @return If snapshot apply was successful, false if not
      */
-    boolean applyToCreator(SnapshotApplySettings applySettings);
+    boolean applyToCreator(boolean includeChildren);
+
+    /**
+     * Applies snapshot to creator claim.
+     * 
+     * @param includeChildren True to include children snapshots, false if not
+     * @return If snapshot apply was successful, false if not
+     */
+    boolean applyToCreator(SnapshotApplySettings applySettings, boolean includeChildren);
 
     /**
      * Applies snapshot to specified claim.
@@ -166,6 +186,21 @@ public interface ClaimSnapshot {
         ClaimDataGetter getClaimData();
 
         /**
+         * Gets the set of children claim unique uuid's
+         * included in this snapshot.
+         * 
+         * @return The set of children uuid's or empty snapshot if none
+         */
+        Set<UUID> getChildrenUniqueIds();
+
+        /**
+         * Whether children are included in this snapshot.
+         * 
+         * @return True if included, false if not
+         */
+        boolean includeChildren();
+
+        /**
          * Gets the flag permissions stored in snapshot.
          * 
          * Note: Key is a context containing permission:value
@@ -192,9 +227,10 @@ public interface ClaimSnapshot {
          * It will not set the {@link #claimUniqueId(UUID)
          * 
          * @param claim The claim
+         * @param children True to include children with snapshot, false if not
          * @return The builder
          */
-        Builder from(Claim claim);
+        Builder from(Claim claim, boolean children);
 
         /**
          * The snapshot name.

@@ -28,6 +28,7 @@ import com.flowpowered.math.vector.Vector3i;
 import com.griefdefender.api.GriefDefender;
 
 import java.time.Instant;
+import java.util.UUID;
 
 import org.checkerframework.checker.nullness.qual.Nullable;
 
@@ -143,6 +144,22 @@ public interface ClaimSchematic {
          * @return The builder
          */
         Builder entities(boolean entities);
+
+        /**
+         * Whether nbt data should be copied.
+         * 
+         * @param nbt true if nbt data should be copied
+         * @return The builder
+         */
+        Builder nbt(boolean nbt);
+
+        /**
+         * The user's {@link UUID} creating the schematic.
+         * 
+         * @param uuid The user uuid
+         * @return The builder
+         */
+        Builder user(UUID uuid);
 
         /**
          * Resets the builder to default settings.

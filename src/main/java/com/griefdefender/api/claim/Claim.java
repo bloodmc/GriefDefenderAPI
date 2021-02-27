@@ -717,9 +717,10 @@ public interface Claim extends ContextSource {
      * @param name The snapshot name
      * @param settings The creation settings
      * @param description The snapshot description
+     * @param includeChildren True to include children, false if not
      * @return The claim snapshot
      */
-    ClaimSnapshot createSnapshot(String name, Component description, SnapshotCreateSettings settings);
+    ClaimSnapshot createSnapshot(String name, Component description, SnapshotCreateSettings settings, boolean includeChildren);
 
     /**
      * Creates a {@link ClaimSnapshot}.
@@ -727,9 +728,10 @@ public interface Claim extends ContextSource {
      * Note: This will use default {@link SnapshotCreateSettings}
      * 
      * @param name The snapshot name
+     * @param includeChildren True to include children, false if not
      * @return The claim snapshot
      */
-    ClaimSnapshot createSnapshot(String name);
+    ClaimSnapshot createSnapshot(String name, boolean includeChildren);
 
     /**
      * Creates a {@link ClaimSnapshot}.
@@ -738,9 +740,10 @@ public interface Claim extends ContextSource {
      * 
      * @param name The snapshot name
      * @param description The snapshot description
+     * @param includeChildren True to include children, false if not
      * @return The claim snapshot
      */
-    ClaimSnapshot createSnapshot(String name, Component description);
+    ClaimSnapshot createSnapshot(String name, Component description, boolean includeChildren);
 
     /**
      * Deletes the specified {@link ClaimSnapshot} if it exists.
@@ -767,6 +770,16 @@ public interface Claim extends ContextSource {
      * @return the economy account, if available
      */
     @Nullable UUID getEconomyAccountId();
+
+    /**
+     * Gets the rented claim.
+     * 
+     * Note: If this is a non-rented child claim, it will check
+     * parents that have same owner.
+     * 
+     * @return The rented claim
+     */
+    @Nullable Claim getRentedClaim();
 
     /**
      * Whether the {@link User} has an active visual on this {@link Claim}.

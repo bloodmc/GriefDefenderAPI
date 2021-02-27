@@ -139,6 +139,16 @@ public enum ClaimResultType {
     NOT_ENOUGH_FUNDS,
 
     /**
+     * Returned if a renter attempts to modify a claim such as resize or delete.
+     */
+    RENT_CLAIM_MODIFY,
+
+    /**
+     * Returned if a claim is requested for deletion with a rent balance.
+     */
+    RENT_UNPAID_BALANCE,
+
+    /**
      * Returned if a claim action requires an owner's permission.
      */
     REQUIRES_OWNER,

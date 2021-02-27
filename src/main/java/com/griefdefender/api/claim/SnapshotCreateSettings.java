@@ -104,8 +104,25 @@ public interface SnapshotCreateSettings {
      */
     boolean copyTrust();
 
+    /**
+     * Gets whether to include children claims.
+     * 
+     * @return True if children included, false if not
+     */
+    boolean includeChildren();
+
+    /**
+     * Sets the creation {@link Type}.
+     * 
+     * @param type The creation type
+     */
     void setType(Type type);
 
+    /**
+     * Sets the group name.
+     * 
+     * @param group The group name
+     */
     void setGroup(String group);
 
     /**
@@ -142,6 +159,13 @@ public interface SnapshotCreateSettings {
      * @param create
      */
     void setCreateSchematic(boolean create);
+
+    /**
+     * Sets whether to include children.
+     * 
+     * @param includeChildren
+     */
+    void setIncludeChildren(boolean includeChildren);
 
     public static SnapshotCreateSettings.Builder builder() {
         return GriefDefender.getRegistry().createBuilder(SnapshotCreateSettings.Builder.class);
@@ -198,22 +222,89 @@ public interface SnapshotCreateSettings {
          */
         boolean getCopyTrust();
 
+        /**
+         * Gets whether to include children claims.
+         * 
+         * @return True if children included, false if not
+         */
+        boolean includeChildren();
+
+        /**
+         * Sets whether to create a schematic of claim.
+         * 
+         * @param create True to create schematic, false if not
+         * @return The builder
+         */
         Builder createSchematic(boolean create);
 
+        /**
+         * Sets whether claim settings should be copied.
+         * 
+         * @param copy True to copy, false if not
+         * @return The builder
+         */
         Builder copyClaimSettings(boolean copy);
 
+        /**
+         * Sets whether option data should be copied.
+         * 
+         * @param copy True to copy, false if not
+         * @return The builder
+         */
         Builder copyOptions(boolean copy);
 
+        /**
+         * Sets whether permission data should be copied.
+         * 
+         * @param copy True to copy, false if not
+         * @return The builder
+         */
         Builder copyPermissions(boolean copy);
 
+        /**
+         * Sets whether trust data should be copied.
+         * 
+         * @param copy True to copy, false if not
+         * @return The builder
+         */
         Builder copyTrust(boolean copy);
 
+        /**
+         * Sets the creation {@link Type}.
+         * 
+         * @param type The creation type
+         * @return The builder
+         */
         Builder type(Type type);
 
+        /**
+         * Sets the group name.
+         * 
+         * @param group The group name
+         * @return The builder
+         */
         Builder group(String group);
 
+        /**
+         * Sets whether to include children.
+         * 
+         * @param includeChildren True to include, false if not
+         * @return The builder
+         */
+        Builder children(boolean includeChildren);
+
+        /**
+         * Resets the builder to default settings.
+         * 
+         * @return The builder
+         */
         Builder reset();
 
+        /**
+         * Returns the {@link SnapshotCreateSettings}.
+         * 
+         * @return The snapshot creation settings
+         */
         SnapshotCreateSettings build();
     }
 }

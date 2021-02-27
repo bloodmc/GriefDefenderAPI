@@ -11,13 +11,13 @@ public enum PaymentType {
      */
     HOURLY,
     /**
-     * Payments are due weekly
-     */
-    WEEKLY,
-    /**
      * Payments are due monthly
      */
     MONTHLY,
+    /**
+     * Payments are due weekly
+     */
+    WEEKLY,
     /**
      * Undefined
      */

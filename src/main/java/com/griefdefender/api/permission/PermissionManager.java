@@ -428,6 +428,15 @@ public interface PermissionManager {
     <T> T getOptionValue(TypeToken<T> type, Subject subject, Option<T> option, Set<Context> contexts);
 
     /**
+     * Gets the permission value of {@link Subject}.
+     * 
+     * @param subject The subject
+     * @param permission The permission
+     * @return The permission value
+     */
+    Tristate getPermissionValue(Subject subject, String permission);
+
+    /**
      * Clear all options.
      *
      * @return Whether the operation was successful

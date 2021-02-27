@@ -226,6 +226,21 @@ public interface PlayerData {
     int getCreateClaimLimit(ClaimType type);
 
     /**
+     * Gets the rental limit of this player.
+     * 
+     * @return The rental limit
+     */
+    int getRentalLimit();
+
+    /**
+     * Sets the rental limit of this player.
+     * 
+     * @param limit The rental limit
+     * @return The permission result
+     */
+    CompletableFuture<PermissionResult> setRentalLimit(int limit);
+
+    /**
      * Gets the economy claim block cost.
      * 
      * @return The economy claim block cost
