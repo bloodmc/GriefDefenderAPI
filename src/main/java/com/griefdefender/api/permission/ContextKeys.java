@@ -53,13 +53,6 @@ public class ContextKeys {
     public static final String CLAIM_DEFAULT = "gd_claim_default";
 
     /**
-     * Represents a {@link Claim} group context key.
-     * 
-     * Note: This context links a permission to a claim group.
-     */
-    public static final String CLAIM_GROUP = "gd_claim_group";
-
-    /**
      * Represents a {@link Claim} or {@link ClaimType} override context key.
      * 
      * Note: This context forces a permission to all users of a
@@ -76,6 +69,21 @@ public class ContextKeys {
      * </ul>
      */
     public static final String CLAIM_OVERRIDE = "gd_claim_override";
+
+    /**
+     * Represents a {@link ClaimGroup} context key.
+     * 
+     * Note: This context links a permission to a claim group.
+     */
+    public static final String CLAIMGROUP = "gd_claimgroup";
+
+    /**
+     * Represents a {@link ClaimGroup} override context key.
+     * 
+     * <br><br>Note: Use the uuid for its value.
+     * <br>Note: If you want to affect claim types then use {@link #CLAIM_OVERRIDE} context instead.
+     */
+    public static final String CLAIMGROUP_OVERRIDE = "gd_claimgroup_override";
 
     /**
      * Represents a clan context key.

@@ -223,7 +223,7 @@ public interface ClaimData extends ClaimDataGetter {
      * 
      * @param uniqueId The parent uuid
      */
-    void setParent(UUID uniqueId);
+    void setParentUniqueId(UUID uniqueId);
 
     /**
      * Sets if this claim requires claim blocks from players.
@@ -340,7 +340,7 @@ public interface ClaimData extends ClaimDataGetter {
 
         @Nullable ClanData getClanData();
 
-        @Nullable EconomyData getEconomyData();
+        @Nullable EconomyDataGetter getEconomyData();
 
         /**
          * Gets the claim's display name {@link Component}.
@@ -526,7 +526,7 @@ public interface ClaimData extends ClaimDataGetter {
 
         Builder clanData(ClanData data);
 
-        Builder economyData(EconomyData data);
+        Builder economyData(EconomyDataGetter data);
 
         Builder worldUniqueId(UUID worldUniqueId);
 

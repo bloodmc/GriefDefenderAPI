@@ -22,45 +22,31 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.griefdefender.api.provider;
+package com.griefdefender.api.event;
 
-import java.util.List;
-import java.util.UUID;
+import com.griefdefender.api.User;
 
-import org.checkerframework.checker.nullness.qual.Nullable;
+import net.kyori.event.Cancellable;
 
-import com.griefdefender.api.Clan;
-import com.griefdefender.api.ClanPlayer;
-
-public interface ClanProvider {
-
-    /**
-     * Gets a list of {@link Clan}'s available.
-     * 
-     * @return The clan list or empty list if none
-     */
-    List<Clan> getClans();
+/**
+ * Represents an event that is called before GD processes a player block interaction through 
+ * its permission manager.
+ * <p>
+ * If this event is cancelled, GD will avoid processing the block. Plugins should 
+ * cancel this event if they want to prevent GriefDefender from protecting a specific block 
+ * or block location.
+ */
+public interface ProcessInteractBlockEvent extends ClaimEvent, Cancellable {
 
     /**
-     * Gets a list of all {@link ClanPlayer}'s available.
+     * The clicked block location.
      * 
-     * @return The clan player list or empty list if none
+     * @return The click block location.
      */
-    List<ClanPlayer> getClanPlayers();
+    Object getClickedBlockLocation();
 
     /**
-     * Gets clan with tag.
-     * 
-     * @param tag The clan tag
-     * @return The clan, if available
+     * Get the user interacting with block.
      */
-    @Nullable Clan getClan(String tag);
-
-    /**
-     * Gets the {@link ClanPlayer}.
-     * 
-     * @param playerUniqueId The player uuid
-     * @return The clan player, if available
-     */
-    @Nullable ClanPlayer getClanPlayer(UUID playerUniqueId);
+    User getUser();
 }

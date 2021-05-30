@@ -112,7 +112,7 @@ public interface ClaimDataGetter {
      * 
      * @return The parent claim UUID, if available
      */
-    @Nullable UUID getParent();
+    @Nullable UUID getParentUniqueId();
 
     /**
      * Gets the claim owner's {@link UUID}.

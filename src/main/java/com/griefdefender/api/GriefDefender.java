@@ -31,11 +31,13 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 import com.google.inject.Inject;
 import com.griefdefender.api.event.EventManager;
 import com.griefdefender.api.permission.PermissionManager;
+import com.griefdefender.api.util.NBTUtil;
 
 public final class GriefDefender {
 
     @Inject private static Core core;
     @Inject private static EventManager eventManager;
+    @Inject private static NBTUtil nbtUtil;
     @Inject private static PermissionManager permissionManager;
     @Inject private static Registry registry;
     @Inject private static Version version;
@@ -61,6 +63,15 @@ public final class GriefDefender {
      */
     public static EventManager getEventManager() {
         return check(eventManager);
+    }
+
+    /**
+     * Gets the {@link NBTUtil}.
+     * 
+     * @return The nbt util
+     */
+    public static NBTUtil getNBTUtil() {
+        return check(nbtUtil);
     }
 
     /**

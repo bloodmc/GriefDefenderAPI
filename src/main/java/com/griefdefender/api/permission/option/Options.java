@@ -171,6 +171,21 @@ public final class Options {
     public static final Option<Integer> MIN_LEVEL = DummyObjectProvider.createFor(Option.class, "min-level");
 
     /**
+     * The maximum claimgroups a player can create.
+     */
+    public static final Option<Integer> MAX_CLAIMGROUPS = DummyObjectProvider.createFor(Option.class, "max-claimgroups");
+
+    /**
+     * The maximum claim snapshots a player can create.
+     */
+    public static final Option<Integer> MAX_SNAPSHOT_CLAIM = DummyObjectProvider.createFor(Option.class, "max-snapshot-claim");
+
+    /**
+     * The maximum user snapshots a player can create.
+     */
+    public static final Option<Integer> MAX_SNAPSHOT_USER = DummyObjectProvider.createFor(Option.class, "max-snapshot-user");
+
+    /**
      * The list of player claim groups with their mapped UUID's.
      */
     public static final Option<List<String>> PLAYER_CLAIM_GROUPS = DummyObjectProvider.createFor(Option.class, "player-claim-groups");

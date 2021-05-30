@@ -22,45 +22,34 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.griefdefender.api.provider;
+package com.griefdefender.api.claim;
 
-import java.util.List;
-import java.util.UUID;
+import com.griefdefender.api.util.generator.DummyObjectProvider;
 
-import org.checkerframework.checker.nullness.qual.Nullable;
-
-import com.griefdefender.api.Clan;
-import com.griefdefender.api.ClanPlayer;
-
-public interface ClanProvider {
+public final class ClaimSnapshotTypes {
 
     /**
-     * Gets a list of {@link Clan}'s available.
-     * 
-     * @return The clan list or empty list if none
+     * Represents a global {@link ClaimSnapshotType} that is available to only admins.
      */
-    List<Clan> getClans();
+    public static final ClaimSnapshotType ADMIN = DummyObjectProvider.createFor(ClaimSnapshotType.class, "ADMIN");
 
     /**
-     * Gets a list of all {@link ClanPlayer}'s available.
-     * 
-     * @return The clan player list or empty list if none
+     * Represents a {@link ClaimSnapshotType} that is available to all trusted users of a specific {@link Claim}.
      */
-    List<ClanPlayer> getClanPlayers();
+    public static final ClaimSnapshotType CLAIM = DummyObjectProvider.createFor(ClaimSnapshotType.class, "CLAIM");
 
     /**
-     * Gets clan with tag.
-     * 
-     * @param tag The clan tag
-     * @return The clan, if available
+     * Represents a global {@link ClaimSnapshotType} that is available to all users.
      */
-    @Nullable Clan getClan(String tag);
+    public static final ClaimSnapshotType PUBLIC = DummyObjectProvider.createFor(ClaimSnapshotType.class, "PUBLIC");
 
     /**
-     * Gets the {@link ClanPlayer}.
-     * 
-     * @param playerUniqueId The player uuid
-     * @return The clan player, if available
+     * Represents a {@link ClaimSnapshotType} that is available to a specific {@link User}.
      */
-    @Nullable ClanPlayer getClanPlayer(UUID playerUniqueId);
+    public static final ClaimSnapshotType USER = DummyObjectProvider.createFor(ClaimSnapshotType.class, "USER");
+
+    // Suppress default constructor to ensure non-instantiability.
+    private ClaimSnapshotTypes() {
+        throw new AssertionError("You should not be attempting to instantiate this class.");
+    }
 }

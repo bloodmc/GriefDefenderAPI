@@ -35,6 +35,7 @@ import com.griefdefender.api.permission.flag.Flag;
 import com.griefdefender.api.permission.flag.FlagDefinition;
 import com.griefdefender.api.permission.option.Option;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -145,6 +146,42 @@ public interface PermissionManager {
     * @return
     */
     Tristate getActiveFlagPermissionValue(Claim claim, Subject subject, Flag flag, Object source, Object target, Set<Context> contexts, TrustType type, boolean checkOverride);
+
+    /**
+    * Gets the active {@link Flag} permission value for {@link Subject} in {@link Claim}.
+    * 
+    * @param event The event
+    * @param location The location
+    * @param claim The target claim
+    * @param subject The subject
+    * @param flag The flag
+    * @param source The source
+    * @param target The target
+    * @param contexts The contexts
+    * @param type The trust type
+    * @param checkOverride Whether to check override
+    * @return
+    */
+    Tristate getActiveFlagPermissionValue(Object event, Object location, Claim claim, Subject subject, Flag flag, Object source, Object target, Set<Context> contexts, TrustType type, boolean checkOverride);
+
+    /**
+    * Gets the active {@link Flag} permission value for {@link Subject} in {@link Claim}.
+    * 
+    * @param event The event
+    * @param blockX The block X position 
+    * @param blockY The block Y position 
+    * @param blockZ The block Z position 
+    * @param claim The target claim
+    * @param subject The subject
+    * @param flag The flag
+    * @param source The source
+    * @param target The target
+    * @param contexts The contexts
+    * @param type The trust type
+    * @param checkOverride Whether to check override
+    * @return
+    */
+    Tristate getActiveFlagPermissionValue(Object event, int blockX, int blockY, int blockZ, Claim claim, Subject subject, Flag flag, Object source, Object target, Set<Context> contexts, TrustType type, boolean checkOverride);
 
     /**
      * Clears permissions on the {@link Subject}.
@@ -273,6 +310,20 @@ public interface PermissionManager {
     */
     default <T> T getActiveOptionValue(TypeToken<T> type, Option<T> option, Claim claim, Set<Context> contexts) {
         return getActiveOptionValue(type, option, GriefDefender.getCore().getDefaultSubject(), claim, contexts);
+    }
+
+    /**
+    * Gets the active {@link Option} value with {@link Context}'s.
+    * 
+    * @param type The option type
+    * @param option The option
+    * @param subject The subject
+    * @param claim The claim
+    * @param contexts The contexts
+    * @return
+    */
+    default <T> T getActiveOptionValue(TypeToken<T> type, Option<T> option, Subject subject, Claim claim) {
+        return getActiveOptionValue(type, option, subject, claim, Collections.emptySet());
     }
 
     /**
@@ -453,4 +504,12 @@ public interface PermissionManager {
      * @return Whether the operation was successful (any options were removed)
      */
     CompletableFuture<PermissionResult> clearOptions(Set<Context> contexts);
+
+    /**
+     * Checks for enchantments in item and adds them to context set.
+     * 
+     * @param itemstack The item to check
+     * @param contexts The context set to use
+     */
+    void addItemEnchantmentContexts(Object item, Set<Context> contexts);
 }

@@ -22,45 +22,44 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.griefdefender.api.provider;
+package com.griefdefender.api.event;
 
-import java.util.List;
-import java.util.UUID;
+import com.griefdefender.api.User;
 
-import org.checkerframework.checker.nullness.qual.Nullable;
-
-import com.griefdefender.api.Clan;
-import com.griefdefender.api.ClanPlayer;
-
-public interface ClanProvider {
-
-    /**
-     * Gets a list of {@link Clan}'s available.
-     * 
-     * @return The clan list or empty list if none
-     */
-    List<Clan> getClans();
+/**
+ * Represents an event that is called before GD processes a player's trust.
+ * <p>
+ * This event allows a plugin to override a player's trust based on it's needs.
+ */
+public interface ProcessTrustUserEvent extends TrustClaimEvent {
 
     /**
-     * Gets a list of all {@link ClanPlayer}'s available.
+     * The original trust result for {@link User}.
      * 
-     * @return The clan player list or empty list if none
+     * @return The original trust result
      */
-    List<ClanPlayer> getClanPlayers();
+    boolean getOriginalTrustResult();
 
     /**
-     * Gets clan with tag.
+     * The final trust result for {@link User}.
      * 
-     * @param tag The clan tag
-     * @return The clan, if available
+     * Note: If not changed, this will be same as original result.
+     * 
+     * @return The final trust result
      */
-    @Nullable Clan getClan(String tag);
+    boolean getFinalTrustResult();
 
     /**
-     * Gets the {@link ClanPlayer}.
-     * 
-     * @param playerUniqueId The player uuid
-     * @return The clan player, if available
+     * Gets the {@link User} trust target
+     *
+     * @return The user trust target
      */
-    @Nullable ClanPlayer getClanPlayer(UUID playerUniqueId);
+     User getUser();
+
+    /**
+     * Sets a new trust result for {@link User} replacing the original.
+     * 
+     * @param result The new trust result
+     */
+    void setNewTrustResult(boolean result);
 }

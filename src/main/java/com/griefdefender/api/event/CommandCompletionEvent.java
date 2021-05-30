@@ -22,45 +22,38 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.griefdefender.api.provider;
+package com.griefdefender.api.event;
 
-import java.util.List;
-import java.util.UUID;
+import java.util.Set;
 
-import org.checkerframework.checker.nullness.qual.Nullable;
-
-import com.griefdefender.api.Clan;
-import com.griefdefender.api.ClanPlayer;
-
-public interface ClanProvider {
+public interface CommandCompletionEvent {
 
     /**
-     * Gets a list of {@link Clan}'s available.
+     * Gets an immutable set of current command completions.
      * 
-     * @return The clan list or empty list if none
+     * @return The immutable set of command completions
      */
-    List<Clan> getClans();
+    Set<String> getCommandCompletions();
 
     /**
-     * Gets a list of all {@link ClanPlayer}'s available.
+     * Register a custom command completion value.
      * 
-     * @return The clan player list or empty list if none
+     * @param commandCompletion
      */
-    List<ClanPlayer> getClanPlayers();
+    void register(String commandCompletion);
 
     /**
-     * Gets clan with tag.
-     * 
-     * @param tag The clan tag
-     * @return The clan, if available
+     * Fired when GD builds its context command completions.
      */
-    @Nullable Clan getClan(String tag);
+    interface Context extends CommandCompletionEvent {}
 
     /**
-     * Gets the {@link ClanPlayer}.
-     * 
-     * @param playerUniqueId The player uuid
-     * @return The clan player, if available
+     * Fired when GD builds its identifier command completions.
      */
-    @Nullable ClanPlayer getClanPlayer(UUID playerUniqueId);
+    interface Identifier extends CommandCompletionEvent {}
+
+    /**
+     * Fired when GD builds its tag command completions.
+     */
+    interface Tag extends CommandCompletionEvent {}
 }

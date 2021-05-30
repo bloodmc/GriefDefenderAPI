@@ -26,6 +26,8 @@ package com.griefdefender.api;
 
 import java.util.UUID;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+
 import com.griefdefender.api.data.PlayerData;
 
 public interface User extends Subject {
@@ -48,4 +50,12 @@ public interface User extends Subject {
      * @return true if online, false otherwise
      */
     boolean isOnline();
+
+    /**
+     * Gets the online player object.
+     * 
+     * @return The online player object, if available
+     */
+    @Nullable
+    Object getOnlinePlayer();
 }

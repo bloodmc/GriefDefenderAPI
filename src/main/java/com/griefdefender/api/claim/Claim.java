@@ -94,14 +94,14 @@ public interface Claim extends ContextSource {
     @Nullable  String getDisplayName();
 
     /**
-     * Gets the unique name identifier of claim.
+     * Gets the unique friendly identifier of claim.
      * 
      * Note: This represents the unique friendly identifier of claim and is different from 
      * the {@link #getDisplayName()}.
      * 
-     * @return The unique name identifier, if available
+     * @return The unique friendly identifier, if available
      */
-    @Nullable String getName();
+    @Nullable String getFriendlyIdentifier();
 
     /**
      * Gets the claim group this claim is associated with.
@@ -111,29 +111,16 @@ public interface Claim extends ContextSource {
     @Nullable ClaimGroup getClaimGroup();
 
     /**
-     * Sets the unique name identifier of claim.
+     * Sets the unique friendly identifier of claim.
      * 
      * Note: This represents the unique friendly identifier of claim and is different from 
      * the {@link #setDisplayName(Component)}.
      * 
-     * @param name The unique name identifier
-     * @return true if successful, false if already exists
-     */
-    default boolean setName(String name) {
-        return this.setName(name, false);
-    }
-
-    /**
-     * Sets the unique name identifier of claim.
-     * 
-     * Note: This represents the unique friendly identifier of claim and is different from 
-     * the {@link #setDisplayName(Component)}.
-     * 
-     * @param name The unique name identifier
+     * @param name The unique friendly identifier
      * @param replace Whether to replace if identifier exists
      * @return true if successful, false if no replace
      */
-    boolean setName(String name, boolean replace);
+    void setFriendlyIdentifier(String name);
 
     /**
      * Gets the active {@link ClaimVisual}.
@@ -148,7 +135,7 @@ public interface Claim extends ContextSource {
      * Note: {@link ClaimType#ADMIN} and {@link ClaimType#WILDERNESS} claims do not have
      * owners. These claims should return a general name such as 'administrator'.
      * 
-     * @return The name of claim owner, if available
+     * @return The name of claim owner
      */
     String getOwnerName();
 
@@ -717,10 +704,9 @@ public interface Claim extends ContextSource {
      * @param name The snapshot name
      * @param settings The creation settings
      * @param description The snapshot description
-     * @param includeChildren True to include children, false if not
      * @return The claim snapshot
      */
-    ClaimSnapshot createSnapshot(String name, Component description, SnapshotCreateSettings settings, boolean includeChildren);
+    ClaimSnapshot createSnapshot(String name, Component description, SnapshotCreateSettings settings);
 
     /**
      * Creates a {@link ClaimSnapshot}.

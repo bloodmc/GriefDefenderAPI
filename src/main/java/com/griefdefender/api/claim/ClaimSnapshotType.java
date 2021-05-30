@@ -22,45 +22,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.griefdefender.api.provider;
+package com.griefdefender.api.claim;
 
-import java.util.List;
-import java.util.UUID;
+import com.griefdefender.api.CatalogType;
 
-import org.checkerframework.checker.nullness.qual.Nullable;
+public interface ClaimSnapshotType extends CatalogType {
 
-import com.griefdefender.api.Clan;
-import com.griefdefender.api.ClanPlayer;
-
-public interface ClanProvider {
-
-    /**
-     * Gets a list of {@link Clan}'s available.
-     * 
-     * @return The clan list or empty list if none
-     */
-    List<Clan> getClans();
-
-    /**
-     * Gets a list of all {@link ClanPlayer}'s available.
-     * 
-     * @return The clan player list or empty list if none
-     */
-    List<ClanPlayer> getClanPlayers();
-
-    /**
-     * Gets clan with tag.
-     * 
-     * @param tag The clan tag
-     * @return The clan, if available
-     */
-    @Nullable Clan getClan(String tag);
-
-    /**
-     * Gets the {@link ClanPlayer}.
-     * 
-     * @param playerUniqueId The player uuid
-     * @return The clan player, if available
-     */
-    @Nullable ClanPlayer getClanPlayer(UUID playerUniqueId);
 }

@@ -126,6 +126,14 @@ public interface Option<T> extends CatalogType {
         Builder<T> description(Component description);
 
         /**
+         * The default value.
+         * 
+         * @param value
+         * @return The builder
+         */
+        Builder<T> defaultValue(Object value);
+
+        /**
          * Whether the option supports multiple values.
          * 
          * @param multi True if multi, false otherwise 

@@ -24,6 +24,8 @@
  */
 package com.griefdefender.api.claim;
 
+import java.util.UUID;
+
 import org.checkerframework.checker.nullness.qual.Nullable;
 
 import com.griefdefender.api.GriefDefender;
@@ -33,32 +35,12 @@ import com.griefdefender.api.GriefDefender;
  */
 public interface SnapshotCreateSettings {
 
-    enum Type {
-
-        /**
-         * Represents a snapshot that can only be used by admins.
-         */
-        ADMIN,
-        /**
-         * Represents a snapshot that can only be used with a specific {@link Claim}.
-         */
-        CLAIM,
-        /**
-         * Represents a snapshot tied to a player that can be used on any {@link Claim} owned by them.
-         */
-        PLAYER,
-        /**
-         * Represents a snapshot that can be used by all players on any {@link Claim} owned by them.
-         */
-        PUBLIC
-    }
-
     /**
      * Gets the creation {@link Type}.
      * 
      * @return The creation type
      */
-    Type getType();
+    ClaimSnapshotType getType();
 
     /**
      * The group associated with a {@link Type}.
@@ -68,6 +50,13 @@ public interface SnapshotCreateSettings {
      * @return The group
      */
     @Nullable String getGroup();
+
+    /**
+     * The user associated with {@link Type#PLAYER}.
+     * 
+     * @return The user uuid, if available
+     */
+    @Nullable UUID getUserUniqueId();
 
     /**
      * Whether to create schematic.
@@ -116,7 +105,7 @@ public interface SnapshotCreateSettings {
      * 
      * @param type The creation type
      */
-    void setType(Type type);
+    void setType(ClaimSnapshotType type);
 
     /**
      * Sets the group name.
@@ -124,6 +113,15 @@ public interface SnapshotCreateSettings {
      * @param group The group name
      */
     void setGroup(String group);
+
+    /**
+     * Sets the user {@link UUID}.
+     * 
+     * Note: This only applies to {@link Type#PLAYER}.
+     * 
+     * @param uuid The user uuid
+     */
+    void setUserUniqueId(UUID uuid);
 
     /**
      * Sets whether to copy claim settings.
@@ -181,11 +179,18 @@ public interface SnapshotCreateSettings {
         @Nullable String getGroup();
 
         /**
-         * Gets the create {@link Type}.
+         * The user associated with {@link Type#PLAYER}.
+         * 
+         * @return The user uuid, if available
+         */
+        @Nullable UUID getUserUniqueId();
+
+        /**
+         * Gets the create {@link ClaimSnapshotType}.
          * 
          * @return The create type
          */
-        Type getType();
+        ClaimSnapshotType getType();
 
         /**
          * Gets whether a schematic will be created.
@@ -270,12 +275,12 @@ public interface SnapshotCreateSettings {
         Builder copyTrust(boolean copy);
 
         /**
-         * Sets the creation {@link Type}.
+         * Sets the creation {@link ClaimSnapshotType}.
          * 
          * @param type The creation type
          * @return The builder
          */
-        Builder type(Type type);
+        Builder type(ClaimSnapshotType type);
 
         /**
          * Sets the group name.
@@ -284,6 +289,16 @@ public interface SnapshotCreateSettings {
          * @return The builder
          */
         Builder group(String group);
+
+        /**
+         * Sets the user {@link UUID}.
+         * 
+         * Note: This only applies to {@link Type#PLAYER}.
+         * 
+         * @param uuid The user uuid
+         * @return The builder
+         */
+        Builder user(UUID uuid);
 
         /**
          * Sets whether to include children.

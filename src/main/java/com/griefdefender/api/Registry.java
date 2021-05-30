@@ -31,6 +31,8 @@ import com.griefdefender.api.registry.CatalogRegistryModule;
 import java.util.Collection;
 import java.util.Optional;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+
 public interface Registry {
 
     /**
@@ -103,4 +105,16 @@ public interface Registry {
      * @return The catalog registry module
      */
     public <T extends CatalogType> Optional<CatalogRegistryModule<T>> getRegistryModuleFor(Class<T> catalogClass);
+
+    /**
+     * Attempts to lookup a given object's identifier in registry.
+     * 
+     * Note: Accepts common Minecraft objects such as Block, Entity, TileEntity, Item, and ItemStack.
+     * Note: The object passed should represent the API object version of the platform.
+     * 
+     * @param object The object
+     * @return The identifier, if available
+     */
+    @Nullable
+    public String lookupId(Object object);
 }

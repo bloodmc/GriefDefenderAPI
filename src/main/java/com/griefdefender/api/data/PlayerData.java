@@ -29,6 +29,7 @@ import com.griefdefender.api.claim.Claim;
 import com.griefdefender.api.claim.ClaimGroup;
 import com.griefdefender.api.claim.ClaimGroupSyncMode;
 import com.griefdefender.api.claim.ClaimGroupTypes;
+import com.griefdefender.api.claim.ClaimSnapshot;
 import com.griefdefender.api.claim.ClaimType;
 import com.griefdefender.api.permission.PermissionResult;
 import com.griefdefender.api.permission.option.type.CreateModeType;
@@ -296,6 +297,13 @@ public interface PlayerData {
     CompletableFuture<PermissionResult> setBonusClaimBlocks(int blocks);
 
     /**
+     * Gets the current map view of player {@link ClaimSnapshot}'s.
+     * 
+     * @return An unmodifiable map of player claim snapshots
+     */
+    Map<String, Map<String, ClaimSnapshot>> getClaimSnapshots();
+
+    /**
      * Gets the current map view of player {@link ClaimGroup}'s this player is using.
      * 
      * @return An unmodifiable map view of claim groups used by player
@@ -328,6 +336,25 @@ public interface PlayerData {
      * @return The permission result
      */
     CompletableFuture<PermissionResult> deleteClaimGroup(String name);
+
+    /**
+     * Deletes the specified {@link ClaimSnapshot} if it exists in group.
+     * 
+     * @param group The snapshot group
+     * @param name The snapshot name to delete
+     * @return true if the snapshot was deleted
+     */
+    boolean deleteSnapshot(String group, String name);
+
+    /**
+     * Deletes the specified {@link ClaimSnapshot} if it exists.
+     * 
+     * Note: This will only delete snapshots not associated with a group.
+     * 
+     * @param name The snapshot name to delete
+     * @return true if the snapshot was deleted
+     */
+    boolean deleteSnapshot(String name);
 
     /**
      * Gets the current tax rate for {@link ClaimType}.
