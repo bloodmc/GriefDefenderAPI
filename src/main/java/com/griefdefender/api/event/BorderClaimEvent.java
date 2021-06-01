@@ -152,7 +152,7 @@ public interface BorderClaimEvent extends ClaimEvent, Cancellable  {
 
     /**
      * Sets the exit message for this event only.
-     * The message will send as the chat type {@link ChatTypes#CHAT}
+     * The message will send as the chat type {@link ChatTypes#ACTION_BAR}
      *
      * Note: Setting message to {@code null} will hide the message.
      * If no message is set, the {@link ClaimData#getFarewell()} will be used.
@@ -162,13 +162,13 @@ public interface BorderClaimEvent extends ClaimEvent, Cancellable  {
      * @param message The message to set
      */
     default void setExitMessage(@Nullable Component message) {
-        setExitMessage(message, ChatTypes.CHAT);
+        setExitMessage(message, ChatTypes.ACTION_BAR);
     }
 
 
     /**
      * Sets the enter message for this event only.
-     * The message will send as the chat type {@link ChatTypes#CHAT}
+     * The message will send as the chat type {@link ChatTypes#ACTION_BAR}
      *
      * Note: Setting message to {@code null} will hide the message.
      * If no message is set, the {@link ClaimData#getGreeting()} will be used.
@@ -178,13 +178,13 @@ public interface BorderClaimEvent extends ClaimEvent, Cancellable  {
      * @param message The message to set
      */
     default void setEnterMessage(@Nullable Component message) {
-        setEnterMessage(message, ChatTypes.CHAT);
+        setEnterMessage(message, ChatTypes.ACTION_BAR);
     }
 
     /**
      * Returns the chat type for the exit message.
      * 
-     * Note: Default is {@link ChatTypes#CHAT}
+     * Note: Default is {@link ChatTypes#ACTION_BAR}
      *
      * @return The chat type
      */
@@ -193,7 +193,7 @@ public interface BorderClaimEvent extends ClaimEvent, Cancellable  {
     /**
      * Returns the chat type for the enter message.
      *
-     * Note: Default is {@link ChatTypes#CHAT}
+     * Note: Default is {@link ChatTypes#ACTION_BAR}
      * 
      * @return The chat type
      */
