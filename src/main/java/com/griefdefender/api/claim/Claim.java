@@ -37,6 +37,7 @@ import com.griefdefender.api.data.PlayerData;
 import com.griefdefender.api.permission.Context;
 import com.griefdefender.api.permission.PermissionResult;
 import com.griefdefender.api.permission.flag.Flag;
+import com.griefdefender.api.permission.flag.FlagDefinition;
 import com.griefdefender.api.permission.option.Option;
 
 import net.kyori.adventure.text.Component;
@@ -788,7 +789,7 @@ public interface Claim extends ContextSource {
     * @param flag The flag
     * @param subject The subject
     * @param contexts The contexts
-    * @return
+    * @return The active flag value
     */
     default Tristate getActiveFlagPermissionValue(Flag flag, Subject subject, Set<Context> contexts) {
         return getActiveFlagPermissionValue(flag, subject, null, null, contexts, false);
@@ -801,7 +802,7 @@ public interface Claim extends ContextSource {
     * @param subject The subject
     * @param contexts The contexts
     * @param type The trust type
-    * @return
+    * @return The active flag value
     */
     default Tristate getActiveFlagPermissionValue(Flag flag, Subject subject, Set<Context> contexts, TrustType type) {
         return getActiveFlagPermissionValue(flag, subject, null, null, contexts, type, false);
@@ -814,7 +815,7 @@ public interface Claim extends ContextSource {
     * @param subject The subject
     * @param contexts The contexts
     * @param checkOverride Whether to check override
-    * @return
+    * @return The active flag value
     */
     default Tristate getActiveFlagPermissionValue(Flag flag, Subject subject, Set<Context> contexts, boolean checkOverride) {
         return getActiveFlagPermissionValue(flag, subject, null, null, contexts, null, checkOverride);
@@ -828,7 +829,7 @@ public interface Claim extends ContextSource {
     * @param contexts The contexts
     * @param type The trust type
     * @param checkOverride Whether to check override
-    * @return
+    * @return The active flag value
     */
     default Tristate getActiveFlagPermissionValue(Flag flag, Subject subject, Set<Context> contexts, TrustType type, boolean checkOverride) {
         return getActiveFlagPermissionValue(flag, subject, null, null, contexts, type, checkOverride);
@@ -842,7 +843,7 @@ public interface Claim extends ContextSource {
     * @param source The source
     * @param target The target
     * @param contexts The contexts
-    * @return
+    * @return The active flag value
     */
     default Tristate getActiveFlagPermissionValue(Flag flag, Subject subject, Object source, Object target, Set<Context> contexts) {
         return getActiveFlagPermissionValue(flag, subject, source, target, contexts, false);
@@ -857,7 +858,7 @@ public interface Claim extends ContextSource {
     * @param target The target
     * @param contexts The contexts
     * @param checkOverride Whether to check override
-    * @return
+    * @return The active flag value
     */
     default Tristate getActiveFlagPermissionValue(Flag flag, Subject subject, Object source, Object target, Set<Context> contexts, boolean checkOverride) {
         return getActiveFlagPermissionValue(flag, subject, source, target, contexts, null, checkOverride);
@@ -873,7 +874,7 @@ public interface Claim extends ContextSource {
     * @param contexts The contexts
     * @param type The trust type
     * @param checkOverride Whether to check override
-    * @return
+    * @return The active flag value
     */
     default Tristate getActiveFlagPermissionValue(Flag flag, Subject subject, Object source, Object target, Set<Context> contexts, TrustType type, boolean checkOverride) {
         return GriefDefender.getPermissionManager().getActiveFlagPermissionValue(this, subject, flag, source, target, contexts, type, checkOverride);
@@ -902,7 +903,7 @@ public interface Claim extends ContextSource {
      * @param flag The claim flag
      * @param value The new value
      * @param contexts The claim contexts
-     * @return The result of set
+     * @return The permission result future
      */
     default CompletableFuture<PermissionResult> setFlagPermission(Flag flag, Tristate value, Set<Context> contexts) {
         contexts.add(this.getContext());
@@ -916,12 +917,22 @@ public interface Claim extends ContextSource {
      * @param flag The claim flag
      * @param value The new value
      * @param contexts The claim contexts
-     * @return The result of set
+     * @return The permission result future
      */
     default CompletableFuture<PermissionResult> setFlagPermission(Flag flag, Subject subject, Tristate value, Set<Context> contexts) {
         contexts.add(this.getContext());
         return GriefDefender.getPermissionManager().setFlagPermission(flag, subject, value, contexts);
     }
+
+    /**
+     * Set {@link FlagDefinition} on {@link Subject} in this {@link Claim}.
+     * 
+     * @param subject The subject
+     * @param definition The flag definition
+     * @param value The new value
+     * @return The permission result future
+     */
+    CompletableFuture<PermissionResult> setFlagDefinition(Subject subject, FlagDefinition definition, Tristate value);
 
     /**
     * Gets the active {@link Option} value with {@link Context}'s in this {@link Claim}.
@@ -930,7 +941,7 @@ public interface Claim extends ContextSource {
     * @param option The option
     * @param claim The claim
     * @param contexts The contexts
-    * @return
+    * @return The active option value
     */
     default <T> T getActiveOptionValue(TypeToken<T> type, Option<T> option, Set<Context> contexts) {
         return getActiveOptionValue(type, option, GriefDefender.getCore().getDefaultSubject(), contexts);
@@ -944,7 +955,7 @@ public interface Claim extends ContextSource {
     * @param subject The subject
     * @param claim The claim
     * @param contexts The contexts
-    * @return
+    * @return The active option value
     */
     default <T> T getActiveOptionValue(TypeToken<T> type, Option<T> option, Subject subject, Set<Context> contexts) {
         contexts.add(this.getContext());
@@ -959,7 +970,7 @@ public interface Claim extends ContextSource {
      * @param option The option
      * @param value The new value
      * @param contexts The claim contexts
-     * @return The result of set
+     * @return The permission result future
      */
     default CompletableFuture<PermissionResult> setOption(Option option, String value, Set<Context> contexts) {
         return this.setOption(option, GriefDefender.getCore().getDefaultSubject(), value, contexts);
@@ -972,7 +983,7 @@ public interface Claim extends ContextSource {
      * @param subject The subject
      * @param value The new value
      * @param contexts The claim contexts
-     * @return The result of set
+     * @return The permission result future
      */
     default CompletableFuture<PermissionResult> setOption(Option option, Subject subject, String value, Set<Context> contexts) {
         contexts.add(this.getContext());

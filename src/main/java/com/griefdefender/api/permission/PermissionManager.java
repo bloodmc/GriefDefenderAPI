@@ -52,7 +52,7 @@ public interface PermissionManager {
     * @param subject The subject
     * @param flag The flag
     * @param contexts The contexts
-    * @return
+    * @return The active flag value
     */
     default Tristate getActiveFlagPermissionValue(Claim claim, Subject subject, Flag flag, Set<Context> contexts) {
         return getActiveFlagPermissionValue(claim, subject, flag, null, null, contexts, false);
@@ -66,7 +66,7 @@ public interface PermissionManager {
     * @param flag The flag
     * @param contexts The contexts
     * @param type The trust type
-    * @return
+    * @return The active flag value
     */
     default Tristate getActiveFlagPermissionValue(Claim claim, Subject subject, Flag flag, Set<Context> contexts, TrustType type) {
         return getActiveFlagPermissionValue(claim, subject, flag, null, null, contexts, type, false);
@@ -80,7 +80,7 @@ public interface PermissionManager {
     * @param flag The flag
     * @param contexts The contexts
     * @param checkOverride Whether to check override
-    * @return
+    * @return The active flag value
     */
     default Tristate getActiveFlagPermissionValue(Claim claim, Subject subject, Flag flag, Set<Context> contexts, boolean checkOverride) {
         return getActiveFlagPermissionValue(claim, subject, flag, null, null, contexts, checkOverride);
@@ -95,7 +95,7 @@ public interface PermissionManager {
     * @param contexts The contexts
     * @param type The trust type
     * @param checkOverride Whether to check override
-    * @return
+    * @return The active flag value
     */
     default Tristate getActiveFlagPermissionValue(Claim claim, Subject subject, Flag flag, Set<Context> contexts, TrustType type, boolean checkOverride) {
         return getActiveFlagPermissionValue(claim, subject, flag, null, null, contexts, type, checkOverride);
@@ -110,7 +110,7 @@ public interface PermissionManager {
     * @param source The source
     * @param target The target
     * @param contexts The contexts
-    * @return
+    * @return The active flag value
     */
     default Tristate getActiveFlagPermissionValue(Claim claim, Subject subject, Flag flag, Object source, Object target, Set<Context> contexts) {
         return getActiveFlagPermissionValue(claim, subject, flag, source, target, contexts, false);
@@ -126,7 +126,7 @@ public interface PermissionManager {
     * @param target The target
     * @param contexts The contexts
     * @param checkOverride Whether to check override
-    * @return
+    * @return The active flag value
     */
     default Tristate getActiveFlagPermissionValue(Claim claim, Subject subject, Flag flag, Object source, Object target, Set<Context> contexts, boolean checkOverride) {
         return getActiveFlagPermissionValue(claim, subject, flag, source, target, contexts, null, checkOverride);
@@ -143,7 +143,7 @@ public interface PermissionManager {
     * @param contexts The contexts
     * @param type The trust type
     * @param checkOverride Whether to check override
-    * @return
+    * @return The active flag value
     */
     Tristate getActiveFlagPermissionValue(Claim claim, Subject subject, Flag flag, Object source, Object target, Set<Context> contexts, TrustType type, boolean checkOverride);
 
@@ -160,7 +160,7 @@ public interface PermissionManager {
     * @param contexts The contexts
     * @param type The trust type
     * @param checkOverride Whether to check override
-    * @return
+    * @return The active flag value
     */
     Tristate getActiveFlagPermissionValue(Object event, Object location, Claim claim, Subject subject, Flag flag, Object source, Object target, Set<Context> contexts, TrustType type, boolean checkOverride);
 
@@ -191,7 +191,7 @@ public interface PermissionManager {
      * 
      * @param claim The claim
      * @param subject The subject
-     * @return The result of clear
+     * @return The permission result future
      */
     CompletableFuture<PermissionResult> clearAllFlagPermissions(Subject subject);
 
@@ -263,7 +263,7 @@ public interface PermissionManager {
      * @param flag The claim flag
      * @param value The new values
      * @param contexts The claim contexts
-     * @return The result of set
+     * @return The permission result future
      */
     CompletableFuture<PermissionResult> setFlagPermission(Flag flag, Tristate value, Set<Context> contexts);
 
@@ -274,7 +274,7 @@ public interface PermissionManager {
      * @param subject The subject identifier
      * @param value The new value
      * @param contexts The claim contexts
-     * @return The result of set
+     * @return The permission result future
      */
     CompletableFuture<PermissionResult> setFlagPermission(Flag flag, Subject subject, Tristate value, Set<Context> contexts);
 
@@ -283,7 +283,7 @@ public interface PermissionManager {
      *
      * @param definition The flag definition
      * @param value The new value
-     * @return Whether the operation was successful
+     * @return The permission result future
      */
     default CompletableFuture<PermissionResult> setFlagDefinition(FlagDefinition definition, Tristate value) {
         return this.setFlagDefinition(GriefDefender.getCore().getDefaultSubject(), definition, value);
@@ -295,7 +295,7 @@ public interface PermissionManager {
      * @param subject The subject
      * @param definition The flag definition
      * @param value The new value
-     * @return Whether the operation was successful
+     * @return The permission result future
      */
     CompletableFuture<PermissionResult> setFlagDefinition(Subject subject, FlagDefinition definition, Tristate value);
 
@@ -306,7 +306,7 @@ public interface PermissionManager {
     * @param option The option
     * @param claim The claim
     * @param contexts The contexts
-    * @return
+    * @return The active option value
     */
     default <T> T getActiveOptionValue(TypeToken<T> type, Option<T> option, Claim claim, Set<Context> contexts) {
         return getActiveOptionValue(type, option, GriefDefender.getCore().getDefaultSubject(), claim, contexts);
@@ -320,7 +320,7 @@ public interface PermissionManager {
     * @param subject The subject
     * @param claim The claim
     * @param contexts The contexts
-    * @return
+    * @return The active option value
     */
     default <T> T getActiveOptionValue(TypeToken<T> type, Option<T> option, Subject subject, Claim claim) {
         return getActiveOptionValue(type, option, subject, claim, Collections.emptySet());
@@ -334,7 +334,7 @@ public interface PermissionManager {
     * @param subject The subject
     * @param claim The claim
     * @param contexts The contexts
-    * @return
+    * @return The active option value
     */
     <T> T getActiveOptionValue(TypeToken<T> type, Option<T> option, Subject subject, Claim claim, Set<Context> contexts);
 
@@ -346,7 +346,7 @@ public interface PermissionManager {
      * @param option The option to set. Case-insensitive.
      * @param value The value to set.
      * @param contexts The context combination to set the given option in
-     * @return Whether the operation was successful
+     * @return The permission result future
      */
     CompletableFuture<PermissionResult> setOption(Option option, String value, Set<Context> contexts);
 
@@ -359,7 +359,7 @@ public interface PermissionManager {
      * @param subject The subject identifier
      * @param value The value to set.
      * @param contexts The context combination to set the given option in
-     * @return Whether the operation was successful
+     * @return The permission result future
      */
     CompletableFuture<PermissionResult> setOption(Option option, Subject subject, String value, Set<Context> contexts);
 
@@ -370,7 +370,7 @@ public interface PermissionManager {
      * @param option The multi option to update
      * @param value The value to add
      * @param contexts The contexts
-     * @return The permission result
+     * @return The permission result future
      */
     CompletableFuture<PermissionResult> addOptionListValue(Subject subject, Option option, String value, Set<Context> contexts);
 
@@ -381,7 +381,7 @@ public interface PermissionManager {
      * @param option The multi option to update
      * @param value The value to remove
      * @param contexts The contexts
-     * @return The permission result
+     * @return The permission result future
      */
     CompletableFuture<PermissionResult> removeOptionListValue(Subject subject, Option option, String value, Set<Context> contexts);
 
