@@ -63,6 +63,11 @@ public interface FlagDefinition extends CatalogType {
     String getGroupName();
 
     /**
+     * Gets the preset name associated with this flag definition.
+     */
+    String getPresetName();
+
+    /**
      * Gets the friendly description.
      * 
      * @return The friendly description
@@ -162,6 +167,17 @@ public interface FlagDefinition extends CatalogType {
         Builder group(String group);
 
         /**
+         * Sets the preset.
+         * 
+         * Note: It is recommended to use modid.
+         * Note: This is where all flag definition and group information will be stored.
+         * 
+         * @param prest
+         * @return The builder
+         */
+        Builder preset(String preset);
+
+        /**
          * Sets the default value.
          * 
          * @param value The default value
@@ -234,6 +250,9 @@ public interface FlagDefinition extends CatalogType {
 
         /**
          * Returns the {@link FlagDefinition}.
+         * 
+         * Note: The preset, group, and name MUST be a unique combination 
+         * as it represents the definition id.
          * 
          * @return The flag data
          */
