@@ -30,6 +30,7 @@ import com.griefdefender.api.registry.CatalogRegistryModule;
 
 import java.util.Collection;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.checkerframework.checker.nullness.qual.Nullable;
 
@@ -117,4 +118,13 @@ public interface Registry {
      */
     @Nullable
     public String lookupId(Object object);
+
+    /**
+     * Attempts to lookup a player's username by {@link UUID}.
+     * 
+     * @param uuid The player's UUID
+     * @return The username, if available
+     */
+    @Nullable
+    public String lookupUsername(UUID uuid);
 }
