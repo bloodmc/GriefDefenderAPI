@@ -24,8 +24,6 @@
  */
 package com.griefdefender.api;
 
-import static com.google.common.base.Preconditions.checkState;
-
 import org.checkerframework.checker.nullness.qual.Nullable;
 
 import com.google.inject.Inject;
@@ -43,7 +41,9 @@ public final class GriefDefender {
     @Inject private static Version version;
 
     private static <T> T check(@Nullable T instance) {
-        checkState(instance != null, "GriefDefender has not been initialized!");
+        if (instance == null) {
+            throw new IllegalStateException("GriefDefender has not been initialized!");
+        }
         return instance;
     }
 

@@ -24,10 +24,6 @@
  */
 package com.griefdefender.api.event;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
-import static com.google.common.base.Preconditions.checkState;
-
 import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableList;
 
@@ -75,7 +71,9 @@ public final class EventCause implements Iterable<Object> {
      * @return The constructed cause
      */
     public static EventCause of(Object cause) {
-        checkNotNull(cause, "Cause cannot be null!");
+        if (cause == null) {
+            throw new NullPointerException("Cause cannot be null!");
+        }
         return new EventCause(new Object[] {cause});
     }
 
@@ -123,7 +121,7 @@ public final class EventCause implements Iterable<Object> {
     EventCause(Object[] causes) {
         final Object[] objects = new Object[causes.length];
         for (int index = 0; index < causes.length; index++) {
-            objects[index] = checkNotNull(causes[index], "Null cause element!");
+            objects[index] = causes[index];
         }
         this.cause = objects;
     }
@@ -137,7 +135,7 @@ public final class EventCause implements Iterable<Object> {
         final Object[] objects = new Object[causes.size()];
         int index = 0;
         for (Object cause: causes) {
-            objects[index++] = checkNotNull(cause, "Null cause element!");
+            objects[index++] = cause;
         }
         this.cause = objects;
     }
@@ -192,7 +190,9 @@ public final class EventCause implements Iterable<Object> {
      * @return The object
      */
     public Optional<?> before(Class<?> clazz) {
-        checkArgument(clazz != null, "The provided class cannot be null!");
+        if (clazz == null) {
+            throw new IllegalArgumentException(String.valueOf("The provided class cannot be null!"));
+        }
         if (this.cause.length == 1) {
             return Optional.empty();
         }
@@ -212,7 +212,9 @@ public final class EventCause implements Iterable<Object> {
      * @return The object after, if available
      */
     public Optional<?> after(Class<?> clazz) {
-        checkArgument(clazz != null, "The provided class cannot be null!");
+        if (clazz == null) {
+            throw new IllegalArgumentException(String.valueOf("The provided class cannot be null!"));
+        }
         if (this.cause.length == 1) {
             return Optional.empty();
         }
@@ -232,7 +234,9 @@ public final class EventCause implements Iterable<Object> {
      * @return True if found, false otherwise
      */
     public boolean containsType(Class<?> target) {
-        checkArgument(target != null, "The provided class cannot be null!");
+        if (target == null) {
+            throw new IllegalArgumentException("The provided class cannot be null!");
+        }
         for (Object aCause : this.cause) {
             if (target.isInstance(aCause)) {
                 return true;
@@ -314,7 +318,9 @@ public final class EventCause implements Iterable<Object> {
      * @return The new cause
      */
     public EventCause with(Object additional) {
-        checkNotNull(additional, "No null arguments allowed!");
+        if (additional == null) {
+            throw new NullPointerException("No null arguments allowed!");
+        }
         List<Object> list = new ArrayList<>();
         list.add(additional);
         return with(list);
@@ -329,11 +335,12 @@ public final class EventCause implements Iterable<Object> {
      * @return The new cause
      */
     public EventCause with(Object additional, Object... additionals) {
-        checkNotNull(additional, "No null arguments allowed!");
+        if (additional == null) {
+            throw new NullPointerException("No null arguments allowed!");
+        }
         List<Object> list = new ArrayList<>();
         list.add(additional);
         for (Object object : additionals) {
-            checkNotNull(object, "Cannot add null objects!");
             list.add(object);
         }
         return with(list);
@@ -349,7 +356,6 @@ public final class EventCause implements Iterable<Object> {
     public EventCause with(Iterable<Object> iterable) {
         EventCause.Builder builder = new Builder().from(this);
         for (Object o : iterable) {
-            checkNotNull(o, "Cannot add null causes");
             builder.append(o);
         }
         return builder.build();
@@ -434,7 +440,9 @@ public final class EventCause implements Iterable<Object> {
          * @return The modified builder, for chaining
          */
         public Builder append(Object cause) {
-            checkNotNull(cause, "Cause cannot be null!");
+            if (cause == null) {
+                throw new NullPointerException("Cause cannot be null!");
+            }
             if (!this.causes.isEmpty() && this.causes.get(this.causes.size() - 1) == cause) {
                 return this;
             }
@@ -450,7 +458,9 @@ public final class EventCause implements Iterable<Object> {
          * @return The modified builder, for chaining
          */
         public Builder insert(int position, Object cause) {
-            checkNotNull(cause, "Cause cannot be null!");
+            if (cause == null) {
+                throw new NullPointerException(String.valueOf("Cause cannot be null!"));
+            }
             this.causes.add(position, cause);
             return this;
         }
@@ -462,7 +472,9 @@ public final class EventCause implements Iterable<Object> {
          * @return The modified builder, for chaining
          */
         public Builder appendAll(Collection<Object> causes) {
-            checkNotNull(causes, "Causes cannot be null!");
+            if (causes == null) {
+                throw new NullPointerException("Causes cannot be null!");
+            }
             causes.forEach(this::append);
             return this;
         }
@@ -474,7 +486,6 @@ public final class EventCause implements Iterable<Object> {
          * @return The built cause
          */
         public EventCause build() {
-            checkState(!this.causes.isEmpty(), "Cannot create an empty Cause!");
             return new EventCause(this.causes);
         }
 

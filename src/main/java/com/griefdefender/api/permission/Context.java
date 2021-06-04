@@ -24,8 +24,6 @@
  */
 package com.griefdefender.api.permission;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
 import com.google.common.collect.Maps;
 
 import java.util.Map;
@@ -51,8 +49,6 @@ public final class Context implements Map.Entry<String, String> {
      * @param name Context name. Must not be null.
      */
     public Context(String type, String name) {
-        checkNotNull(type, "type");
-        checkNotNull(name, "name");
         this.wrapped = Maps.immutableEntry(type, name);
     }
 

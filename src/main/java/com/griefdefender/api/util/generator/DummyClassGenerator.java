@@ -24,8 +24,6 @@
  */
 package com.griefdefender.api.util.generator;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-import static com.google.common.base.Preconditions.checkState;
 import static org.objectweb.asm.Opcodes.AASTORE;
 import static org.objectweb.asm.Opcodes.ACC_PUBLIC;
 import static org.objectweb.asm.Opcodes.ACC_SUPER;
@@ -64,13 +62,6 @@ public class DummyClassGenerator {
      * @return The generated class
      */
     public byte[] createClass(final Class<?> type, final String name, final Class<?> exceptionType) {
-
-        checkNotNull(type, "type");
-        checkNotNull(name, "name");
-        checkNotNull(exceptionType, "exception");
-
-        checkState(type.isInterface(), String.format("Class %s is not an interface!", type));
-        checkState(Throwable.class.isAssignableFrom(exceptionType), String.format("Class %s does not extend Throwable!", exceptionType));
 
         String internalName = name.replace('.', '/');
         List<Method> methods = this.getInterfaceMethods(type);
