@@ -36,6 +36,14 @@ repositories {
     mavenLocal()
     mavenCentral()
     maven {
+        name = 'aikar'
+        url = 'https://repo.aikar.co/content/groups/aikar'
+    }
+    maven {
+        name = 'griefdefender'
+        url = 'https://repo.glaremasters.me/repository/bloodshot'
+    }
+    maven {
         name = 'sonatype_releases'
         url = 'https://oss.sonatype.org/content/repositories/releases'
     }
@@ -43,19 +51,16 @@ repositories {
         name = 'sonatype_snapshots'
         url = 'https://oss.sonatype.org/content/repositories/snapshots'
     }
-    maven {
-        name = 'jitpack'
-        url = 'https://jitpack.io'
-    }
 }
 
 dependencies {
     compile "com.flowpowered:flow-math:1.0.3"
-    compile "com.google.inject:guice:5.0.1"
-    compile "com.google.code.findbugs:jsr305:3.0.2"
-    compile "net.kyori:event-api:3.0.0"
-    compile "net.kyori:event-method-asm:3.0.0"
-    compile "net.kyori:adventure-api:4.4.0"
+    compileOnly "com.google.inject:guice:5.0.1"
+    compileOnly "org.ow2.asm:asm:9.1"
+    compile "net.kyori:adventure-platform-api:4.0.0-SNAPSHOT"
+    compile ("net.kyori:event-api:3.0.0") {
+        transitive = false
+    }
 }
 
 jar {
@@ -65,14 +70,20 @@ jar {
     classifier = ''
 }
 
+tasks.assemble {
+   dependsOn(tasks.shadowJar)
+}
+
+artifacts {
+    archives shadowJar
+}
+
 shadowJar {
     classifier = ""
-    relocate("net.kyori", "com.griefdefender.lib.kyori")
     dependencies {
         include dependency("com.flowpowered:flow-math:1.0.3")
+        include dependency("net.kyori:adventure-api:4.7.0")
         include dependency("net.kyori:event-api:3.0.0")
-        include dependency("net.kyori:event-method-asm:3.0.0")
-        include dependency("net.kyori:adventure-api:4.4.0")
     }
 }
 
