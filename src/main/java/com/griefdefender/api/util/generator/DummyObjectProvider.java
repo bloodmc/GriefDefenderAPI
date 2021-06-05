@@ -24,12 +24,11 @@
  */
 package com.griefdefender.api.util.generator;
 
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
-import com.google.common.cache.LoadingCache;
 import com.griefdefender.api.CatalogType;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * This class dynamically generates a dummy class for a given interface (usually a {@link CatalogType}).
@@ -39,16 +38,8 @@ import java.lang.reflect.InvocationTargetException;
  */
 public final class DummyObjectProvider {
 
-    static final DummyClassGeneratorProvider factoryProvider = new DummyClassGeneratorProvider("org.spongepowered.api.util.dummy");
-
-    private static final LoadingCache<Class<?>, Class<?>> factories = CacheBuilder.newBuilder().build(
-            new CacheLoader<Class<?>, Class<?>>() {
-
-                @Override
-                public Class<?> load(Class<?> type) {
-                    return factoryProvider.create(type, UnsupportedOperationException.class);
-                }
-            });
+    static final DummyClassGeneratorProvider factoryProvider = new DummyClassGeneratorProvider("com.griefdefender.api.util.dummy");
+    static Map<Class<?>, Class<?>> cacheMap = new ConcurrentHashMap<>();
 
     /**
      * Creates a new dummy class implementing the specified interface.
@@ -61,7 +52,12 @@ public final class DummyObjectProvider {
     @SuppressWarnings("unchecked")
     public static <T> T createFor(Class<T> type, String fieldName) {
         try {
-            return (T) factories.getUnchecked(type).getConstructor(String.class).newInstance(fieldName);
+            if (cacheMap.get(type) != null) {
+                return (T) cacheMap.get(type).getConstructor(String.class).newInstance(fieldName);
+            }
+            final Class<?> dummyClass = factoryProvider.create(type, UnsupportedOperationException.class);
+            cacheMap.put(type, dummyClass);
+            return (T) dummyClass.getConstructor(String.class).newInstance(fieldName);
         } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
             throw new RuntimeException(String.format("Failed to instantiate dummy class for class %s", type), e);
         }
@@ -79,7 +75,12 @@ public final class DummyObjectProvider {
     @SuppressWarnings("unchecked")
     public static <T, I extends T> I createExtendedFor(Class<T> type, String fieldName) {
         try {
-            return (I) factories.getUnchecked(type).getConstructor(String.class).newInstance(fieldName);
+            if (cacheMap.get(type) != null) {
+                return (I) cacheMap.get(type).getConstructor(String.class).newInstance(fieldName);
+            }
+            final Class<?> dummyClass = factoryProvider.create(type, UnsupportedOperationException.class);
+            cacheMap.put(type, dummyClass);
+            return (I) dummyClass.getConstructor(String.class).newInstance(fieldName);
         } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
             throw new RuntimeException(String.format("Failed to instantiate dummy class for class %s", type), e);
         }

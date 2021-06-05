@@ -24,7 +24,6 @@
  */
 package com.griefdefender.api.permission;
 
-import com.google.common.reflect.TypeToken;
 import com.griefdefender.api.GriefDefender;
 import com.griefdefender.api.Subject;
 import com.griefdefender.api.Tristate;
@@ -34,6 +33,8 @@ import com.griefdefender.api.claim.TrustType;
 import com.griefdefender.api.permission.flag.Flag;
 import com.griefdefender.api.permission.flag.FlagDefinition;
 import com.griefdefender.api.permission.option.Option;
+
+import io.leangen.geantyref.TypeToken;
 
 import java.util.Collections;
 import java.util.HashSet;

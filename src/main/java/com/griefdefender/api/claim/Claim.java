@@ -25,7 +25,6 @@
 package com.griefdefender.api.claim;
 
 import com.flowpowered.math.vector.Vector3i;
-import com.google.common.reflect.TypeToken;
 import com.griefdefender.api.ContextSource;
 import com.griefdefender.api.GriefDefender;
 import com.griefdefender.api.Subject;
@@ -40,6 +39,7 @@ import com.griefdefender.api.permission.flag.Flag;
 import com.griefdefender.api.permission.flag.FlagDefinition;
 import com.griefdefender.api.permission.option.Option;
 
+import io.leangen.geantyref.TypeToken;
 import net.kyori.adventure.text.Component;
 
 import java.util.List;

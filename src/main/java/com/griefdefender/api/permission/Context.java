@@ -24,8 +24,7 @@
  */
 package com.griefdefender.api.permission;
 
-import com.google.common.collect.Maps;
-
+import java.util.AbstractMap;
 import java.util.Map;
 
 /**
@@ -49,7 +48,7 @@ public final class Context implements Map.Entry<String, String> {
      * @param name Context name. Must not be null.
      */
     public Context(String type, String name) {
-        this.wrapped = Maps.immutableEntry(type, name);
+        this.wrapped = new AbstractMap.SimpleImmutableEntry<String, String>(type, name);
     }
 
     /**

@@ -57,10 +57,20 @@ dependencies {
     compile "com.flowpowered:flow-math:1.0.3"
     compileOnly "com.google.inject:guice:5.0.1"
     compileOnly "org.ow2.asm:asm:9.1"
-    compile "net.kyori:adventure-platform-api:4.0.0-SNAPSHOT"
-    compile ("net.kyori:event-api:3.0.0") {
-        transitive = false
+    compile "io.leangen.geantyref:geantyref:1.3.11"
+    compileOnly "net.kyori:adventure-platform-api:4.0.0-SNAPSHOT"
+    compileOnly ("net.kyori:event-api:3.0.0") {
+        exclude group: 'com.google.guava'
     }
+    compileOnly ("net.kyori:event-method-asm:3.0.0") {
+        exclude group: 'com.google.guava'
+        exclude group: 'org.ow2.asm'
+    }
+    compileOnly ("net.kyori:event-method:3.0.0") {
+        exclude group: 'com.google.guava'
+        exclude group: 'org.ow2.asm'
+    }
+    compile "com.google.code.findbugs:jsr305:3.0.2"
 }
 
 jar {
@@ -82,6 +92,7 @@ shadowJar {
     classifier = ""
     dependencies {
         include dependency("com.flowpowered:flow-math:1.0.3")
+        include dependency("io.leangen.geantyref:geantyref:1.3.11")
         include dependency("net.kyori:adventure-api:4.7.0")
         include dependency("net.kyori:event-api:3.0.0")
     }

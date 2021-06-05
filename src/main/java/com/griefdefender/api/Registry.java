@@ -24,13 +24,13 @@
  */
 package com.griefdefender.api;
 
-import com.google.common.base.Supplier;
 import com.griefdefender.api.claim.Claim;
 import com.griefdefender.api.registry.CatalogRegistryModule;
 
 import java.util.Collection;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.function.Supplier;
 
 import org.checkerframework.checker.nullness.qual.Nullable;
 

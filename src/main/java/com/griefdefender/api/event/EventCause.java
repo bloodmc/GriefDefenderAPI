@@ -24,15 +24,14 @@
  */
 package com.griefdefender.api.event;
 
-import com.google.common.base.Objects;
-import com.google.common.collect.ImmutableList;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.StringJoiner;
 
@@ -110,7 +109,7 @@ public final class EventCause implements Iterable<Object> {
     final Object[] cause;
 
     // lazy load
-    @Nullable private ImmutableList<Object> immutableCauses;
+    @Nullable private List<Object> immutableCauses;
 
     /**
      * Constructs a new cause.
@@ -272,13 +271,13 @@ public final class EventCause implements Iterable<Object> {
      * @return An immutable list of the objects queried
      */
     public <T> List<T> allOf(Class<T> target) {
-        ImmutableList.Builder<T> builder = ImmutableList.builder();
+        List<T> builder = new ArrayList<>();
         for (Object aCause : this.cause) {
             if (target.isInstance(aCause)) {
                 builder.add((T) aCause);
             }
         }
-        return builder.build();
+        return Collections.unmodifiableList(builder);
     }
 
     /**
@@ -289,13 +288,13 @@ public final class EventCause implements Iterable<Object> {
      * @return The list of objects not an instance of the provided class
      */
     public List<Object> noneOf(Class<?> ignoredClass) {
-        ImmutableList.Builder<Object> builder = ImmutableList.builder();
+        List<Object> builder = new ArrayList<>();
         for (Object cause : this.cause) {
             if (!ignoredClass.isInstance(cause)) {
                 builder.add(cause);
             }
         }
-        return builder.build();
+        return Collections.unmodifiableList(builder);
     }
 
     /**
@@ -305,9 +304,9 @@ public final class EventCause implements Iterable<Object> {
      */
     public List<Object> all() {
         if (this.immutableCauses == null) {
-            this.immutableCauses = ImmutableList.copyOf(this.cause);
+            this.immutableCauses = Arrays.asList(this.cause);
         }
-        return this.immutableCauses;
+        return Collections.unmodifiableList(this.immutableCauses);
     }
 
     /**
