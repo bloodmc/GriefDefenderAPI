@@ -30,7 +30,6 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 
 import com.griefdefender.api.ContextSource;
 import com.griefdefender.api.GriefDefender;
-import com.griefdefender.api.permission.Context;
 
 public interface ClaimGroup extends ContextSource {
 
@@ -71,13 +70,6 @@ public interface ClaimGroup extends ContextSource {
      * @return The user uuid, if available
      */
     @Nullable UUID getUserUniqueId();
-
-    /**
-     * Gets the override context which is used for overriding claim group flags.
-     * 
-     * @return The override context
-     */
-    Context getOverrideContext();
 
     /**
      * Gets a new {@link ClaimGroup} builder instance for {@link Builder}.

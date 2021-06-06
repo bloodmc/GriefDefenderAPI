@@ -304,7 +304,12 @@ public final class Options {
     public static final Option<Tristate> PLAYER_KEEP_LEVEL = DummyObjectProvider.createFor(Option.class, "player-keep-level");
 
     /**
-     * Used to determine the delay before teleporting a player to a new location.
+     * Used to determine the cost to teleport a player to a new location.
+     */
+    public static final Option<Double> PLAYER_TELEPORT_COST = DummyObjectProvider.createFor(Option.class, "player-teleport-cost");
+
+    /**
+     * Used to determine the delay, in seconds, before teleporting a player to a new location.
      */
     public static final Option<Integer> PLAYER_TELEPORT_DELAY = DummyObjectProvider.createFor(Option.class, "player-teleport-delay");
 

@@ -1005,13 +1005,6 @@ public interface Claim extends ContextSource {
     Context getOverrideTypeContext();
 
     /**
-     * Gets the override context which is used for overriding claim flags.
-     * 
-     * @return The override context
-     */
-    Context getOverrideClaimContext();
-
-    /**
      * Gets a new claim builder instance for {@link Builder}.
      * 
      * @return A new claim builder instance
