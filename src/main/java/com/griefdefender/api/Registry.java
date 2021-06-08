@@ -25,6 +25,7 @@
 package com.griefdefender.api;
 
 import com.griefdefender.api.claim.Claim;
+import com.griefdefender.api.provider.ClanProvider;
 import com.griefdefender.api.registry.CatalogRegistryModule;
 
 import java.util.Collection;
@@ -106,6 +107,13 @@ public interface Registry {
      * @return The catalog registry module
      */
     public <T extends CatalogType> Optional<CatalogRegistryModule<T>> getRegistryModuleFor(Class<T> catalogClass);
+
+    /**
+     * Registers a {@link ClanProvider} to associate with GriefDefender.
+     * 
+     * @param provider The clan provider
+     */
+    public void registerClanProvider(ClanProvider provider);
 
     /**
      * Attempts to lookup a given object's identifier in registry.

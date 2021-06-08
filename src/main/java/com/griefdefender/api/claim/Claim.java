@@ -347,32 +347,46 @@ public interface Claim extends ContextSource {
     List<Claim> getParents(boolean recursive);
 
     /**
-     * Gets an immutable set of all trusted users.
+     * Gets an unmodifiable set of all trusted users.
      * 
-     * @return An immutable set of all trusted users
+     * @return An unmodifiable set of all trusted users
      */
     Set<UUID> getUserTrusts();
 
     /**
-     * Gets an immutable set of trusted users for {@link TrustType}.
+     * Gets an unmodifiable set of trusted users for {@link TrustType}.
      * 
-     * @return An immutable set of trusted users
+     * @return An unmodifiable set of trusted users
      */
     Set<UUID> getUserTrusts(TrustType type);
 
     /**
-     * Gets an immutable set of all trusted groups.
+     * Gets an unmodifiable set of all trusted groups.
      * 
-     * @return An immutable set of all trusted groups
+     * @return An unmodifiable set of all trusted groups
      */
     Set<String> getGroupTrusts();
 
     /**
-     * Gets an immutable set of trusted groups for {@link TrustType}.
+     * Gets an unmodifiable set of trusted groups for {@link TrustType}.
      * 
-     * @return An immutable set of trusted groups
+     * @return An unmodifiable set of trusted groups
      */
     Set<String> getGroupTrusts(TrustType type);
+
+    /**
+     * Gets an unmodifiable set of all trusted clans.
+     * 
+     * @return An unmodifiable set of all trusted clans
+     */
+    Set<String> getClanTrusts();
+
+    /**
+     * Gets an unmodifiable set of trusted clans for {@link TrustType}.
+     * 
+     * @return An unmodifiable set of trusted clans
+     */
+    Set<String> getClanTrusts(TrustType type);
 
     /**
      * Clears all trusts for claim.
@@ -468,6 +482,15 @@ public interface Claim extends ContextSource {
     ClaimResult removeGroupTrusts(Set<String> groups, TrustType type);
 
     /**
+     * Removes a clan from claim trust for given {@link TrustType}.
+     * 
+     * @param clan The clan
+     * @param type The trust type
+     * @return The claim result
+     */
+    ClaimResult removeClanTrust(String clan, TrustType type);
+
+    /**
      * Checks if the {@link UUID} is able to build in claim.
      * 
      * @param uuid The uuid to check
@@ -504,6 +527,25 @@ public interface Claim extends ContextSource {
      * @return Whether the group is trusted
      */
     boolean isGroupTrusted(String group, TrustType type);
+
+    /**
+     * Checks if the clan is trusted in claim.
+     * 
+     * @param clan The clan to check
+     * @return Whether the clan is trusted
+     */
+    default boolean isClanTrusted(String clan) {
+        return isClanTrusted(clan, TrustTypes.BUILDER);
+    }
+
+    /**
+     * Checks if the clan is trusted with given {@link TrustType}.
+     * 
+     * @param clan The clan to check
+     * @param type The minimum trust required
+     * @return Whether the clan is trusted
+     */
+    boolean isClanTrusted(String clan, TrustType type);
 
     /**
      * Checks if this type is {@link ClaimTypes#ADMIN}.
@@ -782,6 +824,14 @@ public interface Claim extends ContextSource {
      * @return true if allowed, false if not
      */
     boolean isPvpAllowed();
+
+    /**
+     * Whether user with {@link UUID} can edit claim.
+     * 
+     * @param uuid The user unique id
+     * @return true if allowed, false if not
+     */
+    boolean allowEdit(UUID uuid);
 
     /**
     * Gets the active {@link Flag} permission value for {@link Subject} in this {@link Claim}.

@@ -29,8 +29,6 @@ import com.griefdefender.api.claim.ClaimBlockSystem;
 import com.griefdefender.api.claim.ClaimGroup;
 import com.griefdefender.api.claim.ClaimManager;
 import com.griefdefender.api.claim.ClaimSnapshot;
-import com.griefdefender.api.claim.ClaimSnapshotType;
-import com.griefdefender.api.claim.SnapshotCreateSettings;
 import com.griefdefender.api.data.PlayerData;
 import com.griefdefender.api.permission.flag.Flag;
 import com.griefdefender.api.provider.ClanProvider;

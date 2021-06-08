@@ -25,14 +25,32 @@
 package com.griefdefender.api.event;
 
 import net.kyori.event.EventBus;
+import net.kyori.event.PostResult;
 
+/**
+ * An event manager.
+ */
 public interface EventManager {
 
+    /**
+     * Gets the {@link EventBus} to handle events.
+     * 
+     * @return The event bus
+     */
     EventBus<Event> getBus();
 
-    void post(final Event event);
+    /**
+     * Posts an event on the {@link EventBus}.
+     * 
+     * @param event The event to post
+     * @return The post result
+     */
+    PostResult post(final Event event);
 
-    void register(final Object listener);
-
-    void unregister(final Object listener);
+    /**
+     * Gets the {@link CauseStackManager}.
+     * 
+     * @return The cause stack manager
+     */
+    CauseStackManager getCauseStackManager();
 }

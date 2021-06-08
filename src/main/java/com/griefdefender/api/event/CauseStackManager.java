@@ -24,36 +24,39 @@
  */
 package com.griefdefender.api.event;
 
-import java.util.Set;
-
-public interface CommandCompletionEvent extends Event {
+/**
+ * Manages {@link EventCause}'s.
+ */
+public interface CauseStackManager {
 
     /**
-     * Gets an immutable set of current command completions.
+     * Gets the current {@link EventCause}.
      * 
-     * @return The immutable set of command completions
+     * @return The current event cause, or plugin instance if not available.
      */
-    Set<String> getCommandCompletions();
+    EventCause getCurrentCause();
 
     /**
-     * Register a custom command completion value.
+     * Pushes a cause onto the stack during an event.
      * 
-     * @param commandCompletion
+     * Note: It is important to always call {@link #popCause()} after usage.
+     * 
+     * @param cause The cause of event.
+     * @return The cause stack manager
      */
-    void register(String commandCompletion);
+    CauseStackManager pushCause(Object cause);
 
     /**
-     * Fired when GD builds its context command completions.
+     * Pops the last cause off the stack.
+     * 
+     * @return The cause object removed.
      */
-    interface Context extends CommandCompletionEvent {}
+    Object popCause();
 
     /**
-     * Fired when GD builds its identifier command completions.
+     * Checks the head cause object of stack.
+     * 
+     * @return The head cause object
      */
-    interface Identifier extends CommandCompletionEvent {}
-
-    /**
-     * Fired when GD builds its tag command completions.
-     */
-    interface Tag extends CommandCompletionEvent {}
+    Object peekCause();
 }
