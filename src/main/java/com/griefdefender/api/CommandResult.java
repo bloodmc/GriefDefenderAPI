@@ -22,45 +22,54 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.griefdefender.api.event;
+package com.griefdefender.api;
 
-import com.griefdefender.api.User;
-import com.griefdefender.api.claim.TrustResult;
+import com.griefdefender.api.claim.Claim;
 
 /**
- * Represents an event that is called before GD processes a player's trust.
- * <p>
- * This event allows a plugin to override a player's trust based on it's needs.
+ * Contains the command result data of a command sender permission check.
  */
-public interface ProcessTrustUserEvent extends TrustClaimEvent {
+public interface CommandResult {
 
     /**
-     * The original trust result for {@link User}.
+     * Gets the {@link Claim} associated with command.
      * 
-     * @return The original trust result
+     * @return The claim
      */
-    TrustResult getOriginalTrustResult();
+    public Claim getClaim();
 
     /**
-     * The final trust result for {@link User}.
+     * Gets the command location.
      * 
-     * Note: If not changed, this will be same as original result.
-     * 
-     * @return The final trust result
+     * @return The command location
      */
-    TrustResult getFinalTrustResult();
+    public Object getLocation();
 
     /**
-     * Gets the {@link User} trust target
-     *
-     * @return The user trust target
+     * Gets the {@link User} associated with command.
+     * 
+     * @return The user
      */
-     User getUser();
+    public User getUser();
 
     /**
-     * Sets a new trust result for {@link User} replacing the original.
+     * Gets the player that ran command.
      * 
-     * @param result The new trust result
+     * @return The player source, if available
      */
-    void setNewTrustResult(TrustResult result);
+    public Object getPlayerSource();
+
+    /**
+     * Checks if command sender is admin.
+     * 
+     * @return true if admin, false if not
+     */
+    public boolean isAdmin();
+
+    /**
+     * Checks if command sender can run command.
+     * 
+     * @return true if allowed, false if not
+     */
+    public boolean successful();
 }

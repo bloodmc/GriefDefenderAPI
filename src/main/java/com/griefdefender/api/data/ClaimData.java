@@ -145,6 +145,20 @@ public interface ClaimData extends ClaimDataGetter {
     void setGreeting(Component greeting);
 
     /**
+     * Sets the action bar when player enters the claim.
+     * 
+     * @param message The enter action bar message
+     */
+    void setEnterActionBar(Component message);
+
+    /**
+     * Sets the action bar when player exits the claim.
+     * 
+     * @param message The exit action bar message
+     */
+    void setExitActionBar(Component message);
+
+    /**
      * Sets the {@link Title} when a player enters the claim.
      * 
      * @param title The enter title
@@ -338,7 +352,7 @@ public interface ClaimData extends ClaimDataGetter {
 
         @Nullable Vector3i getSpawnPos();
 
-        @Nullable ClanData getClanData();
+        @Nullable ClanDataGetter getClanData();
 
         @Nullable EconomyDataGetter getEconomyData();
 
@@ -369,6 +383,20 @@ public interface ClaimData extends ClaimDataGetter {
          * @return The farewell message, if available
          */
         @Nullable Component getFarewell();
+
+        /**
+         * Gets the claim's enter action bar message.
+         * 
+         * @return The enter action bar message, if available
+         */
+        @Nullable Component getEnterActionBar();
+
+        /**
+         * Gets the claim's exit action bar message.
+         * 
+         * @return The exit action bar message, if available
+         */
+        @Nullable Component getExitActionBar();
 
         /**
          * Gets the claim's enter title.
@@ -524,7 +552,7 @@ public interface ClaimData extends ClaimDataGetter {
 
         Builder spawnPos(int x, int y, int z);
 
-        Builder clanData(ClanData data);
+        Builder clanData(ClanDataGetter data);
 
         Builder economyData(EconomyDataGetter data);
 
@@ -579,9 +607,25 @@ public interface ClaimData extends ClaimDataGetter {
         Builder farewell(Component farewell);
 
         /**
+         * The enter action bar message.
+         * 
+         * @param message The message
+         * @return The builder
+         */
+        Builder enterActionBar(Component message);
+
+        /**
+         * The exit action bar message.
+         * 
+         * @param message The message
+         * @return The builder
+         */
+        Builder exitActionBar(Component message);
+
+        /**
          * The enter title.
          * 
-         * @param title
+         * @param title The title
          * @return The builder
          */
         Builder enterTitle(Title title);
@@ -589,7 +633,7 @@ public interface ClaimData extends ClaimDataGetter {
         /**
          * The exit title.
          * 
-         * @param title
+         * @param title Te title
          * @return The builder
          */
         Builder exitTitle(Title title);

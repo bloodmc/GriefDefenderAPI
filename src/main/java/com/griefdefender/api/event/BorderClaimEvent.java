@@ -24,11 +24,8 @@
  */
 package com.griefdefender.api.event;
 
-import com.griefdefender.api.ChatType;
-import com.griefdefender.api.ChatTypes;
 import com.griefdefender.api.User;
 import com.griefdefender.api.claim.Claim;
-import com.griefdefender.api.data.ClaimData;
 import net.kyori.event.Cancellable;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.title.Title;
@@ -75,127 +72,78 @@ public interface BorderClaimEvent extends ClaimEvent, Cancellable  {
     @Nullable User getUser();
 
     /**
-     * Gets the event enter message if available.
-     * 
-     * Note: If no message is set, the {@link ClaimData#getGreeting()}
-     * will be used.
+     * Gets the event enter message, if available.
      */
-    Optional<Component> getEnterMessage();
+    Optional<Component> getEnterChatMessage();
 
     /**
-     * Gets the event exit message if available.
-     * 
-     * Note: If no message is set, the {@link ClaimData#getFarewell()}
-     * will be used.
+     * Gets the event exit message, if available.
      */
-    Optional<Component> getExitMessage();
+    Optional<Component> getExitChatMessage();
 
     /**
-     * Gets the event enter message if available.
-     * 
-     * Note: If no message is set, the {@link ClaimData#getGreeting()}
-     * will be used.
+     * Gets the event enter action bar message, if available.
+     */
+    Optional<Component> getEnterActionBar();
+
+    /**
+     * Gets the event exit action bar, if available.
+     */
+    Optional<Component> getExitActionBar();
+
+    /**
+     * Gets the event enter message, if available.
      */
     Optional<Title> getEnterTitle();
 
     /**
-     * Gets the event exit message if available.
-     * 
-     * Note: If no message is set, the {@link ClaimData#getFarewell()}
-     * will be used.
+     * Gets the event exit message, if available.
      */
     Optional<Title> getExitTitle();
 
     /**
      * Sets the enter message for this event only.
      * 
-     * Note: Setting message to {@code null} will hide the message.
-     * If no message is set, the {@link ClaimData#getGreeting()} will be used.
-     * 
      * @param message The message to set
-     * @param chatType The desired chat type, in which the message will be displayed
      */
-    void setEnterMessage(@Nullable Component message, ChatType chatType);
+    void setEnterChatMessage(@Nullable Component message);
 
     /**
      * Sets the exit message for this event only.
      * 
-     * Note: Setting message to {@code null} will hide the message.
-     * If no message is set, the {@link ClaimData#getFarewell()} will be used.
+     * @param message The message to set
+     */
+    void setExitChatMessage(@Nullable Component message);
+
+    /**
+     * Sets the enter action bar message for this event only.
+     * 
+     * Note: Setting message to {@code null} will hide any message set.
      * 
      * @param message The message to set
-     * @param chatType The desired chat type, in which the message will be displayed
      */
-    void setExitMessage(@Nullable Component message, ChatType chatType);
+    void setEnterActionBar(@Nullable Component message);
+
+    /**
+     * Sets the exit action bar message for this event only.
+     * 
+     * Note: Setting message to {@code null} will hide any message set.
+     * 
+     * @param message The message to set
+     */
+    void setExitActionBar(@Nullable Component message);
 
     /**
      * Sets the enter title for this event only.
      * 
-     * Note: Setting title to {@code null} will hide the message.
-     * If no title is set, the {@link ClaimData#getGreeting()} will be used.
-     * 
      * @param message The message to set
-     * @param chatType The desired chat type, in which the message will be displayed
      */
     void setEnterTitle(@Nullable Title title);
 
     /**
      * Sets the exit title for this event only.
      * 
-     * Note: Setting title to {@code null} will hide the message.
-     * If no message is set, the {@link ClaimData#getFarewell()} will be used.
-     * 
      * @param message The message to set
-     * @param chatType The desired chat type, in which the message will be displayed
      */
     void setExitTitle(@Nullable Title title);
-
-    /**
-     * Sets the exit message for this event only.
-     * The message will send as the chat type {@link ChatTypes#ACTION_BAR}
-     *
-     * Note: Setting message to {@code null} will hide the message.
-     * If no message is set, the {@link ClaimData#getFarewell()} will be used.
-     *
-     * For changing the ChatType see {@link BorderClaimEvent#setExitMessage(Text, ChatType)}
-     *
-     * @param message The message to set
-     */
-    default void setExitMessage(@Nullable Component message) {
-        setExitMessage(message, ChatTypes.ACTION_BAR);
-    }
-
-
-    /**
-     * Sets the enter message for this event only.
-     * The message will send as the chat type {@link ChatTypes#ACTION_BAR}
-     *
-     * Note: Setting message to {@code null} will hide the message.
-     * If no message is set, the {@link ClaimData#getGreeting()} will be used.
-     *
-     * For changing the ChatType see {@link BorderClaimEvent#setEnterMessage(Text, ChatType)}
-     *
-     * @param message The message to set
-     */
-    default void setEnterMessage(@Nullable Component message) {
-        setEnterMessage(message, ChatTypes.ACTION_BAR);
-    }
-
-    /**
-     * Returns the chat type for the exit message.
-     * 
-     * Note: Default is {@link ChatTypes#ACTION_BAR}
-     *
-     * @return The chat type
-     */
-    ChatType getExitMessageChatType();
-
-    /**
-     * Returns the chat type for the enter message.
-     *
-     * Note: Default is {@link ChatTypes#ACTION_BAR}
-     * 
-     * @return The chat type
-     */
-    ChatType getEnterMessageChatType();
 }

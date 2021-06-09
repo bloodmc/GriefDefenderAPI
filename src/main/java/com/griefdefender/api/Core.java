@@ -29,6 +29,7 @@ import com.griefdefender.api.claim.ClaimBlockSystem;
 import com.griefdefender.api.claim.ClaimGroup;
 import com.griefdefender.api.claim.ClaimManager;
 import com.griefdefender.api.claim.ClaimSnapshot;
+import com.griefdefender.api.claim.TrustType;
 import com.griefdefender.api.data.PlayerData;
 import com.griefdefender.api.permission.flag.Flag;
 import com.griefdefender.api.provider.ClanProvider;
@@ -289,4 +290,14 @@ public interface Core {
      * @return The claim group, if available
      */
     @Nullable ClaimGroup getClaimGroupByUUID(UUID uuid);
+
+    /**
+     * Checks if the command sender can use the command at its location.
+     * 
+     * @param sender The command sender
+     * @param trustType The trust type
+     * @param claimIdentifier The claim identifier if check is for another claim
+     * @return The command result
+     */
+    CommandResult canUseCommand(Object sender, TrustType trustType, @Nullable String claimIdentifier);
 }

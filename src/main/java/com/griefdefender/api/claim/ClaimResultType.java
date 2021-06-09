@@ -78,6 +78,11 @@ public enum ClaimResultType {
     BELOW_MIN_SIZE_Z,
 
     /**
+     * Returned if a {@link Clan} could not be located.
+     */
+    CLAN_NOT_FOUND,
+
+    /**
      * Returned if no economy account was found.
      */
     ECONOMY_ACCOUNT_NOT_FOUND,

@@ -24,7 +24,7 @@
  */
 package com.griefdefender.api.event;
 
-import java.util.List;
+import java.util.Set;
 
 import com.griefdefender.api.Clan;
 import com.griefdefender.api.claim.Claim;
@@ -35,11 +35,11 @@ import com.griefdefender.api.claim.Claim;
 public interface ClanTrustClaimEvent extends TrustClaimEvent {
 
     /**
-     * Gets the list of clans requesting trust.
+     * Gets the set of clans requesting trust.
      * 
-     * @return The list of clans requesting trust
+     * @return The set of clans requesting trust
      */
-    List<Clan> getClans();
+    Set<Clan> getClans();
 
     /**
      * Fired when a group is added to claim trust.

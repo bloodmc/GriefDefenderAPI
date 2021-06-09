@@ -22,45 +22,16 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.griefdefender.api.event;
+package com.griefdefender.api.claim;
 
-import com.griefdefender.api.User;
-import com.griefdefender.api.claim.TrustResult;
+import com.griefdefender.api.CatalogType;
 
-/**
- * Represents an event that is called before GD processes a player's trust.
- * <p>
- * This event allows a plugin to override a player's trust based on it's needs.
- */
-public interface ProcessTrustUserEvent extends TrustClaimEvent {
+public interface TrustResultType extends CatalogType {
 
     /**
-     * The original trust result for {@link User}.
+     * Whether this {@link TrustResultType} is a success type or not.
      * 
-     * @return The original trust result
+     * @return true if success type, false if not
      */
-    TrustResult getOriginalTrustResult();
-
-    /**
-     * The final trust result for {@link User}.
-     * 
-     * Note: If not changed, this will be same as original result.
-     * 
-     * @return The final trust result
-     */
-    TrustResult getFinalTrustResult();
-
-    /**
-     * Gets the {@link User} trust target
-     *
-     * @return The user trust target
-     */
-     User getUser();
-
-    /**
-     * Sets a new trust result for {@link User} replacing the original.
-     * 
-     * @param result The new trust result
-     */
-    void setNewTrustResult(TrustResult result);
+    boolean successType();
 }

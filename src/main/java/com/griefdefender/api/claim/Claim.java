@@ -25,6 +25,7 @@
 package com.griefdefender.api.claim;
 
 import com.flowpowered.math.vector.Vector3i;
+import com.griefdefender.api.Clan;
 import com.griefdefender.api.ContextSource;
 import com.griefdefender.api.GriefDefender;
 import com.griefdefender.api.Subject;
@@ -375,20 +376,6 @@ public interface Claim extends ContextSource {
     Set<String> getGroupTrusts(TrustType type);
 
     /**
-     * Gets an unmodifiable set of all trusted clans.
-     * 
-     * @return An unmodifiable set of all trusted clans
-     */
-    Set<String> getClanTrusts();
-
-    /**
-     * Gets an unmodifiable set of trusted clans for {@link TrustType}.
-     * 
-     * @return An unmodifiable set of trusted clans
-     */
-    Set<String> getClanTrusts(TrustType type);
-
-    /**
      * Clears all trusts for claim.
      * 
      * @return The claim result
@@ -408,6 +395,27 @@ public interface Claim extends ContextSource {
      * @return The claim result
      */
     ClaimResult removeAllGroupTrusts();
+
+    /**
+     * Gets an unmodifiable set of all trusted clans.
+     * 
+     * @return An unmodifiable set of all trusted clans
+     */
+    Set<Clan> getClanTrusts();
+
+    /**
+     * Gets an unmodifiable set of trusted clans for {@link TrustType}.
+     * 
+     * @return An unmodifiable set of trusted clans
+     */
+    Set<Clan> getClanTrusts(TrustType type);
+
+    /**
+     * Clears all clan trusts for claim.
+     * 
+     * @return The claim result
+     */
+    ClaimResult removeAllClanTrusts();
 
     /**
      * Grants claim trust to the UUID for given {@link TrustType}.
@@ -482,23 +490,58 @@ public interface Claim extends ContextSource {
     ClaimResult removeGroupTrusts(Set<String> groups, TrustType type);
 
     /**
+     * Grants claim trust to the clan for given {@link TrustType}.
+     * 
+     * @param clan The clan
+     * @param type The trust type
+     * @return The claim result
+     */
+    ClaimResult addClanTrust(Clan clan, TrustType type);
+
+    /**
+     * Grants claim trust to the set of clans for given {@link TrustType}.
+     * 
+     * @param clans The set of clans
+     * @param type The trust type
+     * @return The claim result
+     */
+    ClaimResult addClanTrusts(Set<Clan> clans, TrustType type);
+
+    /**
+     * Grants claim trust to the clan for given {@link TrustType}.
+     * 
+     * @param clanTag The clan tag
+     * @param type The trust type
+     * @return The claim result
+     */
+    ClaimResult addClanTrust(String clanTag, TrustType type);
+
+    /**
      * Removes a clan from claim trust for given {@link TrustType}.
      * 
      * @param clan The clan
      * @param type The trust type
      * @return The claim result
      */
-    ClaimResult removeClanTrust(String clan, TrustType type);
+    ClaimResult removeClanTrust(Clan clan, TrustType type);
 
     /**
-     * Checks if the {@link UUID} is able to build in claim.
+     * Removes a clan from claim trust for given {@link TrustType}.
      * 
-     * @param uuid The uuid to check
-     * @return Whether the uuid is trusted
+     * @param clanTag The clan tag
+     * @param type The trust type
+     * @return The claim result
      */
-    default boolean isTrusted(UUID uuid) {
-        return this.isUserTrusted(uuid, TrustTypes.BUILDER);
-    }
+    ClaimResult removeClanTrust(String clanTag, TrustType type);
+
+    /**
+     * Removes the set of clans from claim trust for given {@link TrustType}.
+     * 
+     * @param clans The set of clans
+     * @param type The trust type
+     * @return The claim result
+     */
+    ClaimResult removeClanTrusts(Set<Clan> clans, TrustType type);
 
     /**
      * Checks if the {@link UUID} is trusted with given {@link TrustType}.
@@ -510,16 +553,6 @@ public interface Claim extends ContextSource {
     boolean isUserTrusted(UUID uuid, TrustType type);
 
     /**
-     * Checks if the group is trusted in claim.
-     * 
-     * @param group The group to check
-     * @return Whether the group is trusted
-     */
-    default boolean isGroupTrusted(String group) {
-        return isGroupTrusted(group, TrustTypes.BUILDER);
-    }
-
-    /**
      * Checks if the group is trusted with given {@link TrustType}.
      * 
      * @param group The group to check
@@ -529,23 +562,22 @@ public interface Claim extends ContextSource {
     boolean isGroupTrusted(String group, TrustType type);
 
     /**
-     * Checks if the clan is trusted in claim.
-     * 
-     * @param clan The clan to check
-     * @return Whether the clan is trusted
-     */
-    default boolean isClanTrusted(String clan) {
-        return isClanTrusted(clan, TrustTypes.BUILDER);
-    }
-
-    /**
      * Checks if the clan is trusted with given {@link TrustType}.
      * 
      * @param clan The clan to check
      * @param type The minimum trust required
      * @return Whether the clan is trusted
      */
-    boolean isClanTrusted(String clan, TrustType type);
+    boolean isClanTrusted(Clan clan, TrustType type);
+
+    /**
+     * Checks if the clan tag is trusted with given {@link TrustType}.
+     * 
+     * @param clanTag The clan tag to check
+     * @param type The minimum trust required
+     * @return Whether the clan is trusted
+     */
+    boolean isClanTrusted(String clanTag, TrustType type);
 
     /**
      * Checks if this type is {@link ClaimTypes#ADMIN}.

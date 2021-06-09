@@ -22,45 +22,38 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.griefdefender.api.event;
+package com.griefdefender.api.provider;
 
-import com.griefdefender.api.User;
-import com.griefdefender.api.claim.TrustResult;
+import java.util.UUID;
 
-/**
- * Represents an event that is called before GD processes a player's trust.
- * <p>
- * This event allows a plugin to override a player's trust based on it's needs.
- */
-public interface ProcessTrustUserEvent extends TrustClaimEvent {
+import org.checkerframework.checker.nullness.qual.Nullable;
+
+import net.kyori.adventure.audience.Audience;
+
+public interface AudienceProvider {
 
     /**
-     * The original trust result for {@link User}.
+     * Gets the player {@link Audience} for {@link UUID}.
      * 
-     * @return The original trust result
+     * @param uuid The player uuid
+     * @return The audience, if available
      */
-    TrustResult getOriginalTrustResult();
+    @Nullable Audience getPlayer(UUID uuid);
 
     /**
-     * The final trust result for {@link User}.
+     * Gets the console {@link Audience}.
      * 
-     * Note: If not changed, this will be same as original result.
-     * 
-     * @return The final trust result
+     * @return The audience
      */
-    TrustResult getFinalTrustResult();
+    Audience getConsole();
 
     /**
-     * Gets the {@link User} trust target
-     *
-     * @return The user trust target
-     */
-     User getUser();
-
-    /**
-     * Sets a new trust result for {@link User} replacing the original.
+     * Gets the sender {@link Audience}.
      * 
-     * @param result The new trust result
+     * Note: The sender should be a command source of the platform.
+     * 
+     * @param sender The sender
+     * @return The audience
      */
-    void setNewTrustResult(TrustResult result);
+    Audience getSender(Object sender);
 }

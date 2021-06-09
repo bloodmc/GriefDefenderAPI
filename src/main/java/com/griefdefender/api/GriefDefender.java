@@ -29,10 +29,12 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 import com.google.inject.Inject;
 import com.griefdefender.api.event.EventManager;
 import com.griefdefender.api.permission.PermissionManager;
+import com.griefdefender.api.provider.AudienceProvider;
 import com.griefdefender.api.util.NBTUtil;
 
 public final class GriefDefender {
 
+    @Inject private static AudienceProvider audienceProvider;
     @Inject private static Core core;
     @Inject private static EventManager eventManager;
     @Inject private static NBTUtil nbtUtil;
@@ -63,6 +65,15 @@ public final class GriefDefender {
      */
     public static EventManager getEventManager() {
         return check(eventManager);
+    }
+
+    /**
+     * Gets the {@link AudienceProvider}.
+     * 
+     * @return The audience provider
+     */
+    public static AudienceProvider getAudienceProvider() {
+        return check(audienceProvider);
     }
 
     /**

@@ -72,9 +72,9 @@ public interface PaymentTransaction {
     Double getAmount();
 
     /**
-     * Gets a new claim builder instance for {@link Builder}.
+     * Gets a new {@link PaymentTransaction} builder instance.
      * 
-     * @return A new claim builder instance
+     * @return A new payment transaction builder instance
      */
     public static PaymentTransaction.Builder builder() {
         return GriefDefender.getRegistry().createBuilder(PaymentTransaction.Builder.class);

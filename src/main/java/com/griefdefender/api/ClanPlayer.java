@@ -39,4 +39,11 @@ public interface ClanPlayer extends User {
      * @param clan The clan to set
      */
     void setClan(Clan clan);
+
+    /**
+     * The current rank in clan.
+     * 
+     * @return The rank in clan
+     */
+    String getRank();
 }

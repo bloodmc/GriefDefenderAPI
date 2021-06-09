@@ -139,6 +139,20 @@ public interface ClaimDataGetter {
     Optional<Component> getFarewell();
 
     /**
+     * Gets the claim's enter action bar message.
+     * 
+     * @return The enter action bar message, if available
+     */
+    Optional<Component> getEnterActionBar();
+
+    /**
+     * Gets the claim's exit action bar message.
+     * 
+     * @return The exit action bar message, if available
+     */
+    Optional<Component> getExitActionBar();
+
+    /**
      * Gets the claim's enter {@link Title}.
      * 
      * @return The claim's enter title, if available.
