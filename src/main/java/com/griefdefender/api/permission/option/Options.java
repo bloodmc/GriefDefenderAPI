@@ -98,12 +98,6 @@ public final class Options {
     public static final Option<CreateModeType> CREATE_MODE = DummyObjectProvider.createFor(Option.class, "create-mode");
 
     /**
-     * Used to determine if a player will be sent deny messages when denied in a {@link Claim}.<br>
-     * 
-     */
-    public static final Option<Boolean> DENY_MESSAGES = DummyObjectProvider.createFor(Option.class, "deny-messages");
-
-    /**
      * The economy amount to charge per block of a {@link Claim}.<br>
      * 
      * Note: The formula to calculate price is {amount} * {@link Claim#getClaimBlocks()}

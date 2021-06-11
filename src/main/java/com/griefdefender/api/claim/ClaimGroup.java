@@ -31,6 +31,9 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 import com.griefdefender.api.ContextSource;
 import com.griefdefender.api.GriefDefender;
 
+/**
+ * Represents a group of one or more claims that share permission and option data.
+ */
 public interface ClaimGroup extends ContextSource {
 
     /**

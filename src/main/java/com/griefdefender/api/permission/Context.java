@@ -48,6 +48,18 @@ public final class Context implements Map.Entry<String, String> {
      * @param name Context name. Must not be null.
      */
     public Context(String type, String name) {
+        if (type == null) {
+            throw new NullPointerException("type cannot be null!");
+        }
+        if (name == null) {
+            throw new NullPointerException("name cannot be null!");
+        }
+        if (type.isEmpty()) {
+            throw new IllegalArgumentException("type cannot be empty!");
+        }
+        if (name.isEmpty()) {
+            throw new IllegalArgumentException("name cannot be empty!");
+        }
         this.wrapped = new AbstractMap.SimpleImmutableEntry<String, String>(type, name);
     }
 

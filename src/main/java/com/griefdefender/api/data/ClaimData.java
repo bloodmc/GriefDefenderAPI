@@ -46,7 +46,7 @@ public interface ClaimData extends ClaimDataGetter {
     /**
      * Sets the claim group uuid this claim should be part of.
      * 
-     * <br><br>Note: If joined to a group, all settings and permissions will
+     * <br><br>Note: If joined to a group, all permissions and options will
      * be taken from group instead of claim.
      * 
      * @param uuid The claim group uuid

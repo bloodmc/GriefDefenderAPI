@@ -24,7 +24,11 @@
  */
 package com.griefdefender.api;
 
+import java.util.Optional;
+
 import com.griefdefender.api.claim.Claim;
+
+import net.kyori.adventure.text.Component;
 
 /**
  * Contains the command result data of a command sender permission check.
@@ -36,40 +40,47 @@ public interface CommandResult {
      * 
      * @return The claim
      */
-    public Claim getClaim();
+    Claim getClaim();
 
     /**
      * Gets the command location.
      * 
      * @return The command location
      */
-    public Object getLocation();
+    Object getLocation();
 
     /**
      * Gets the {@link User} associated with command.
      * 
      * @return The user
      */
-    public User getUser();
+    User getUser();
 
     /**
      * Gets the player that ran command.
      * 
      * @return The player source, if available
      */
-    public Object getPlayerSource();
+    Object getPlayerSource();
+
+    /**
+     * Gets the result message.
+     * 
+     * @return The result message, if available
+     */
+    Optional<Component> getMessage();
 
     /**
      * Checks if command sender is admin.
      * 
      * @return true if admin, false if not
      */
-    public boolean isAdmin();
+    boolean isAdmin();
 
     /**
      * Checks if command sender can run command.
      * 
      * @return true if allowed, false if not
      */
-    public boolean successful();
+     boolean successful();
 }

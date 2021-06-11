@@ -135,4 +135,13 @@ public interface Registry {
      */
     @Nullable
     public String lookupUsername(UUID uuid);
+
+    /**
+     * Attempts to lookup a player's {@link UUID} by their username.
+     * 
+     * @param username The player username
+     * @return The UUID, if available
+     */
+    @Nullable
+    public UUID lookupUserUniqueId(String username);
 }
