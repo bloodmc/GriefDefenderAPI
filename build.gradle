@@ -59,7 +59,7 @@ dependencies {
     compileOnly "org.ow2.asm:asm:9.1"
     compile "io.leangen.geantyref:geantyref:1.3.11"
     compile "net.kyori:event-api:5.0.0-SNAPSHOT"
-    compile "net.kyori:adventure-api:4.7.0"
+    compile "net.kyori:adventure-api:4.8.0"
 }
 
 jar {
@@ -82,7 +82,7 @@ shadowJar {
     dependencies {
         include dependency("com.flowpowered:flow-math:1.0.3")
         include dependency("io.leangen.geantyref:geantyref:1.3.11")
-        include dependency("net.kyori:adventure-api:4.7.0")
+        include dependency("net.kyori:adventure-api:4.8.0")
         include dependency("net.kyori:event-api:5.0.0-SNAPSHOT")
     }
 }
