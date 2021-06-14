@@ -59,11 +59,6 @@ public final class Options {
     public static final Option<Integer> ACCRUED_BLOCKS = DummyObjectProvider.createFor(Option.class, "accrued-blocks");
 
     /**
-     * The list of admin claim groups with their mapped UUID's.
-     */
-    public static final Option<List<String>> ADMIN_CLAIM_GROUPS = DummyObjectProvider.createFor(Option.class, "admin-claim-groups");
-
-    /**
      * Blocks earned per hour.
      */
     public static final Option<Integer> BLOCKS_ACCRUED_PER_HOUR = DummyObjectProvider.createFor(Option.class, "blocks-accrued-per-hour");
@@ -178,11 +173,6 @@ public final class Options {
      * The maximum user snapshots a player can create.
      */
     public static final Option<Integer> MAX_SNAPSHOT_USER = DummyObjectProvider.createFor(Option.class, "max-snapshot-user");
-
-    /**
-     * The list of player claim groups with their mapped UUID's.
-     */
-    public static final Option<List<String>> PLAYER_CLAIM_GROUPS = DummyObjectProvider.createFor(Option.class, "player-claim-groups");
 
     /**
      * Used for executing a command on {@link Claim} enter with specific {@link Context}'s.<br>

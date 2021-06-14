@@ -31,6 +31,7 @@ import com.griefdefender.api.claim.ClaimManager;
 import com.griefdefender.api.claim.ClaimSnapshot;
 import com.griefdefender.api.claim.TrustType;
 import com.griefdefender.api.data.PlayerData;
+import com.griefdefender.api.permission.PermissionResult;
 import com.griefdefender.api.permission.flag.Flag;
 import com.griefdefender.api.provider.ClanProvider;
 import com.griefdefender.api.provider.WorldEditProvider;
@@ -38,6 +39,7 @@ import com.griefdefender.api.provider.WorldEditProvider;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 
 import org.checkerframework.checker.nullness.qual.Nullable;
 
@@ -202,25 +204,13 @@ public interface Core {
     @Nullable WorldEditProvider getWorldEditProvider();
 
     /**
-     * Gets a global {@link ClaimSnapshot}.  
-     * 
-     * Note: This does not support {@link SnapshotCreateSettings.Type#CLAIM}. 
-     * Use {@link Claim#getSnapshots()) instead.
-     * Note: The id is in format '<group>:<name>'. If there is no group, just pass name.
-     * 
-     * @param type The type of snapshot
-     * @param id The id of snapshot
-     * @return The claim snapshot, if available
-     */
-   // @Nullable ClaimSnapshot getGlobalClaimSnapshot(String id, SnapshotCreateSettings.Type type);
-
-    /**
      * Deletes an admin {@link ClaimSnapshot}.  
      * 
      * @param name The name of snapshot to delete
      * @param type The type of snapshot to delete
+     * @return true if snapshot was deleted, false otherwise
      */
-    void deleteAdminClaimSnapshot(String name);
+    boolean deleteAdminClaimSnapshot(String name);
 
     /**
      * Deletes an admin {@link ClaimSnapshot} in specified snapshot group.  
@@ -228,16 +218,18 @@ public interface Core {
      * @param group The name of snapshot group to search in
      * @param name The name of snapshot to delete
      * @param type The type of snapshot to delete
+     * @return true if snapshot was deleted, false otherwise
      */
-    void deleteAdminClaimSnapshot(String group, String name);
+    boolean deleteAdminClaimSnapshot(String group, String name);
 
     /**
      * Deletes a public {@link ClaimSnapshot}.  
      * 
      * @param name The name of snapshot to delete
      * @param type The type of snapshot to delete
+     * @return true if snapshot was deleted, false otherwise
      */
-    void deletePublicClaimSnapshot(String name);
+    boolean deletePublicClaimSnapshot(String name);
 
     /**
      * Deletes a public {@link ClaimSnapshot} in specified snapshot group.  
@@ -245,43 +237,53 @@ public interface Core {
      * @param group The name of snapshot group to search in
      * @param name The name of snapshot to delete
      * @param type The type of snapshot to delete
+     * @return true if snapshot was deleted, false otherwise
      */
-    void deletePublicClaimSnapshot(String group, String name);
+    boolean deletePublicClaimSnapshot(String group, String name);
 
     /**
      * Gets the current map view of admin {@link ClaimSnapshot}'s.
      * 
-     * @return An unmodifiable map of admin claim snapshots
+     * @return An unmodifiable map view of admin claim snapshots
      */
     Map<String, Map<String, ClaimSnapshot>> getAdminClaimSnapshots();
 
     /**
      * Gets the current map view of public {@link ClaimSnapshot}'s.
      * 
-     * @return An unmodifiable map of public claim snapshots
+     * @return An unmodifiable map view of public claim snapshots
      */
     Map<String, Map<String, ClaimSnapshot>> getPublicClaimSnapshots();
 
     /**
-     * Gets the current map view of admin {@link ClaimGroup}'s.
+     * Gets the current map view of admin {@link ClaimGroup}'s by name.
      * 
-     * @return An unmodifiable map of admin claim groups
+     * @return An unmodifiable map view of admin claim groups
      */
     Map<String, ClaimGroup> getAdminClaimGroupsByName();
 
     /**
-     * Gets the current map view of admin {@link ClaimGroup}'s.
+     * Gets the current map view of admin {@link ClaimGroup}'s by {@link UUID}.
      * 
-     * @return An unmodifiable map of admin claim groups
+     * @return An unmodifiable map view of admin claim groups
      */
     Map<UUID, ClaimGroup> getAdminClaimGroupsByUUID();
 
     /**
-     * Gets the current map view of player {@link ClaimGroup}'s.
+     * Gets the current map view of player {@link ClaimGroup}'s by name.
      * 
-     * @return An unmodifiable map of player claim groups
+     * @param playerUniqueId The player uuid
+     * @return An unmodifiable map view of player claim groups
      */
-    Map<UUID, ClaimGroup> getPlayerClaimGroupsByUUID();
+    Map<String, ClaimGroup> getPlayerClaimGroupsByName(UUID playerUniqueId);
+
+    /**
+     * Gets the current map view of player {@link ClaimGroup}'s by {@link UUID}.
+     * 
+     * @param playerUniqueId The player uuid
+     * @return An unmodifiable map view of player claim groups
+     */
+    Map<UUID, ClaimGroup> getPlayerClaimGroupsByUUID(UUID playerUniqueId);
 
     /**
      * Gets a {@link ClaimGroup} associated with uuid.
@@ -290,6 +292,29 @@ public interface Core {
      * @return The claim group, if available
      */
     @Nullable ClaimGroup getClaimGroupByUUID(UUID uuid);
+
+    /**
+     * Deletes an admin {@link ClaimGroup}.  
+     * 
+     * Note: This will automatically unjoin any {@link Claim} currently joined
+     * to claim group. Use with caution.
+     * 
+     * @param group The name of the claim group to delete
+     * @return The permission result future
+     */
+    CompletableFuture<PermissionResult> deleteAdminClaimGroup(String group);
+
+    /**
+     * Deletes a player {@link ClaimGroup}.  
+     * 
+     * Note: This will automatically unjoin any {@link Claim} currently joined
+     * to claim group. Use with caution.
+     * 
+     * @param uuid The uuid of player
+     * @param group The name of the claim group to delete
+     * @return The permission result future
+     */
+    CompletableFuture<PermissionResult> deletePlayerClaimGroup(UUID uuid, String group);
 
     /**
      * Checks if the command sender can use the command at its location.

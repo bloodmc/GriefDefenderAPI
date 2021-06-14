@@ -24,16 +24,17 @@
  */
 package com.griefdefender.api.claim;
 
+import java.time.Instant;
 import java.util.UUID;
 
 import org.checkerframework.checker.nullness.qual.Nullable;
 
 import com.griefdefender.api.ContextSource;
 import com.griefdefender.api.GriefDefender;
+import com.griefdefender.api.claim.ClaimSnapshot.Builder;
 
-/**
- * Represents a group of one or more claims that share permission and option data.
- */
+import net.kyori.adventure.text.Component;
+
 public interface ClaimGroup extends ContextSource {
 
     /**
@@ -51,7 +52,21 @@ public interface ClaimGroup extends ContextSource {
      * 
      * @return The claim group name
      */
-    String getFriendlyName();
+    String getName();
+
+    /**
+     * Gets the claim group description {@link Component}.
+     * 
+     * @return The claim group description, if available
+     */
+    @Nullable Component getDescription();
+
+    /**
+     * Gets the creation date of claim group.
+     * 
+     * @return The claim group creation date
+     */
+    Instant getDateCreated();
 
     /**
      * Gets the {@link ClaimGroupType}.
@@ -86,6 +101,68 @@ public interface ClaimGroup extends ContextSource {
     public interface Builder {
 
         /**
+         * Gets the {@link UUID} associated with group.
+         * 
+         * <br><br>Note: The uuid is the identifier used
+         * in permissions.
+         * 
+         * @return The claim group uuid
+         */
+        UUID getUniqueId();
+
+        /**
+         * Gets the claim group name
+         * 
+         * @return The claim group name
+         */
+        String getName();
+
+        /**
+         * Gets the claim group description {@link Component}.
+         * 
+         * @return The claim group description, if available
+         */
+        @Nullable Component getDescription();
+
+        /**
+         * Gets the creation date of claim group.
+         * 
+         * @return The claim group creation date
+         */
+        Instant getDateCreated();
+
+        /**
+         * Gets the {@link ClaimGroupType}.
+         * 
+         * @return The claim group type
+         */
+        ClaimGroupType getType();
+
+        /**
+         * Gets the {@link ClaimGroupSyncMode}.
+         * 
+         * @return The claim group sync mode
+         */
+        ClaimGroupSyncMode getSyncMode();
+
+        /**
+         * Gets the user uuid this is associated with if any.
+         * 
+         * @return The user uuid, if available
+         */
+        @Nullable UUID getUserUniqueId();
+
+        /**
+         * Sets the {@link ClaimGroup}'s {@link UUID}.
+         * 
+         * Note: If not set, a new uuid will be generated.
+         * 
+         * @param uuid The uuid to set
+         * @return The builder
+         */
+        Builder uuid(UUID uuid);
+
+        /**
          * Sets the {@link User}'s UUID to assign this group to.
          * 
          * <br><br>Note: This is only required if type is
@@ -95,6 +172,24 @@ public interface ClaimGroup extends ContextSource {
          * @return The builder
          */
         Builder user(UUID userUniqueId);
+
+        /**
+         * The {@link Component} description of claim group.
+         * 
+         * @param description The description
+         * @return The claim group description
+         */
+        Builder description(Component description);
+
+        /**
+         * The claim group creation date.
+         * 
+         * Note: If not set, date will be set on build.
+         * 
+         * @param dateCreated The claim group creation date
+         * @return The builder
+         */
+        Builder dateCreated(Instant dateCreated);
 
         /**
          * Sets the claim group name.

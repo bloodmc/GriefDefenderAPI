@@ -172,6 +172,13 @@ public interface ClaimSnapshot {
         @Nullable Component getDescription();
 
         /**
+         * Gets the snapshot creation date.
+         * 
+         * @return The snapshot creation date
+         */
+        @Nullable Instant getDateCreated();
+
+        /**
          * Gets the creator claim's {@link UUID}
          * 
          * @return The creator claim unique identifer, if available
@@ -239,6 +246,16 @@ public interface ClaimSnapshot {
          * @return The builder
          */
         Builder name(String name);
+
+        /**
+         * The snapshot creation date.
+         * 
+         * Note: If not set, date will be set on build.
+         * 
+         * @param dateCreated The snapshot creation date
+         * @return The builder
+         */
+        Builder dateCreated(Instant dateCreated);
 
         /**
          * The {@link Component} description of snapshot.

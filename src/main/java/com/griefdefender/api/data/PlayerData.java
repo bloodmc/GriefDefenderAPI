@@ -318,15 +318,6 @@ public interface PlayerData {
     Map<UUID, ClaimGroup> getClaimGroupsByUUID();
 
     /**
-     * Creates a claim group for player.
-     * 
-     * @param group The claim group to create
-     * @param mode The sync mode
-     * @return The permission result
-     */
-    CompletableFuture<PermissionResult> createClaimGroup(String claimGroupName, ClaimGroupSyncMode mode);
-
-    /**
      * Deletes a {@link ClaimGroup} from player.
      * 
      * <br><br>Note: Deleting a {@link ClaimGroup} will remove all claims
