@@ -343,7 +343,12 @@ public final class Options {
     /**
      * The radius in blocks used to search for nearby claims while inspecting.
      */
-    public static final Option<Integer> RADIUS_INSPECT = DummyObjectProvider.createFor(Option.class, "radius-inspect");
+    public static final Option<Integer> INSPECT_RADIUS = DummyObjectProvider.createFor(Option.class, "inspect-radius");
+
+    /**
+     * The max inspection distance in blocks used to search for nearby claim in direction of cursor.
+     */
+    public static final Option<Integer> INSPECT_MAX_DISTANCE = DummyObjectProvider.createFor(Option.class, "inspect-max-distance");
 
     /**
      * Used to determine if a raid can occur in a {@link Claim}.
