@@ -227,6 +227,13 @@ public interface PlayerData {
     int getCreateClaimLimit(ClaimType type);
 
     /**
+     * Gets the max amount of blocks this player can claim.
+     * 
+     * @return The max amount of claimable blocks
+     */
+    int getMaxClaimableBlocks();
+
+    /**
      * Gets the rental limit of this player.
      * 
      * @return The rental limit

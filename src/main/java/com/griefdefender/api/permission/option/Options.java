@@ -150,6 +150,11 @@ public final class Options {
     public static final Option<Integer> MAX_ACCRUED_BLOCKS = DummyObjectProvider.createFor(Option.class, "max-accrued-blocks");
 
     /**
+     * The maximum amount of blocks a player can claim.
+     */
+    public static final Option<Integer> MAX_CLAIMABLE_BLOCKS = DummyObjectProvider.createFor(Option.class, "max-claimable-blocks");
+
+    /**
      * The maximum level that a claim can be created in.
      */
     public static final Option<Integer> MAX_LEVEL = DummyObjectProvider.createFor(Option.class, "max-level");

@@ -49,31 +49,31 @@ public enum ClaimResultType {
 
     /**
      * Returned if a claim's y level goes above a
-     * {@link Player}'s {@link PlayerData#getMaxClaimLevel()}.
+     * player's {@link PlayerData#getMaxClaimLevel()}.
      */
     ABOVE_MAX_LEVEL,
 
     /**
      * Returned if a claim's y level goes below a
-     * {@link Player}'s {@link PlayerData#getMinClaimLevel()}.
+     * player's {@link PlayerData#getMinClaimLevel()}.
      */
     BELOW_MIN_LEVEL,
 
     /**
      * Returned if a claim's x size goes below a
-     * {@link Player}'s {@link PlayerData#getMinClaimX(ClaimType)}.
+     * player's {@link PlayerData#getMinClaimX(ClaimType)}.
      */
     BELOW_MIN_SIZE_X,
 
     /**
      * Returned if a claim's y size goes below a
-     * {@link Player}'s {@link PlayerData#getMinClaimY(ClaimType)}.
+     * player's {@link PlayerData#getMinClaimY(ClaimType)}.
      */
     BELOW_MIN_SIZE_Y,
 
     /**
      * Returned if a claim's z size goes below a
-     * {@link Player}'s {@link PlayerData#getMinClaimZ(ClaimType)}.
+     * player's {@link PlayerData#getMinClaimZ(ClaimType)}.
      */
     BELOW_MIN_SIZE_Z,
 
@@ -103,26 +103,32 @@ public enum ClaimResultType {
     ECONOMY_WITHDRAW_FAIL,
 
     /**
-     * Returned if a {@link Player} attempts to create a
+     * Returned if a player attempts to create or resize a
+     * claim past their {@link PlayerData#getMaxClaimableBlocks()}.
+     */
+    EXCEEDS_MAX_CLAIMABLE_BLOCKS,
+
+    /**
+     * Returned if a player attempts to create a
      * claim past their {@link PlayerData#getCreateClaimLimit()}.
      */
     EXCEEDS_MAX_CLAIM_LIMIT,
 
     /**
      * Returned if a claim's x size exceeds a
-     * {@link Player}'s {@link PlayerData#getMaxClaimX(ClaimType)}.
+     * player's {@link PlayerData#getMaxClaimX(ClaimType)}.
      */
     EXCEEDS_MAX_SIZE_X,
 
     /**
      * Returned if a claim's y size exceeds a
-     * {@link Player}'s {@link PlayerData#getMaxClaimY(ClaimType)}.
+     * player's {@link PlayerData#getMaxClaimY(ClaimType)}.
      */
     EXCEEDS_MAX_SIZE_Y,
 
     /**
      * Returned if a claim's z size exceeds a
-     * {@link Player}'s {@link PlayerData#getMaxClaimZ(ClaimType)}.
+     * player's {@link PlayerData#getMaxClaimZ(ClaimType)}.
      */
     EXCEEDS_MAX_SIZE_Z,
 
@@ -132,13 +138,13 @@ public enum ClaimResultType {
     FAILURE,
 
     /**
-     * Returned if a {@link Player} doesn't have enough claim blocks
+     * Returned if a player doesn't have enough claim blocks
      * to perform a claim action.
      */
     INSUFFICIENT_CLAIM_BLOCKS,
 
     /**
-     * Returned if a {@link Player} doesn't have enough funds
+     * Returned if a player doesn't have enough funds
      * to perform an economy action.
      */
     NOT_ENOUGH_FUNDS,
