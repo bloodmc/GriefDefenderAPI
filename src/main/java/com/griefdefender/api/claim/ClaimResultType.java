@@ -150,6 +150,11 @@ public enum ClaimResultType {
     NOT_ENOUGH_FUNDS,
 
     /**
+     * Returned if a claim is resized or created outside the world border.
+     */
+    OUTSIDE_WORLD_BORDER,
+
+    /**
      * Returned if a renter attempts to modify a claim such as resize or delete.
      */
     RENT_CLAIM_MODIFY,
