@@ -83,13 +83,11 @@ public interface EconomyData extends EconomyDataGetter {
     void setRentBalance(UUID uuid, double balance);
 
     /**
-     * Sets whether renters or rental trusted users have the ability to break blocks in {@link Claim}.
-     * 
-     * Note: This defaults to false.
+     * Sets whether renters or rental trusted users have the ability to break owner blocks in {@link Claim}.
      * 
      * @param breakAbility
      */
-    void setRentalBreakAbility(boolean breakAbility);
+    void setRentBreakAbility(boolean breakAbility);
 
     /**
      * Clears the payment transactions.
@@ -156,6 +154,15 @@ public interface EconomyData extends EconomyDataGetter {
     void setRentRate(double rate);
 
     /**
+     * Sets whether a rented claim will strip all block NBT data on restore.
+     * 
+     * Note: This is only used when a rented claim is restored on rental end.
+     * 
+     * @param stripNbt 
+     */
+    void setRentStripNbt(boolean stripNbt);
+
+    /**
      * Sets the sale end date.
      * 
      * Note: The claim will no longer be for sale
@@ -218,8 +225,18 @@ public interface EconomyData extends EconomyDataGetter {
 
     public interface Builder {
 
+        /**
+         * Gets the rent sign position.
+         * 
+         * @return The rent sign position, if available
+         */
         Vector3i getRentSignPos();
 
+        /**
+         * Gets the sale sign position.
+         * 
+         * @return The sale sign position, if available
+         */
         Vector3i getSaleSignPos();
 
         /**
@@ -248,7 +265,7 @@ public interface EconomyData extends EconomyDataGetter {
          * 
          * @return Whether renters or rental trusted have ability to break owner blocks.
          */
-        boolean getRentalBreakAbility();
+        boolean getRentBreakAbility();
 
         /**
          * Gets the rent rate of {@link Claim}.
@@ -256,6 +273,15 @@ public interface EconomyData extends EconomyDataGetter {
          * @return The rent rate, or -1 if not set.
          */
         double getRentRate();
+
+        /**
+         * Gets whether a rented claim will strip all block NBT data on restore.
+         * 
+         * Note: This is only used when a rented claim is restored on rental end.
+         * 
+         * @return Whether NBT will be stripped on restore
+         */
+        boolean getRentStripNbt();
 
         /**
          * Gets the rent end date.
@@ -296,18 +322,18 @@ public interface EconomyData extends EconomyDataGetter {
         int getRentMaxTime();
 
         /**
-         * Sets whether renters or rental trusted users have the ability to break blocks in {@link Claim}.
-         * 
-         * Note: This defaults to false.
+         * Sets whether renters or rental trusted users have the ability to break owner blocks in {@link Claim}.
          * 
          * @param breakAbility
+         * @return The builder
          */
-        Builder rentalBreakAbility(boolean breakAbility);
+        Builder rentBreakAbility(boolean breakAbility);
 
         /**
          * Sets the {link PaymentType}.
          * 
          * @param type The payment type
+         * @return The builder
          */
         Builder paymentType(PaymentType type);
 
@@ -317,6 +343,7 @@ public interface EconomyData extends EconomyDataGetter {
          * Note: The time is based on {@link #getPaymentType()}.
          * 
          * @param min The min rent time
+         * @return The builder
          */
         Builder rentMinTime(int min);
 
@@ -326,6 +353,7 @@ public interface EconomyData extends EconomyDataGetter {
          * Note: The time is based on {@link #getPaymentType()}.
          *  
          * @param max The max rent time
+         * @return The builder
          */
         Builder rentMaxTime(int max);
 
@@ -337,6 +365,7 @@ public interface EconomyData extends EconomyDataGetter {
          * will no longer be rentable.
          * 
          * @param date The end date
+         * @return The builder
          */
         Builder rentEndDate(@Nullable Instant date);
 
@@ -344,8 +373,19 @@ public interface EconomyData extends EconomyDataGetter {
          * Sets a rent rate for {@link Claim}.
          * 
          * @param rate
+         * @return The builder
          */
         Builder rentRate(double rate);
+
+        /**
+         * Sets whether a rented claim will strip all block NBT data on restore.
+         * 
+         * Note: This is only used when a rented claim is restored on rental end.
+         * 
+         * @param stripNbt 
+         * @return The builder
+         */
+        Builder rentStripNbt(boolean stripNbt);
 
         /**
          * Sets the sale end date.
@@ -354,6 +394,7 @@ public interface EconomyData extends EconomyDataGetter {
          * when end date is reached.
          * 
          * @param date The end date
+         * @return The builder
          */
         Builder saleEndDate(@Nullable Instant date);
 
@@ -361,6 +402,7 @@ public interface EconomyData extends EconomyDataGetter {
          * Sets a sale price for {@link Claim}.
          * 
          * @param price The sale price
+         * @return The builder
          */
         Builder salePrice(double price);
 
@@ -368,6 +410,7 @@ public interface EconomyData extends EconomyDataGetter {
          * Enables or disables the rental of {@link Claim}.
          * 
          * @param forRent true to enable, false to disable
+         * @return The builder
          */
         Builder forRent(boolean forRent);
 
@@ -375,6 +418,7 @@ public interface EconomyData extends EconomyDataGetter {
          * Enables or disables the sale of {@link Claim}.
          * 
          * @param forSale true to enable, false to disable
+         * @return The builder
          */
         Builder forSale(boolean forSale);
 

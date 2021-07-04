@@ -145,7 +145,7 @@ public interface EconomyDataGetter {
      * 
      * @return Whether renters or rental trusted have ability to break owner blocks.
      */
-    boolean getRentalBreakAbility();
+    boolean getRentBreakAbility();
 
     /**
      * Gets whether claim is currently being rented.
@@ -176,6 +176,15 @@ public interface EconomyDataGetter {
      * @return The maximum rent time
      */
     int getRentMaxTime();
+
+    /**
+     * Gets whether a rented claim will strip its NBT data on restore.
+     * 
+     * Note: This is only used when a rented claim is restored on rental end.
+     * 
+     * @return Whether NBT will be stripped on restore
+     */
+    boolean getRentStripNbt();
 
     /**
      * Gets the rent start date.

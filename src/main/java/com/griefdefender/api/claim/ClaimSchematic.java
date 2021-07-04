@@ -86,6 +86,13 @@ public interface ClaimSchematic {
     boolean hasEntities();
 
     /**
+     * Whether schematic contains NBT data.
+     * 
+     * @return true if schematic contains NBT data, false if not
+     */
+    boolean hasNbtData();
+
+    /**
      * Applies schematic to claim.
      * 
      * @return If schematic apply was successful, false if not
