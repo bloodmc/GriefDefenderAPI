@@ -226,13 +226,6 @@ public interface ClaimData extends ClaimDataGetter {
     void setAllowExpiration(boolean allowExpire);
 
     /**
-     * Toggles whether this claim should allow flag overrides.
-     * 
-     * @param allowOverrides Whether this claim allows flag overrides
-     */
-    void setFlagOverrides(boolean allowOverrides);
-
-    /**
      * Sets the parent {@link UUID}.
      * 
      * @param uniqueId The parent uuid
@@ -425,13 +418,6 @@ public interface ClaimData extends ClaimDataGetter {
          * @return If resizeable
          */
         boolean getResizable();
-
-        /**
-         * Gets whether the claim allows flag overrides.
-         * 
-         * @return true if flag overrides are allowed, false if not
-         */
-        boolean getFlagOverrides();
 
         /**
          * Gets whether the snapshot allows sending deny messages
@@ -693,14 +679,6 @@ public interface ClaimData extends ClaimDataGetter {
          * @return The builder
          */
         Builder isExpired(boolean isExpired);
-
-        /**
-         * Whether claim should allow flag overrides.
-         * 
-         * @param overrides Whether claim allows flag overrides
-         * @return The builder
-         */
-        Builder flagOverrides(boolean overrides);
 
         /**
          * Whether claim requires claim blocks from players.

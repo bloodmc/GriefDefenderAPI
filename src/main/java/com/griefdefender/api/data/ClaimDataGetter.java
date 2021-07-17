@@ -189,13 +189,6 @@ public interface ClaimDataGetter {
     boolean allowDenyMessages();
 
     /**
-     * Gets whether the claim allows flag overrides.
-     * 
-     * @return Whether flag overrides are allowed
-     */
-    boolean allowFlagOverrides();
-
-    /**
      * Gets whether claim can expire.
      * 
      * @return If claim can expire

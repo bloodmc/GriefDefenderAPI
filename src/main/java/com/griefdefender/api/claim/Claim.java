@@ -1087,13 +1087,6 @@ public interface Claim extends ContextSource {
     Context getOverrideTypeContext();
 
     /**
-     * Gets the override context which is used for overriding this claim's flags only.
-     * 
-     * @return The override claim context
-     */
-    Context getOverrideClaimContext();
-
-    /**
      * Gets a new claim builder instance for {@link Builder}.
      * 
      * @return A new claim builder instance
@@ -1213,14 +1206,6 @@ public interface Claim extends ContextSource {
          * @return The builder
          */
         Builder inherit(boolean inherit);
-
-        /**
-         * Toggles whether this claim should allow flag overrides.
-         * 
-         * @param allowOverrides Whether this claim allows flag overrides
-         * @return The builder
-         */
-        Builder overrides(boolean allowOverrides);
 
         /**
          * Sets if this claim requires claim blocks from players.
