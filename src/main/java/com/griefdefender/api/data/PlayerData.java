@@ -27,18 +27,17 @@ package com.griefdefender.api.data;
 import com.griefdefender.api.User;
 import com.griefdefender.api.claim.Claim;
 import com.griefdefender.api.claim.ClaimGroup;
-import com.griefdefender.api.claim.ClaimGroupSyncMode;
-import com.griefdefender.api.claim.ClaimGroupTypes;
 import com.griefdefender.api.claim.ClaimSnapshot;
 import com.griefdefender.api.claim.ClaimType;
 import com.griefdefender.api.permission.PermissionResult;
 import com.griefdefender.api.permission.option.type.CreateModeType;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
+
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 public interface PlayerData {
 
@@ -69,6 +68,15 @@ public interface PlayerData {
      * @return The unmodifiable set view of owned claims, empty if none
      */
     Set<Claim> getClaims();
+
+    /**
+     * Gets the current {@link Claim} player is in.
+     * 
+     * Note: This will return no claim if player is offline.
+     * 
+     * @return The current claim
+     */
+    @Nullable Claim getCurrentClaim();
 
     /**
      * Gets the abandon return ratio used when abandoning a claim.

@@ -28,6 +28,7 @@ import java.util.UUID;
 
 import org.checkerframework.checker.nullness.qual.Nullable;
 
+import com.griefdefender.api.claim.Claim;
 import com.griefdefender.api.data.PlayerData;
 
 public interface User extends Subject {
@@ -58,4 +59,13 @@ public interface User extends Subject {
      */
     @Nullable
     Object getOnlinePlayer();
+
+    /**
+     * Gets the current {@link Claim} player is in.
+     * 
+     * Note: This will return no claim if player is not online.
+     * 
+     * @return The current claim
+     */
+    @Nullable Claim getCurrentClaim();
 }
