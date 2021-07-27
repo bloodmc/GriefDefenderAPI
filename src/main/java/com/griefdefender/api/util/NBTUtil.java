@@ -29,12 +29,24 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 public interface NBTUtil {
 
     /**
-     * Gets the item nbt value associated with key.
+     * Gets the item nbt string value associated with nbt key.
      * 
      * @param item The item to check
      * @param nbtKey The nbt key
-     * @return The nbt value, if available
+     * @return The nbt string value, if available
      */
     @Nullable
     String getItemNBTValue(Object item, String nbtKey);
+
+    /**
+     * Searches for nbt compound by compound key and if found, 
+     * gets the item nbt string value associated with nbt key.
+     * 
+     * @param item The item to check
+     * @param compoundKey The nbt compound key to search
+     * @param nbtKey The nbt key
+     * @return The nbt string value, if available
+     */
+    @Nullable
+    String getItemNBTValue(Object item, String compoundKey, String nbtKey);
 }
