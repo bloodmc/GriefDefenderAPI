@@ -145,9 +145,14 @@ public final class Options {
     public static final Option<Integer> MIN_SIZE_Z = DummyObjectProvider.createFor(Option.class, "min-size-z");
 
     /**
-     * The limit on accrued blocks (over time). doesn't limit purchased or admin-gifted blocks.
+     * The maximum amount of accrued blocks a player can obtain.
      */
     public static final Option<Integer> MAX_ACCRUED_BLOCKS = DummyObjectProvider.createFor(Option.class, "max-accrued-blocks");
+
+    /**
+     * The maximum amount of bonus blocks a player can obtain.
+     */
+    public static final Option<Integer> MAX_BONUS_BLOCKS = DummyObjectProvider.createFor(Option.class, "max-bonus-blocks");
 
     /**
      * The maximum amount of blocks a player can claim.

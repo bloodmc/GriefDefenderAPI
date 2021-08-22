@@ -103,12 +103,20 @@ public interface PlayerData {
     int getBlocksAccruedPerHour();
 
     /**
-     * Gets the max amount of claim blocks a player
+     * Gets the max amount of accrued claim blocks a player
      * can hold.
      * 
-     * @return The max amount of claim blocks
+     * @return The max amount of accrued claim blocks
      */
     int getMaxAccruedClaimBlocks();
+
+    /**
+     * Gets the max amount of bonus claim blocks a player
+     * can hold.
+     * 
+     * @return The max amount of bonus claim blocks
+     */
+    int getMaxBonusClaimBlocks();
 
     /**
      * Gets the max level for claim creation.
