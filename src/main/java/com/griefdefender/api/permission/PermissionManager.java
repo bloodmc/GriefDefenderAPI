@@ -36,7 +36,6 @@ import com.griefdefender.api.permission.option.Option;
 
 import io.leangen.geantyref.TypeToken;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -324,7 +323,7 @@ public interface PermissionManager {
     * @return The active option value
     */
     default <T> T getActiveOptionValue(TypeToken<T> type, Option<T> option, Subject subject, Claim claim) {
-        return getActiveOptionValue(type, option, subject, claim, Collections.emptySet());
+        return getActiveOptionValue(type, option, subject, claim, new HashSet<>());
     }
 
     /**
