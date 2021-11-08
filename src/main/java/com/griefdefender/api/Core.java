@@ -92,13 +92,15 @@ public interface Core {
     /**
      * Gets the claim with friendly identifier.
      * 
-     * Note: If no owner UUID is available such as an admin or wilderness claim, pass null.
+     * <br><br>Note: Use {@link #getAdminUser() AdminUser} UUID for admin claims.
+     * <br>Note: Use {@link #getWildernessUser() WildernessUser} UUID for wilderness claims.
+     * <br>Note: Use player UUID for player owned claims.
      * 
      * @param ownerUniqueId The owner UUID of claim
      * @param friendlyIdentifier The friendly name of claim
      * @return The claim with friendly identifier, if available
      */
-    @Nullable Claim getClaim(@Nullable UUID ownerUniqueId, String friendlyIdentifier);
+    @Nullable Claim getClaim(UUID ownerUniqueId, String friendlyIdentifier);
 
     /**
      * Gets the claim at location.
@@ -136,7 +138,7 @@ public interface Core {
     /**
      * Gets an immutable list of all player {@link Claim}'s.
      * 
-     * Note: This will return an empty list if player has no claims.
+     * <br><br>Note: This will return an empty list if player has no claims.
      * 
      * @param playerUniqueId The player UUID
      * @return An immutable list of all claims, empty list if none were found
@@ -154,7 +156,7 @@ public interface Core {
     /**
      * Gets the default {@link Subject}.
      * 
-     * Note: This subject is used to apply permissions to 
+     * <br><br>Note: This subject is used to apply permissions to 
      * all users.
      * 
      * @return The default subject
@@ -170,12 +172,42 @@ public interface Core {
     Subject getSubject(String identifier);
 
     /**
+     * Gets the admin {@link User}.
+     * 
+     * <br><br>Note: This user represents the owner of admin 
+     * claims.
+     * 
+     * @return The admin user
+     */
+    User getAdminUser();
+
+    /**
+     * Gets the wilderness {@link User}.
+     * 
+     * <br><br>Note: This user represents the owner of all wilderness
+     * claims.
+     * 
+     * @return The wilderness user
+     */
+    User getWildernessUser();
+
+    /**
      * Gets the {@link User} with {@link UUID}.
      * 
      * @param uuid The uuid
      * @return The user, if available
      */
     @Nullable User getUser(UUID uuid);
+
+    /**
+     * Gets the default {@link FlagDefinition} {@link Group}.
+     * 
+     * <br><br>Note: This group is used to apply default flag definition 
+     * permissions to all users.
+     * 
+     * @return The default flag definition group
+     */
+    Group getDefaultFlagDefinitionGroup();
 
     /**
      * Gets the {@link Group} with identifier.
@@ -188,7 +220,7 @@ public interface Core {
     /**
      * Gets the {@link ClanProvider}.
      * 
-     * Note: This will return null if a Clan plugin is not installed.
+     * <br><br>Note: This will return null if a Clan plugin is not installed.
      * 
      * @return The clan provider, if available
      */
@@ -197,7 +229,7 @@ public interface Core {
     /**
      * Gets the {@link WorldEditProvider}.
      * 
-     * Note: This will return null if WorldEdit is not installed.
+     * <br><br>Note: This will return null if WorldEdit is not installed.
      * 
      * @return The worldedit provider, if available
      */
@@ -296,7 +328,7 @@ public interface Core {
     /**
      * Deletes an admin {@link ClaimGroup}.  
      * 
-     * Note: This will automatically unjoin any {@link Claim} currently joined
+     * <br><br>Note: This will automatically unjoin any {@link Claim} currently joined
      * to claim group. Use with caution.
      * 
      * @param group The name of the claim group to delete
@@ -307,7 +339,7 @@ public interface Core {
     /**
      * Deletes a player {@link ClaimGroup}.  
      * 
-     * Note: This will automatically unjoin any {@link Claim} currently joined
+     * <br><br>Note: This will automatically unjoin any {@link Claim} currently joined
      * to claim group. Use with caution.
      * 
      * @param uuid The uuid of player

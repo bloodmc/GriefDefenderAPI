@@ -27,7 +27,12 @@ package com.griefdefender.api.event;
 import com.flowpowered.math.vector.Vector3i;
 import com.griefdefender.api.claim.Claim;
 import com.griefdefender.api.claim.ClaimType;
+import net.kyori.adventure.text.Component;
 import net.kyori.event.Cancellable;
+
+import java.util.Optional;
+
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * An event that is fired before a {@link Claim} is changed.
@@ -36,6 +41,54 @@ import net.kyori.event.Cancellable;
  */
 public interface ChangeClaimEvent extends ClaimEvent, Cancellable {
 
+    /**
+     * An event that is fired when a {@link Claim} display name is changed.
+     */
+    interface DisplayName extends ChangeClaimEvent {
+        /**
+         * Gets the original claim display name.
+         *          
+         * @return The original claim display name if available
+         */
+        Optional<Component> getOriginalDisplayName();
+
+        /**
+         * Gets the new claim display name.
+         * 
+         * @return The new claim display name, if available
+         */
+        Optional<Component> getDisplayName();
+
+        /**
+         * Sets and overrides the event display name.
+         * 
+         * @param displayName The new claim display name
+         */
+        void setDisplayName(@Nullable Component displayName);
+    }
+
+    /**
+     * An event that is fired when a {@link Claim} friendly identifier is changed.
+     */
+    interface Identifier extends ChangeClaimEvent {
+        /**
+         * Gets the original claim identifier.
+         * 
+         * @return The original claim identifier
+         */
+        @Nullable String getOriginalIdentifier();
+
+        /**
+         * Gets the new claim identifier.
+         * 
+         * @return The new claim identifier
+         */
+        @Nullable String getIdentifier();
+    }
+
+    /**
+     * An event that is fired when a {@link ClaimType} is changed.
+     */
     interface Type extends ChangeClaimEvent {
         /**
          * Gets the original {@link ClaimType}.
@@ -52,6 +105,9 @@ public interface ChangeClaimEvent extends ClaimEvent, Cancellable {
         ClaimType getType();
     }
 
+    /**
+     * An event that is fired when a {@link Claim} is resized.
+     */
     interface Resize extends ChangeClaimEvent {
         /**
          * The start corner location for resize.

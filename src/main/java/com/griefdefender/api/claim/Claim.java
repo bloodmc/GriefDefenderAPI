@@ -1007,6 +1007,17 @@ public interface Claim extends ContextSource {
     }
 
     /**
+     * Set {@link FlagDefinition} in this {@link Claim}.
+     * 
+     * @param definition The flag definition
+     * @param value The new value
+     * @return The permission result future
+     */
+    default CompletableFuture<PermissionResult> setFlagDefinition(FlagDefinition definition, Tristate value) {
+        return this.setFlagDefinition(GriefDefender.getCore().getDefaultFlagDefinitionGroup(), definition, value);
+    }
+
+    /**
      * Set {@link FlagDefinition} on {@link Subject} in this {@link Claim}.
      * 
      * @param subject The subject
