@@ -36,6 +36,13 @@ import net.kyori.adventure.text.Component;
 public interface PermissionEvent extends Cancellable, Event {
 
     /**
+     * Gets the permission;
+     * 
+     * @return the permission
+     */
+    String getPermission();
+
+    /**
      * Gets the {@link Subject}
      * 
      * @return The subject

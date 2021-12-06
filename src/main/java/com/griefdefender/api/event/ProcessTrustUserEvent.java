@@ -24,6 +24,8 @@
  */
 package com.griefdefender.api.event;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+
 import com.griefdefender.api.User;
 import com.griefdefender.api.claim.TrustResult;
 
@@ -56,6 +58,15 @@ public interface ProcessTrustUserEvent extends TrustClaimEvent {
      * @return The user trust target
      */
      User getUser();
+
+     /**
+      * Gets the trust action location.
+      * 
+      * <br><br>Note: This is only available during flag permission checks.
+      * 
+      * @return The trust action location, if available
+      */
+     @Nullable Object getLocation();
 
     /**
      * Sets a new trust result for {@link User} replacing the original.

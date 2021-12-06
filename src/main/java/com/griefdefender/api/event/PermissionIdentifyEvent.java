@@ -39,7 +39,7 @@ import com.griefdefender.api.permission.Context;
  * <p>
  * Plugins can use this event to alter id's for objects it owns.
  */
-public interface PermissionIdentifyEvent extends Event {
+public interface PermissionIdentifyEvent extends ClaimEvent {
 
     /**
      * The original identifier for permission object processed in event manager.
@@ -81,7 +81,14 @@ public interface PermissionIdentifyEvent extends Event {
     User getUser();
 
     /**
-     * Sets the new permission identifier.
+     * Gets the permission action location.
+     * 
+     * @return The permission action location
+     */
+    Object getLocation();
+
+    /**
+     * Sets a new identifier replacing the original.
      * 
      * @param id The new identifier
      */
