@@ -31,4 +31,11 @@ public interface ClanData extends ClanDataGetter {
      * @param The set of manager tags
      */
     void setManagerTags(Set<String> managerTags);
+
+    /**
+     * Sets the trusted resident tags.
+     * 
+     * @param The set of resident tags
+     */
+    void setResidentTags(Set<String> residentTags);
 }

@@ -32,6 +32,7 @@ import com.griefdefender.api.Core;
 import com.griefdefender.api.GriefDefender;
 import com.griefdefender.api.Subject;
 import com.griefdefender.api.Tristate;
+import com.griefdefender.api.gui.Icon;
 import com.griefdefender.api.permission.Context;
 
 import net.kyori.adventure.text.Component;
@@ -73,6 +74,13 @@ public interface FlagDefinition extends CatalogType {
      * @return The friendly description
      */
     String getFriendlyDescription();
+
+    /**
+     * Gets the {@link Icon}.
+     * 
+     * @return The icon
+     */
+    Icon getIcon();
 
     /**
      * Gets the default value.
@@ -130,6 +138,13 @@ public interface FlagDefinition extends CatalogType {
      * @param value The default value
      */
     void setDefaultValue(Tristate value);
+
+    /**
+     * Sets the new {@link Icon}
+     * 
+     * @param id The new icon 
+     */
+    void setIcon(Icon icon);
 
     /**
      * Gets a new claim builder instance for {@link Builder}.
@@ -240,6 +255,14 @@ public interface FlagDefinition extends CatalogType {
          * @return The builder
          */
         Builder subject(Subject subject);
+
+        /**
+         * Sets the {@link Icon}.
+         * 
+         * @param icon The icon
+         * @return The builder
+         */
+        Builder icon(Icon icon);
 
         /**
          * Resets the builder to default settings.

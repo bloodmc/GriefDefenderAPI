@@ -22,42 +22,44 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.griefdefender.api.claim;
+package com.griefdefender.api.gui;
 
 import com.griefdefender.api.util.generator.DummyObjectProvider;
 
-public class TrustTypes {
+public class IconFlags {
 
     /**
-     * Represents no specific trust.
-     * Note: This is usually passed when a plugin wants to remove all trusts.
+     * Controls whether to show enchants
      */
-    public static final TrustType NONE = DummyObjectProvider.createFor(TrustType.class, "NONE");
+    public static final IconFlag HIDE_ENCHANTS = DummyObjectProvider.createFor(IconFlag.class, "HIDE_ENCHANTS");
 
     /**
-     * Allows access to interact with all blocks except inventory.
+     * Controls whether to show attributes
      */
-    public static final TrustType ACCESSOR = DummyObjectProvider.createFor(TrustType.class, "ACCESSOR");
+    public static final IconFlag HIDE_ATTRIBUTES = DummyObjectProvider.createFor(IconFlag.class, "HIDE_ATTRIBUTES");
 
     /**
-     * Allows access to create claims and interact with all blocks except inventory.
+     * Controls whether to show the unbreakable state
      */
-    public static final TrustType RESIDENT = DummyObjectProvider.createFor(TrustType.class, "RESIDENT");
+    public static final IconFlag HIDE_UNBREAKABLE = DummyObjectProvider.createFor(IconFlag.class, "HIDE_UNBREAKABLE");
 
     /**
-     * Inherits trust from both {@link #ACCESSOR} and {@link #CONTAINER}
-     * as well as adds ability to place and break blocks.
+     * Controls whether to show what can break or destroy
      */
-    public static final TrustType BUILDER = DummyObjectProvider.createFor(TrustType.class, "BUILDER");
+    public static final IconFlag HIDE_DESTROYS = DummyObjectProvider.createFor(IconFlag.class, "HIDE_DESTROYS");
 
     /**
-     * Allows access to interact with all blocks including inventory.
+     * Controls whether to show what can be build or placed on
      */
-    public static final TrustType CONTAINER = DummyObjectProvider.createFor(TrustType.class, "CONTAINER");
+    public static final IconFlag HIDE_PLACED_ON = DummyObjectProvider.createFor(IconFlag.class, "HIDE_PLACED_ON");
 
     /**
-     * Allows full access to claim including management.
-     * Note: Managers can only transfer and abandon children claims.
+     * Controls whether to show potion effects
      */
-    public static final TrustType MANAGER = DummyObjectProvider.createFor(TrustType.class, "MANAGER");
+    public static final IconFlag HIDE_POTION_EFFECTS = DummyObjectProvider.createFor(IconFlag.class, "HIDE_POTION_EFFECTS");
+
+    /**
+     * Controls whether to show dyes
+     */
+    public static final IconFlag HIDE_DYE = DummyObjectProvider.createFor(IconFlag.class, "HIDE_DYE");
 }

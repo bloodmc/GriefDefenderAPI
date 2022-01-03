@@ -22,37 +22,30 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.griefdefender.api;
+package com.griefdefender.api.clan;
 
-import com.griefdefender.api.clan.Rank;
+import java.util.Set;
 
-public interface ClanPlayer extends User {
-
-    /**
-     * Gets the player's {@link Clan}.
-     * 
-     * @return The player's clan
-     */
-    Clan getClan();
+public interface Rank {
 
     /**
-     * Sets a player's {@link Rank}.
+     * Gets the rank name.
      * 
-     * @param rank The clan rank name
+     * @return The rank name
      */
-    void setRank(Rank rank);
+    String getName();
 
     /**
-     * Gets the clan {@link Rank}.
+     * Gets the rank display name.
      * 
-     * @return The clanrank
+     * @return The rank display name
      */
-    Rank getRank();
+    String getDisplayName();
 
     /**
-     * Checks if player is a leader of clan.
+     * Gets the rank permissions.
      * 
-     * @return true if leader, false if not
+     * @return The rank permissions
      */
-    boolean isLeader();
+    Set<String> getPermissions();
 }

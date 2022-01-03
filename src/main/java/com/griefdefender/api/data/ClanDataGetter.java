@@ -31,4 +31,11 @@ public interface ClanDataGetter {
      * @return The mutable manager tags
      */
     Set<String> getManagerTags();
+
+    /**
+     * Gets the trusted resident tags.
+     * 
+     * @return The mutable resident tags
+     */
+    Set<String> getResidentTags();
 }

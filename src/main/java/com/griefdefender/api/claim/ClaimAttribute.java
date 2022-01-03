@@ -22,37 +22,33 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.griefdefender.api;
+package com.griefdefender.api.claim;
 
-import com.griefdefender.api.clan.Rank;
+import com.griefdefender.api.CatalogType;
+import com.griefdefender.api.GriefDefender;
 
-public interface ClanPlayer extends User {
-
-    /**
-     * Gets the player's {@link Clan}.
-     * 
-     * @return The player's clan
-     */
-    Clan getClan();
+/**
+ * Represents an attribute of a {@link Claim}.
+ */
+public interface ClaimAttribute extends CatalogType {
 
     /**
-     * Sets a player's {@link Rank}.
+     * Gets a new {@link ClaimAttribute} builder instance for {@link Builder}.
      * 
-     * @param rank The clan rank name
+     * @return A new claim attribute builder instance
      */
-    void setRank(Rank rank);
+    public static ClaimAttribute.Builder builder() {
+        return GriefDefender.getRegistry().createBuilder(ClaimAttribute.Builder.class);
+    }
 
-    /**
-     * Gets the clan {@link Rank}.
-     * 
-     * @return The clanrank
-     */
-    Rank getRank();
+    public interface Builder {
 
-    /**
-     * Checks if player is a leader of clan.
-     * 
-     * @return true if leader, false if not
-     */
-    boolean isLeader();
+        Builder name(String name);
+
+        Builder id(String id);
+
+        Builder reset();
+
+        ClaimAttribute build();
+    }
 }

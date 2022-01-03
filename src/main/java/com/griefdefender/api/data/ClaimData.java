@@ -28,6 +28,7 @@ import com.flowpowered.math.vector.Vector3i;
 import com.griefdefender.api.GriefDefender;
 import com.griefdefender.api.claim.Claim;
 import com.griefdefender.api.claim.ClaimType;
+import com.griefdefender.api.claim.ClaimAttribute;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.title.Title;
@@ -129,6 +130,13 @@ public interface ClaimData extends ClaimDataGetter {
      * @param type The claim type
      */
     void setType(ClaimType type);
+
+    /**
+     * Sets the {@link ClaimAttribute}'s.
+     * 
+     * @param attributes The set of claim attributes
+     */
+    void setAttributes(Set<ClaimAttribute> attributes);
 
     /**
      * Sets the farewell message when a player exits the claim.
@@ -280,6 +288,14 @@ public interface ClaimData extends ClaimDataGetter {
     void setManagers(Set<UUID> managers);
 
     /**
+     * Sets the trusted resident set of {@link UUID}'s.
+     * 
+     * @param The set of resident uuid's
+     * @return The builder
+     */
+    void setResidents(Set<UUID> residents);
+
+    /**
      * Sets the trusted accessor group set of {@link UUID}'s.
      * 
      * @param The set of accessor group uuid's
@@ -306,6 +322,13 @@ public interface ClaimData extends ClaimDataGetter {
      * @param The set of manager group uuid's
      */
     void setManagerGroups(Set<String> managerGroups);
+
+    /**
+     * Sets the trusted resident group set of {@link UUID}'s.
+     * 
+     * @param The set of resident group uuid's
+     */
+    void setResidentGroups(Set<String> residentGroups);
 
     /**
      * Sets the {@link ClanData}.
@@ -463,6 +486,13 @@ public interface ClaimData extends ClaimDataGetter {
         boolean getSizeRestrictions();
 
         /**
+         * Gets all {@link ClaimAttribute}'s associated with claim.
+         * 
+         * @return The mutable set of claim attributes
+         */
+        Set<ClaimAttribute> getAttributes();
+
+        /**
          * Gets the claim creation date.
          * 
          * @return The claim creation date
@@ -505,6 +535,13 @@ public interface ClaimData extends ClaimDataGetter {
         Set<UUID> getManagers();
 
         /**
+         * Gets the trusted resident set of {@link UUID}'s.
+         * 
+         * @return The mutable resident uuid set
+         */
+        Set<UUID> getResidents();
+
+        /**
          * Gets the trusted accessor group set of {@link UUID}'s.
          * 
          * @return The mutable accessor group uuid set
@@ -531,6 +568,13 @@ public interface ClaimData extends ClaimDataGetter {
          * @return The mutable manager group uuid set
          */
         Set<String> getManagerGroups();
+
+        /**
+         * Gets the trusted resident group set of {@link UUID}'s.
+         * 
+         * @return The mutable resident group uuid set
+         */
+        Set<String> getResidentGroups();
 
         Builder lesserBoundaryPos(int x, int y, int z);
 
@@ -699,6 +743,14 @@ public interface ClaimData extends ClaimDataGetter {
         Builder sizeRestrictions(boolean sizeRestrictions);
 
         /**
+         * The {@link ClaimAttribute}'s associated with claim.
+         * 
+         * @param attributes The set of claim attributes
+         * @return The builder
+         */
+        Builder attributes(Set<ClaimAttribute> attributes);
+
+        /**
          * The trusted accessor set of {@link UUID}'s.
          * 
          * @param The set of accessor uuid's
@@ -731,6 +783,14 @@ public interface ClaimData extends ClaimDataGetter {
         Builder managers(Set<UUID> managers);
 
         /**
+         * The trusted resident set of {@link UUID}'s.
+         * 
+         * @param The set of resident uuid's
+         * @return The builder
+         */
+        Builder residents(Set<UUID> managers);
+
+        /**
          * The trusted accessor group set of {@link UUID}'s.
          * 
          * @param The set of accessor group uuid's
@@ -761,6 +821,14 @@ public interface ClaimData extends ClaimDataGetter {
          * @return The builder
          */
         Builder managerGroups(Set<String> managerGroups);
+
+        /**
+         * The trusted resident group set of {@link UUID}'s.
+         * 
+         * @param The set of resident group uuid's
+         * @return The builder
+         */
+        Builder residentGroups(Set<String> residentGroups);
 
         /**
          * Resets the builder to default settings.

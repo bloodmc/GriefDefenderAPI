@@ -297,6 +297,20 @@ public interface PlayerData {
     boolean canPvp(Claim claim);
 
     /**
+     * Checks if this player can manage admin claims.
+     * 
+     * @return true if can manage, false if not
+     */
+    boolean canManageAdminClaims();
+
+    /**
+     * Checks if this player can manage wilderness claims.
+     * 
+     * @return true if can manage, false if not
+     */
+    boolean canManageWildernessClaims();
+
+    /**
      * Checks if this player is in pvp combat.
      * 
      * @return true if in pvp combat, false if not

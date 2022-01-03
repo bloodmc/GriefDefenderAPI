@@ -164,6 +164,59 @@ public interface Claim extends ContextSource {
     }
 
     /**
+     * Adds a {@link ClaimAttribute}.
+     * 
+     * @param attribute The claim attribute
+     */
+    void addAttribute(ClaimAttribute attribute);
+
+    /**
+     * Removes a {@link ClaimAttribute}.
+     * 
+     * @param id The claim attribute
+     */
+    default void removeAttribute(ClaimAttribute attribute) {
+        this.removeAttribute(attribute.getId());
+    }
+
+    /**
+     * Removes a {@link ClaimAttribute} by id.
+     * 
+     * @param id The claim attribute id
+     */
+    void removeAttribute(String id);
+
+    /**
+     * Removes all attribute types associated with claim.
+     */
+    void removeAllAttributes();
+
+    /**
+     * Checks if claim contains {@link ClaimAttribute}.
+     * 
+     * @param attribute The claim attribute
+     * @return true if claim contains it, false if not
+     */
+    default boolean hasAttribute(ClaimAttribute attribute) {
+        return this.hasAttribute(attribute.getId());
+    }
+
+    /**
+     * Checks if claim contains {@link ClaimAttribute} by id.
+     * 
+     * @param id The claim attribute id
+     * @return true if claim contains it, false if not
+     */
+    boolean hasAttribute(String id);
+
+    /**
+     * Gets a set of {@link ClaimAttribute}'s associated with claim.
+     * 
+     * @return An unmodifiable set of claim attributes
+     */
+    Set<ClaimAttribute> getAttributes();
+
+    /**
      * Gets the claim's parent.
      * 
      * @return The parent claim, if available
@@ -1157,6 +1210,14 @@ public interface Claim extends ContextSource {
          * @return The builder
          */
         Builder type(ClaimType type);
+
+        /**
+         * The claim attributes.
+         * 
+         * @param attributes The claim attributes
+         * @return The builder
+         */
+        Builder attributes(Set<ClaimAttribute> attributes);
 
         /**
          * The world to add claim into.

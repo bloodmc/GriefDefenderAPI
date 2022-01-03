@@ -22,62 +22,39 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.griefdefender.api.provider;
+package com.griefdefender.api.clan;
 
-import java.util.List;
 import java.util.UUID;
 
-import org.checkerframework.checker.nullness.qual.Nullable;
+import com.flowpowered.math.vector.Vector3i;
 
-import com.griefdefender.api.Clan;
-import com.griefdefender.api.ClanPlayer;
-import com.griefdefender.api.clan.Rank;
-
-public interface ClanProvider {
+public interface ClanHome {
 
     /**
-     * Gets a list of all {@link Clan}'s available.
+     * The clan home name.
      * 
-     * @return The clan list, empty list if none
+     * @return The clan home name
      */
-    List<Clan> getAllClans();
+    public String getName();
 
     /**
-     * Gets a list of all {@link ClanPlayer}'s available.
+     * Get clan's base world {@link UUID}.
      * 
-     * @return The clan player list, empty list if none
+     * @return The clan's base world uuid
      */
-    List<ClanPlayer> getAllClanPlayers();
+    UUID getHomeWorldUniqueId();
 
     /**
-     * Gets a list of {@link ClanPlayer}'s associated with clan tag.
+     * Get clan's base position.
      * 
-     * @param tag The clan tag
-     * @return The list of clan players, empty list if none
+     * @return The clan's base pos
      */
-    List<ClanPlayer> getClanPlayers(String tag);
+    Vector3i getHomePos();
 
     /**
-     * Gets a list of clan {@link Rank}'s available.
+     * The home location.
      * 
-     * @param tag The clan tag
-     * @return The clan rank list, empty list if none
+     * @return The home location
      */
-    List<Rank> getClanRanks(String tag);
-
-    /**
-     * Gets the {@link Clan} associated with tag.
-     * 
-     * @param tag The clan tag
-     * @return The clan, if available
-     */
-    @Nullable Clan getClan(String tag);
-
-    /**
-     * Gets the {@link ClanPlayer}.
-     * 
-     * @param playerUniqueId The player uuid
-     * @return The clan player, if available
-     */
-    @Nullable ClanPlayer getClanPlayer(UUID playerUniqueId);
+    public Object getLocation();
 }

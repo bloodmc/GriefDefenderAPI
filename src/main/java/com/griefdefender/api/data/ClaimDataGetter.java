@@ -32,8 +32,8 @@ import java.util.UUID;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
 import com.flowpowered.math.vector.Vector3i;
-import com.griefdefender.api.claim.ClaimGroupType;
 import com.griefdefender.api.claim.ClaimType;
+import com.griefdefender.api.claim.ClaimAttribute;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.title.Title;
@@ -106,6 +106,13 @@ public interface ClaimDataGetter {
      * @return The claim type
      */
     ClaimType getType();
+
+    /**
+     * Gets all {@link ClaimAttribute}'s associated with claim.
+     * 
+     * @return An unmodifiable set of claim attributes.
+     */
+    Set<ClaimAttribute> getAttributes();
 
     /**
      * Gets the parent claim {@link UUID}.
@@ -282,6 +289,13 @@ public interface ClaimDataGetter {
     Set<UUID> getManagers();
 
     /**
+     * Gets the trusted resident set of {@link UUID}'s.
+     * 
+     * @return The mutable resident uuid set
+     */
+    Set<UUID> getResidents();
+
+    /**
      * Gets the trusted accessor group set of {@link UUID}'s.
      * 
      * @return The mutable accessor group uuid set
@@ -308,4 +322,11 @@ public interface ClaimDataGetter {
      * @return The mutable manager group uuid set
      */
     Set<String> getManagerGroups();
+
+    /**
+     * Gets the trusted resident group set of {@link UUID}'s.
+     * 
+     * @return The mutable resident group uuid set
+     */
+    Set<String> getResidentGroups();
 }

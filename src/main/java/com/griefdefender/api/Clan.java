@@ -27,7 +27,11 @@ package com.griefdefender.api;
 import java.util.List;
 import java.util.UUID;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+
 import com.flowpowered.math.vector.Vector3i;
+import com.griefdefender.api.clan.ClanHome;
+import com.griefdefender.api.clan.Rank;
 
 import net.kyori.adventure.text.Component;
 
@@ -62,30 +66,37 @@ public interface Clan extends CatalogType {
     String getDescription();
 
     /**
-     * Get clan's home world {@link UUID}.
+     * Get clan's base world {@link UUID}.
      * 
-     * @return The clan's home world uuid
+     * @return The clan's base world uuid
      */
-    UUID getHomeWorldUniqueId();
+    @Nullable UUID getBaseWorldUniqueId();
 
     /**
-     * Get clan's home position.
+     * Get clan's base position.
      * 
-     * @return The clan's home pos
+     * @return The clan's base pos
      */
-    Vector3i getHomePos();
+    @Nullable Vector3i getBasePos();
+
+    /**
+     * A list of {@link ClanHome}'s.
+     * 
+     * @return An unmodifiable list of clan homes
+     */
+    List<ClanHome> getHomes();
 
     /**
      * Get list of clan allies.
      * 
-     * @return The immutable list of clan allies
+     * @return An unmodifiable list of clan allies
      */
     List<Clan> getAllies();
 
     /**
      * Get list of clan rivals.
      * 
-     * @return The immutable list of clan rivals
+     * @return An unmodifiable list of clan rivals
      */
     List<Clan> getRivals();
 
@@ -122,4 +133,35 @@ public interface Clan extends CatalogType {
      * @return The clan leader list
      */
     List<ClanPlayer> getLeaders(boolean onlineOnly);
+
+    /**
+     * Get list of available clan ranks.
+     * 
+     * @return The clan rank list
+     */
+    List<Rank> getRanks();
+
+    /**
+     * Gets {@link Rank} with specified name.
+     * 
+     * @param rank The rank name
+     * @return The rank
+     */
+    @Nullable Rank getRank(String rankName);
+
+    /**
+     * Checks if clan tag is ally.
+     * 
+     * @param tag The clan tag to check
+     * @return true if ally, false if not
+     */
+    boolean isAlly(String tag);
+
+    /**
+     * Checks if clan tag is rival.
+     * 
+     * @param tag The clan tag to check
+     * @return true if rival, false if not
+     */
+    boolean isRival(String tag);
 }

@@ -53,6 +53,11 @@ public final class TrustResultTypes {
     public static final TrustResultType MANAGER = DummyObjectProvider.createFor(TrustResultType.class, "MANAGER");
 
     /**
+     * Successful result if a {@link User} has {@link TrustTypes#RESIDENT}.
+     */
+    public static final TrustResultType RESIDENT = DummyObjectProvider.createFor(TrustResultType.class, "RESIDENT");
+
+    /**
      * Successful result if a {@link Claim} has public trust.
      */
     public static final TrustResultType PUBLIC = DummyObjectProvider.createFor(TrustResultType.class, "PUBLIC");
