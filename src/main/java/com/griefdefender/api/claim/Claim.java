@@ -82,6 +82,13 @@ public interface Claim extends ContextSource {
     }
 
     /**
+     * Gets the claim's world name.
+     * 
+     * @return The world name
+     */
+    String getWorldName();
+
+    /**
      * Gets the claim's display name {@link Component}.
      * 
      * @return The display name component, if available
@@ -917,6 +924,142 @@ public interface Claim extends ContextSource {
      * @return true if allowed, false if not
      */
     boolean allowEdit(UUID uuid);
+
+    /**
+     * Checks if a block can be broken at specified location in this {@link Claim}.
+     * 
+     * <br>Note: If source was performed directly by player, pass player
+     * <br>Note: If source is custom, pass a string identifier in format
+     *           'modid:name'
+     * 
+     * @param source The source performing the break action
+     * @param location The target block location
+     * @param user The user associated with action, if available
+     * @return true if block can be broken, false if not
+     */
+    boolean canBreak(Object source, Object location, @Nullable User user);
+
+    /**
+     * Checks if a block can be placed at specified location in this {@link Claim}.
+     * 
+     * <br>Note: If source was performed directly by player, pass player
+     * <br>Note: If source or item is custom, pass a string identifier in format
+     *           'modid:name'
+     * 
+     * @param source The source performing the place action
+     * @param placedItem The item being placed
+     * @param location The target block location
+     * @param user The user associated with action, if available
+     * @return true if block can be placed, false if not
+     */
+    boolean canPlace(Object source, Object placedItem, Object location, @Nullable User user);
+
+    /**
+     * Checks if an entity can be attacked in this {@link Claim}.
+     * 
+     * <br>Note: If source was performed directly by player, pass player
+     * <br>Note: If source or item is custom, pass a string identifier in format
+     *           'modid:name'
+     * 
+     * @param source The source performing the attack
+     * @param itemStack The item being used to attack entity
+     * @param entity The target entity
+     * @param user The user associated with action, if available
+     * @return true if entity can be attacked, false if not
+     */
+    boolean canHurtEntity(Object source, Object itemStack, Object entity, @Nullable User user);
+
+    /**
+     * Checks if an entity can be interacted with in this {@link Claim}.
+     * 
+     * <br>Note: If source was performed directly by player, pass player
+     * <br>Note: If source, item, or entity is custom, pass a string identifier in format
+     *           'modid:name'
+     * 
+     * @param source The source performing the entity interaction
+     * @param itemStack The item being used to interact with entity
+     * @param entity The target entity
+     * @param user The user associated with action, if available
+     * @param trustType The minimum {@link TrustType} required
+     * @return true if entity can be interacted with, false if not
+     */
+    boolean canInteractWithEntity(Object source, Object itemStack, Object entity, @Nullable User user, TrustType trustType);
+
+    /**
+     * Checks if a block can be used at specified location.
+     * 
+     * <br>Note: If source was performed directly by player, pass player
+     * <br>Note: If source is custom, pass a string identifier in format
+     *           'modid:name'
+     * 
+     * @param source The source performing the use action
+     * @param location The target block location
+     * @param user The user associated with action, if available
+     * @param trustType The minimum {@link TrustType} required
+     * @return true if block can be used, false if not
+     */
+    default boolean canUseBlock(Object source, Object location, @Nullable User user, TrustType trustType) {
+        return this.canUseBlock(source, location, user, trustType, false, false);
+    }
+
+    /**
+     * Checks if a block can be used at specified location.
+     * 
+     * <br>Note: If source was performed directly by player, pass player
+     * <br>Note: If source is custom, pass a string identifier in format
+     *           'modid:name'
+     * <br>Note: Parameters 'leftClick' and 'shift' are only used if
+     *           player is source.
+     * 
+     * @param source The source performing the use action
+     * @param location The target block location
+     * @param user The user associated with action, if available
+     * @param trustType The minimum {@link TrustType} required
+     * @param leftClick If block will be activated on left-click
+     * @param shift If block activation requires shift
+     * @return true if block can be used, false if not
+     */
+    boolean canUseBlock(Object source, Object location, @Nullable User user, TrustType trustType, boolean leftClick, boolean shift);
+
+    /**
+     * Checks if this player can use item at a specified location.
+     * 
+     * <br>Note: If source was performed directly by player, pass player
+     * <br>Note: If source or item is custom, pass a string identifier in format
+     *           'modid:name'
+     * <br>Note: If item is activated on right-click then 'leftClick' 
+     *           should be false.
+     * 
+     * @param source The source performing the use action
+     * @param itemStack The target itemStack
+     * @param location The location where item will be used
+     * @param user The user associated with action, if available
+     * @param trustType The minimum {@link TrustType} required
+     * @return true if player can use item, false if not
+     */
+    default boolean canUseItem(Object source, Object itemStack, Object location, @Nullable User user, TrustType trustType) {
+        return this.canUseItem(source, itemStack, location, user, trustType, false, false);
+    }
+
+    /**
+     * Checks if this player can use item at a specified location.
+     * 
+     * <br>Note: If source was performed directly by player, pass player
+     * <br>Note: If source or item is custom, pass a string identifier in format
+     *           'modid:name'
+     * <br>Note: If item is activated on right-click then 'leftClick' 
+     *           should be false.
+     * 
+     * @param source The source performing the use action
+     * @param itemStack The target itemStack
+     * @param location The location where item will be used
+     * @param user The user associated with action, if available
+     * @param trustType The minimum {@link TrustType} required
+     * @param leftClick If item will be activated on left-click 
+     * @param shift If item activation requires shift.
+     * @return true if player can use item, false if not
+     */
+    boolean canUseItem(Object source, Object itemStack, Object location, @Nullable User user, TrustType trustType, boolean leftClick, boolean shift);
 
     /**
     * Gets the active {@link Flag} permission value for {@link Subject} in this {@link Claim}.

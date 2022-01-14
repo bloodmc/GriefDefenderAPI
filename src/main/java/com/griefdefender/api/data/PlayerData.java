@@ -29,6 +29,7 @@ import com.griefdefender.api.claim.Claim;
 import com.griefdefender.api.claim.ClaimGroup;
 import com.griefdefender.api.claim.ClaimSnapshot;
 import com.griefdefender.api.claim.ClaimType;
+import com.griefdefender.api.claim.TrustType;
 import com.griefdefender.api.permission.PermissionResult;
 import com.griefdefender.api.permission.option.type.CreateModeType;
 
@@ -274,11 +275,75 @@ public interface PlayerData {
     /**
      * Gets the economy claim block return on selling a claim block.
      * 
-     * Note: This is only used if {@link GriefDefenderApi#isEconomyModeEnabled()} is false.
+     * <br>Note: This is only used if {@link GriefDefenderApi#isEconomyModeEnabled()} is false.
      *      
      * @return The economy claim block return
      */
     double getEconomyClaimBlockReturn();
+
+    /**
+     * Checks if this player can break a block at specified location.
+     * 
+     * @param location The target block location
+     * @return true if player can break, false if not
+     */
+    boolean canBreak(Object location);
+
+    /**
+     * Checks if this player can place a block at specified location.
+     * 
+     * @param placedItem The item being placed
+     * @param location The target block location
+     * @return true if player can place, false if not
+     */
+    boolean canPlace(Object placedItem, Object location);
+
+    /**
+     * Checks if this player can attack entity.
+     * 
+     * @param itemStack The item being used to attack entity
+     * @param entity The target entity
+     * @return true if entity can be attacked, false if not
+     */
+    boolean canHurtEntity(Object itemStack, Object entity);
+
+    /**
+     * Checks if this player can interact with entity.
+     * 
+     * @param itemStack The item being used to interact with entity
+     * @param entity The target entity
+     * @param trustType The minimum {@link TrustType} required
+     * @return true if entity can be interacted with, false if not
+     */
+    boolean canInteractWithEntity(Object itemStack, Object entity, TrustType trustType);
+
+    /**
+     * Checks if this player can use a block at specified location.
+     * 
+     * @param location The target block location
+     * @param trustType The minimum {@link TrustType} required
+     * @param leftClick If block will be activated on left-click
+     * @param shift If block activation requires shift
+     * @return true if player can use block, false if not
+     */
+    boolean canUseBlock(Object location, TrustType trustType, boolean leftClick, boolean shift);
+
+    /**
+     * Checks if this player can use item at a specified location.
+     * 
+     * <br>Note: If item is custom, pass a string identifier in format
+     *           'modid:name'
+     * <br>Note: If item is activated on right-click then 'leftClick' 
+     *           should be false.
+     * 
+     * @param itemStack The target itemStack
+     * @param location The location where item will be used
+     * @param trustType The minimum {@link TrustType} required
+     * @param leftClick If item will be activated on left-click 
+     * @param shift If item activation requires shift.
+     * @return true if player can use item, false if not
+     */
+    boolean canUseItem(Object itemStack, Object location, TrustType trustType, boolean leftClick, boolean shift);
 
     /**
      * Checks if this player can ignore a claim.
