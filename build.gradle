@@ -61,6 +61,23 @@ dependencies {
     implementation "io.leangen.geantyref:geantyref:1.3.11"
     implementation "net.kyori:event-api:5.0.0-SNAPSHOT"
     implementation "net.kyori:adventure-api:4.9.3"
+    implementation "net.kyori:examination-api:1.3.0"
+    implementation "net.kyori:examination-string:1.3.0"
+    implementation ("net.kyori:adventure-text-serializer-legacy:4.9.3") {
+        transitive = false
+    }
+    implementation ("net.kyori:adventure-text-serializer-plain:4.9.3") {
+        transitive = false
+    }
+    implementation ("net.kyori:adventure-text-serializer-gson:4.9.3") {
+        transitive = false
+    }
+    implementation ("net.kyori:adventure-key:4.9.3") {
+        transitive = false
+    }
+    implementation ("org.checkerframework:checker-qual:3.12.0") {
+        transitive = false
+    }
 }
 
 jar {
@@ -85,7 +102,16 @@ shadowJar {
         include dependency("io.leangen.geantyref:geantyref:1.3.11")
         include dependency("net.kyori:adventure-api:4.9.3")
         include dependency("net.kyori:event-api:5.0.0-SNAPSHOT")
+        include dependency("net.kyori:examination-api:1.3.0")
+        include dependency("net.kyori:examination-string:1.3.0")
+        include dependency("net.kyori:adventure-key:4.9.3")
+        include dependency("net.kyori:adventure-text-serializer-legacy:4.9.3")
+        include dependency("net.kyori:adventure-text-serializer-plain:4.9.3")
+        include dependency("net.kyori:adventure-text-serializer-gson:4.9.3")
+        include dependency("org.checkerframework:checker-qual:3.12.0")
     }
+    relocate("net.kyori", "com.griefdefender.lib.kyori")
+    relocate("io.leangen.geantyref", "com.griefdefender.lib.geantyref")
 }
 
 if (JavaVersion.current().isJava8Compatible()) {
