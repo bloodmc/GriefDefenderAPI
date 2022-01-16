@@ -1337,6 +1337,14 @@ public interface Claim extends ContextSource {
         Builder cuboid(boolean cuboid);
 
         /**
+         * The source creating this {@link Claim}.
+         * 
+         * @param source The source creating claim
+         * @return The builder
+         */
+        Builder source(Object source);
+
+        /**
          * The owner of claim.
          * 
          * Note: {@link ClaimType#ADMIN} does not use owners.

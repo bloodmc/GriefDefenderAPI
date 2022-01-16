@@ -24,16 +24,35 @@
  */
 package com.griefdefender.api.event;
 
+import com.griefdefender.api.User;
 import com.griefdefender.api.claim.Claim;
 import net.kyori.adventure.text.Component;
 
 import java.util.List;
 import java.util.Optional;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+
 /**
  * Base event when one or more {@link Claim}s are affected.
  */
 public interface ClaimEvent extends Event {
+
+    /**
+     * The source object that caused this event.
+     * 
+     * <br>Note: If no source available, pass mod/plugin instance.
+     * 
+     * @return The source
+     */
+    Object getSource();
+
+    /**
+     * The source {@link User} that caused this event.
+     * 
+     * @return The source user, if available
+     */
+    @Nullable User getSourceUser();
 
     /**
      * Gets the immutable list of claims.
