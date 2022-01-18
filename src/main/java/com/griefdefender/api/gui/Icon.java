@@ -70,6 +70,13 @@ public interface Icon {
     @Nullable Integer getModelData();
 
     /**
+     * Gets the icon meta.
+     * 
+     * @return The icon meta
+     */
+    int getMeta();
+
+    /**
      * Gets the icon quantity.
      * 
      * @return The icon quantity
@@ -107,6 +114,8 @@ public interface Icon {
 
         Integer getModelData();
 
+        int getMeta();
+
         int getQuantity();
 
         boolean getIsEnchanted();
@@ -118,6 +127,8 @@ public interface Icon {
         List<IconFlag> getIconFlags();
 
         Builder id(String id);
+
+        Builder meta(int meta);
 
         Builder model(int model);
 
