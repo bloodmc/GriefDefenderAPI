@@ -56,11 +56,11 @@ public interface Icon {
     Component getLore();
 
     /**
-     * Gets the icon color.
+     * Gets the icon sound.
      * 
-     * @return The icon color
+     * @return The icon sound
      */
-    String getColor();
+    @Nullable String getSound();
 
     /**
      * Gets the icon model data.
@@ -110,7 +110,7 @@ public interface Icon {
 
         String getId();
 
-        String getColor();
+        String getSound();
 
         Integer getModelData();
 
@@ -128,6 +128,8 @@ public interface Icon {
 
         Builder id(String id);
 
+        Builder sound(String sound);
+
         Builder meta(int meta);
 
         Builder model(int model);
@@ -137,8 +139,6 @@ public interface Icon {
         Builder title(Component title);
 
         Builder lore(Component lore);
-
-        Builder color(String color);
 
         Builder enchanted(boolean enchanted);
 

@@ -112,6 +112,7 @@ shadowJar {
     }
     relocate("net.kyori", "com.griefdefender.lib.kyori")
     relocate("io.leangen.geantyref", "com.griefdefender.lib.geantyref")
+    relocate("com.flowpowered", "com.griefdefender.lib.flowpowered")
 }
 
 if (JavaVersion.current().isJava8Compatible()) {
