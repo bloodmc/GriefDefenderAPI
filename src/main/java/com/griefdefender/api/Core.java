@@ -210,6 +210,16 @@ public interface Core {
     Group getDefaultFlagDefinitionGroup();
 
     /**
+     * Gets the default {@link OptionDefinition} {@link Group}.
+     * 
+     * <br><br>Note: This group is used to apply default option definition 
+     * permissions to all users.
+     * 
+     * @return The default option definition group
+     */
+    Group getDefaultOptionDefinitionGroup();
+
+    /**
      * Gets the {@link Group} with identifier.
      * 
      * @param identifier

@@ -22,14 +22,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.griefdefender.api.permission.flag;
+package com.griefdefender.api.permission.option;
 
-import java.util.List;
 import java.util.Set;
 
 import com.griefdefender.api.GriefDefender;
 import com.griefdefender.api.Subject;
-import com.griefdefender.api.Tristate;
 import com.griefdefender.api.gui.Icon;
 import com.griefdefender.api.permission.Context;
 import com.griefdefender.api.permission.PermissionDefinition;
@@ -37,45 +35,31 @@ import com.griefdefender.api.permission.PermissionDefinition;
 import net.kyori.adventure.text.Component;
 
 /**
- * Represents a flag definition which can hold one or more {@link Flag} permissions.
+ * Represents an option definition that can hold a single {@link Option} with contexts.
  */
-public interface FlagDefinition extends PermissionDefinition {
+public interface OptionDefinition extends PermissionDefinition {
 
     /**
      * Gets the default value.
      *  
      * @return The default value
      */
-    Tristate getDefaultValue();
+    String getDefaultValue();
 
     /**
-     * Gets the {@link FlagData} associated with this definition.
+     * Gets the {@link OptionData} associated with this definition.
      * 
-     * @return The flag data
+     * @return The option data
      */
-    List<FlagData> getFlagData();
-
-    /**
-     * Gets a list of {@link Flag}'s associated with this definition.
-     * 
-     * @return The list of flags
-     */
-    List<Flag> getFlags();
-
-    /**
-     * Sets the default value of definition.
-     * 
-     * @param value The default value
-     */
-    void setDefaultValue(Tristate value);
+    OptionData getOptionData();
 
     /**
      * Gets a new claim builder instance for {@link Builder}.
      * 
      * @return A new claim builder instance
      */
-    public static FlagDefinition.Builder builder() {
-        return GriefDefender.getRegistry().createBuilder(FlagDefinition.Builder.class);
+    public static Builder builder() {
+        return GriefDefender.getRegistry().createBuilder(Builder.class);
     }
 
     public interface Builder {
@@ -99,7 +83,7 @@ public interface FlagDefinition extends PermissionDefinition {
         /**
          * Whether this definition supports managing owner and trusted.
          * 
-         * <br><br>Note: This should only be true if a player can cause the flag action(s).
+         * <br><br>Note: This should only be true if a player can cause the option action(s).
          * 
          * @param value
          * @return The builder
@@ -118,7 +102,7 @@ public interface FlagDefinition extends PermissionDefinition {
          * Sets the preset.
          * 
          * <br><br>Note: It is recommended to use modid.
-         * <br>Note: This is where all flag definition and group information will be stored.
+         * <br>Note: This is where all option definition and group information will be stored.
          * 
          * @param prest
          * @return The builder
@@ -131,23 +115,15 @@ public interface FlagDefinition extends PermissionDefinition {
          * @param value The default value
          * @return The builder
          */
-        Builder defaultValue(Tristate value);
+        Builder defaultValue(String value);
 
         /**
-         * Sets the flag data.
+         * Sets the option data.
          * 
-         * @param data The flag data
+         * @param data The option data
          * @return The builder
          */
-        Builder flagData(FlagData data);
-
-        /**
-         * Sets the flag data.
-         * 
-         * @param data The flag data
-         * @return The builder
-         */
-        Builder flagData(List<FlagData> data);
+        Builder optionData(OptionData data);
 
         /**
          * Sets the context.
@@ -213,13 +189,13 @@ public interface FlagDefinition extends PermissionDefinition {
         Builder reset();
 
         /**
-         * Returns the {@link FlagDefinition}.
+         * Returns the {@link OptionDefinition}.
          * 
          * <br><br>Note: The preset, group, and name MUST be a unique combination 
          * as it represents the definition id.
          * 
-         * @return The flag data
+         * @return The option definition
          */
-        FlagDefinition build();
+        OptionDefinition build();
     }
 }

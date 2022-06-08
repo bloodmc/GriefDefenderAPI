@@ -33,6 +33,7 @@ import com.griefdefender.api.claim.TrustType;
 import com.griefdefender.api.permission.flag.Flag;
 import com.griefdefender.api.permission.flag.FlagDefinition;
 import com.griefdefender.api.permission.option.Option;
+import com.griefdefender.api.permission.option.OptionDefinition;
 
 import io.leangen.geantyref.TypeToken;
 
@@ -184,6 +185,22 @@ public interface PermissionManager {
     Tristate getActiveFlagPermissionValue(Object event, int blockX, int blockY, int blockZ, Claim claim, Subject subject, Flag flag, Object source, Object target, Set<Context> contexts, TrustType type, boolean checkOverride);
 
     /**
+     * Gets the active {@link OptionDefinition} value in {@link Claim}.
+     * 
+     * @param definition The option definition
+     * @return The active value
+     */
+    String getActiveOptionDefinitionValue(Claim claim, OptionDefinition definition);
+
+    /**
+     * Gets the active {@link OptionDefinition} value in {@link Claim}.
+     * 
+     * @param definition The option definition
+     * @return The active value
+     */
+    String getActiveOptionDefinitionValue(Claim claim, Subject subject, OptionDefinition definition);
+
+    /**
      * Clears permissions on the {@link Subject}.
      * 
      * Note: All claim specific permissions will be cleared on subject. If you require
@@ -298,6 +315,27 @@ public interface PermissionManager {
      * @return The permission result future
      */
     CompletableFuture<PermissionResult> setFlagDefinition(Subject subject, FlagDefinition definition, Tristate value);
+
+    /**
+     * Sets {@link OptionDefinition} on default {@link Subject}.
+     *
+     * @param definition The option definition
+     * @param value The new value
+     * @return The permission result future
+     */
+    default CompletableFuture<PermissionResult> setOptionDefinition(OptionDefinition definition, String value) {
+        return this.setOptionDefinition(GriefDefender.getCore().getDefaultSubject(), definition, value);
+    }
+
+    /**
+     * Set {@link OptionDefinition} on {@link Subject}.
+     *
+     * @param subject The subject
+     * @param definition The option definition
+     * @param value The new value
+     * @return The permission result future
+     */
+    CompletableFuture<PermissionResult> setOptionDefinition(Subject subject, OptionDefinition definition, String value);
 
     /**
     * Gets the active {@link Option} value with {@link Context}'s.

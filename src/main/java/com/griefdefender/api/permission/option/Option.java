@@ -131,7 +131,7 @@ public interface Option<T> extends CatalogType {
          * @param value
          * @return The builder
          */
-        Builder<T> defaultValue(Object value);
+        Builder<T> defaultValue(T value);
 
         /**
          * Whether the option supports multiple values.
@@ -148,6 +148,14 @@ public interface Option<T> extends CatalogType {
          * @return The builder
          */
         Builder<T> requiredContextKeys(Set<String> keys);
+
+        /**
+         * Whether this option should only apply globally to all claims.  
+         * 
+         * @param global True if applies globally, false otherwise
+         * @return The builder
+         */
+        Builder<T> global(boolean global);
 
         /**
          * Resets the builder to default settings.

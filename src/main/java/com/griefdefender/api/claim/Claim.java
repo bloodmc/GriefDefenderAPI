@@ -39,6 +39,7 @@ import com.griefdefender.api.permission.PermissionResult;
 import com.griefdefender.api.permission.flag.Flag;
 import com.griefdefender.api.permission.flag.FlagDefinition;
 import com.griefdefender.api.permission.option.Option;
+import com.griefdefender.api.permission.option.OptionDefinition;
 
 import io.leangen.geantyref.TypeToken;
 import net.kyori.adventure.text.Component;
@@ -1224,6 +1225,27 @@ public interface Claim extends ContextSource {
     CompletableFuture<PermissionResult> setFlagDefinition(Subject subject, FlagDefinition definition, Tristate value);
 
     /**
+     * Set {@link OptionDefinition} in this {@link Claim}.
+     * 
+     * @param definition The option definition
+     * @param value The new value
+     * @return The permission result future
+     */
+    default CompletableFuture<PermissionResult> setOptionDefinition(OptionDefinition definition, String value) {
+        return this.setOptionDefinition(GriefDefender.getCore().getDefaultOptionDefinitionGroup(), definition, value);
+    }
+
+    /**
+     * Set {@link OptionDefinition} on {@link Subject} in this {@link Claim}.
+     * 
+     * @param subject The subject
+     * @param definition The option definition
+     * @param value The new value
+     * @return The permission result future
+     */
+    CompletableFuture<PermissionResult> setOptionDefinition(Subject subject, OptionDefinition definition, String value);
+
+    /**
     * Gets the active {@link Option} value with {@link Context}'s in this {@link Claim}.
     * 
     * @param type The option type
@@ -1250,6 +1272,47 @@ public interface Claim extends ContextSource {
         contexts.add(this.getContext());
         return GriefDefender.getPermissionManager().getActiveOptionValue(type, option, subject, this, contexts);
     }
+
+    /**
+    * Gets the {@link Option} value with {@link Context}'s in this {@link Claim}.
+    * 
+    * @param option The option
+    * @param claim The claim
+    * @param contexts The contexts
+    * @return The option value
+    */
+    default String getOptionValue(Option<?> option, Set<Context> contexts) {
+        return getOptionValue(option, GriefDefender.getCore().getDefaultSubject(), contexts);
+    }
+
+    /**
+    * Gets the {@link Option} value with {@link Context}'s in this {@link Claim}.
+    * 
+    * @param option The option
+    * @param subject The subject
+    * @param claim The claim
+    * @param contexts The contexts
+    * @return The option value
+    */
+    String getOptionValue(Option<?> option, Subject subject, Set<Context> contexts);
+
+    /**
+     * Gets the active {@link OptionDefinition} value in this {@link Claim}.
+     * 
+     * @param definition The option definition
+     * @return The active value
+     */
+    default String getActiveOptionDefinitionValue(OptionDefinition definition) {
+        return this.getActiveOptionDefinitionValue(GriefDefender.getCore().getDefaultOptionDefinitionGroup(), definition);
+    }
+
+    /**
+     * Gets the active {@link OptionDefinition} value in this {@link Claim}.
+     * 
+     * @param definition The option definition
+     * @return The active value
+     */
+    String getActiveOptionDefinitionValue(Subject subject, OptionDefinition definition);
 
     /**
      * Sets {@link Option} value with {@link Context}'s.
