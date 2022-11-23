@@ -147,6 +147,10 @@ public final class Flags {
      */
     public static final Flag INVENTORY_ITEM_MOVE = DummyObjectProvider.createFor(Flag.class, "inventory-item-move");
     /**
+     * Used to allow or deny damage to an item.
+     */
+    public static final Flag ITEM_DAMAGE = DummyObjectProvider.createFor(Flag.class, "item-damage");
+    /**
      * Used to allow or deny an item from dropping into the world.
      */
     public static final Flag ITEM_DROP = DummyObjectProvider.createFor(Flag.class, "item-drop");
