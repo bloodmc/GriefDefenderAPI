@@ -122,6 +122,14 @@ public interface Core {
     @Nullable Claim getClaimAt(UUID worldUniqueId, int x, int y, int z);
 
     /**
+     * Gets the {@link UUID} of world.
+     * 
+     * @param world The world object or identifier
+     * @return The world UUID, if available
+     */
+    @Nullable UUID getWorldUniqueId(Object world);
+
+    /**
      * Gets an unmodifiable map view of friendly claim identifiers.
      * 
      * @return The unmodifiable map view, empty map if none exist
