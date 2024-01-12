@@ -222,6 +222,15 @@ public final class Options {
     public static final Option<Boolean> PLAYER_DENY_FLIGHT = DummyObjectProvider.createFor(Option.class, "player-deny-flight");
 
     /**
+     * Used to determine if a player is unable to glide in a {@link Claim}.<br>
+     * 
+     * Note: This does not give players the ability to glide, it merely removes
+     * the ability if set. This provides the greatest compatibility with
+     * plugins.
+     */
+    public static final Option<Boolean> PLAYER_DENY_GLIDE = DummyObjectProvider.createFor(Option.class, "player-deny-glide");
+
+    /**
      * Used to determine if a player can be in godmode within a {@link Claim}.<br>
      * 
      * Note: This does not give players the ability to be in godmode, it merely removes
