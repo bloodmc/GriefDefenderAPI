@@ -30,6 +30,7 @@ import com.google.inject.Inject;
 import com.griefdefender.api.event.EventManager;
 import com.griefdefender.api.permission.PermissionManager;
 import com.griefdefender.api.provider.AudienceProvider;
+import com.griefdefender.api.scheduler.Scheduler;
 import com.griefdefender.api.util.NBTUtil;
 
 public final class GriefDefender {
@@ -40,6 +41,7 @@ public final class GriefDefender {
     @Inject private static NBTUtil nbtUtil;
     @Inject private static PermissionManager permissionManager;
     @Inject private static Registry registry;
+    @Inject private static Scheduler scheduler;
     @Inject private static Version version;
 
     private static <T> T check(@Nullable T instance) {
@@ -101,6 +103,15 @@ public final class GriefDefender {
      */
     public static Registry getRegistry() {
         return check(registry);
+    }
+
+    /**
+     * Gets the {@link Scheduler}.
+     * 
+     * @return The scheduler
+     */
+    public static Scheduler getScheduler() {
+        return check(scheduler);
     }
 
     /**
