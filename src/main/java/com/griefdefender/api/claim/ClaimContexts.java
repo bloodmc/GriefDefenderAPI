@@ -40,6 +40,7 @@ public class ClaimContexts {
     public static final Context GLOBAL_DEFAULT_CONTEXT = new Context(ContextKeys.CLAIM_DEFAULT, "global");
     public static final Context ADMIN_DEFAULT_CONTEXT = new Context(ContextKeys.CLAIM_DEFAULT, "admin");
     public static final Context BASIC_DEFAULT_CONTEXT = new Context(ContextKeys.CLAIM_DEFAULT, "basic");
+    public static final Context PLOT_DEFAULT_CONTEXT = new Context(ContextKeys.CLAIM_DEFAULT, "plot");
     public static final Context SUBDIVISION_DEFAULT_CONTEXT = new Context(ContextKeys.CLAIM_DEFAULT, "subdivision");
     public static final Context TOWN_DEFAULT_CONTEXT = new Context(ContextKeys.CLAIM_DEFAULT, "town");
     public static final Context USER_DEFAULT_CONTEXT = new Context(ContextKeys.CLAIM_DEFAULT, "user");
@@ -51,6 +52,7 @@ public class ClaimContexts {
     public static final Context GLOBAL_OVERRIDE_CONTEXT = new Context(ContextKeys.CLAIM_OVERRIDE, "global");
     public static final Context ADMIN_OVERRIDE_CONTEXT = new Context(ContextKeys.CLAIM_OVERRIDE, "admin");
     public static final Context BASIC_OVERRIDE_CONTEXT = new Context(ContextKeys.CLAIM_OVERRIDE, "basic");
+    public static final Context PLOT_OVERRIDE_CONTEXT = new Context(ContextKeys.CLAIM_OVERRIDE, "plot");
     public static final Context SUBDIVISION_OVERRIDE_CONTEXT = new Context(ContextKeys.CLAIM_OVERRIDE, "subdivision");
     public static final Context TOWN_OVERRIDE_CONTEXT = new Context(ContextKeys.CLAIM_OVERRIDE, "town");
     public static final Context USER_OVERRIDE_CONTEXT = new Context(ContextKeys.CLAIM_OVERRIDE, "user");

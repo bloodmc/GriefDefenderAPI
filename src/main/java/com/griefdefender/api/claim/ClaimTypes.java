@@ -39,6 +39,11 @@ public final class ClaimTypes {
     public static final ClaimType BASIC = DummyObjectProvider.createFor(ClaimType.class, "BASIC");
 
     /**
+     * Represents a claim type that is managed by one or more players and cannot be resized once created.
+     */
+    public static final ClaimType PLOT = DummyObjectProvider.createFor(ClaimType.class, "PLOT");
+
+    /**
      * Represents a sub-claim type that can be one or more blocks.
      * 
      * Note: This type is not supported in {@link #WILDERNESS}

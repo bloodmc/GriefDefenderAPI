@@ -49,6 +49,11 @@ public final class ClaimVisualTypes {
     public static final ClaimVisualType ERROR = DummyObjectProvider.createFor(ClaimVisualType.class, "ERROR");
 
     /**
+     * Represents a claim visual type used for {@link ClaimTypes#PLOT}.
+     */
+    public static final ClaimVisualType PLOT = DummyObjectProvider.createFor(ClaimVisualType.class, "PLOT");
+
+    /**
      * Represents a claim visual type used to visualize a section of blocks selected for restore.
      */
     public static final ClaimVisualType RESTORE = DummyObjectProvider.createFor(ClaimVisualType.class, "RESTORE");

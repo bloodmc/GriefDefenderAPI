@@ -659,6 +659,15 @@ public interface Claim extends ContextSource {
     }
 
     /**
+     * Checks if this type is {@link ClaimTypes#PLOT}.
+     * 
+     * @return true if plot
+     */
+    default boolean isPlot() {
+        return this.getType() == ClaimTypes.PLOT;
+    }
+
+    /**
      * Checks if this type is {@link ClaimTypes#SUBDIVISION}.
      * 
      * @return true if subdivision
@@ -1416,6 +1425,17 @@ public interface Claim extends ContextSource {
          * @return The builder
          */
         Builder owner(UUID ownerUniqueId);
+
+        /**
+         * The unique claim identifier.
+         * 
+         * Note: This represents the unique friendly identifier of claim and is different from 
+         * the display name.
+         *   
+         * @param identifier The unique claim identifier
+         * @return The builder
+         */
+        Builder identifier(String identifier);
 
         /**
          * The claim type.
