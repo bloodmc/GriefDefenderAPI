@@ -125,3 +125,49 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
     classifier = 'javadoc'
     from javadoc.destinationDir
 }
+
+
+publishing {
+    repositories {
+        maven {
+            name = "OSSRH"
+            url = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/")
+            credentials {
+                username = System.getenv("OSSRH_TOKEN") ?: ""
+                password = System.getenv("OSSRH_TOKEN_PASSWORD") ?: ""
+            }
+        }
+    }
+    publications {
+        maven(MavenPublication) {
+            groupId = 'com.griefdefender'
+            artifactId = 'api'
+            version = '2.1.1-SNAPSHOT'
+            
+            pom {
+                name = 'GriefDefender'
+                description = 'Defend your servers from grief.'
+                url = 'https://www.griefdefender.com'
+
+                licenses {
+                    license {
+                        name = 'The MIT License'
+                        url = 'https://opensource.org/licenses/MIT'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'bloodmc'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:git://github.com/bloodmc/GriefDefenderAPI.git'
+                    developerConnection = 'scm:git:ssh://github.com:bloodmc/GriefDefenderAPI.git'
+                    url = 'https://github.com/bloodmc/GriefDefenderAPI'
+                }
+            }
+
+            from components.java
+        }
+    }
+}
