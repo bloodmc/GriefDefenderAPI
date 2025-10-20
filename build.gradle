@@ -1,20 +1,8 @@
-buildscript {
-    repositories {
-        maven {
-            url = 'https://plugins.gradle.org/m2/'
-        }
-        gradlePluginPortal()
-    }
-
-    dependencies {
-        classpath 'gradle.plugin.com.github.jengelman.gradle.plugins:shadow:7.0.0'
-    }
-}
-
 plugins {
-    id 'com.github.johnrengelman.shadow' version '7.0.0'
     id 'java'
     id 'maven-publish'
+    id 'com.github.johnrengelman.shadow' version '7.0.0'
+    id 'io.github.gradle-nexus.publish-plugin' version '2.0.0'
 }
 
 // Environment variables for the build set by the build server
@@ -43,14 +31,6 @@ repositories {
     maven {
         name = 'griefdefender'
         url = 'https://repo.glaremasters.me/repository/bloodshot'
-    }
-    maven {
-        name = 'sonatype_releases'
-        url = 'https://oss.sonatype.org/content/repositories/releases'
-    }
-    maven {
-        name = 'sonatype_snapshots'
-        url = 'https://oss.sonatype.org/content/repositories/snapshots'
     }
 }
 
@@ -128,22 +108,15 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
 
 
 publishing {
-    repositories {
-        maven {
-            name = "OSSRH"
-            url = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/")
-            credentials {
-                username = System.getenv("OSSRH_TOKEN") ?: ""
-                password = System.getenv("OSSRH_TOKEN_PASSWORD") ?: ""
-            }
-        }
-    }
     publications {
         maven(MavenPublication) {
             groupId = 'com.griefdefender'
             artifactId = 'api'
             version = '2.1.1-SNAPSHOT'
-            
+
+            from components.java
+            artifact(tasks.javadocJar)
+
             pom {
                 name = 'GriefDefender'
                 description = 'Defend your servers from grief.'
@@ -166,8 +139,17 @@ publishing {
                     url = 'https://github.com/bloodmc/GriefDefenderAPI'
                 }
             }
+        }
+    }
+}
 
-            from components.java
+nexusPublishing {
+    repositories {
+        sonatype {
+            nexusUrl.set(uri("https://ossrh-staging-api.central.sonatype.com/service/local/"))
+            snapshotRepositoryUrl.set(uri("https://central.sonatype.com/repository/maven-snapshots/"))
+            username.set(findProperty("sonatypeUsername") ?: System.getenv("CENTRAL_USERNAME"))
+            password.set(findProperty("sonatypePassword") ?: System.getenv("CENTRAL_PASSWORD"))
         }
     }
 }
